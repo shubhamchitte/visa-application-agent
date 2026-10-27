@@ -1,0 +1,111 @@
+{
+  "case": "case12_checklist_down",
+  "scenario": 12,
+  "title": "Checklist tool down -> UNKNOWN",
+  "packet": "case01_happy",
+  "fault_plan_ref": "expected.fault_plan",
+  "fake_llm": "fake_llm.json",
+  "clock": "2026-10-27",
+  "issues": [],
+  "flags": [],
+  "checklist": "UNKNOWN",
+  "crm": {
+    "records_in_seed": [
+      "rec-1001",
+      "rec-9001"
+    ],
+    "target_record": "rec-1001",
+    "action": "UPDATE",
+    "status": "NEEDS_REVIEW",
+    "field_patch": {
+      "full_name": "ERIC MORTON",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2030-11-16",
+      "email": "eric.morton@mail.uto",
+      "intended_travel_date": "2027-01-19",
+      "bank_closing_balance": "9310.72",
+      "statement_date": "2026-10-20"
+    },
+    "notes_contain": [
+      "checklist unavailable"
+    ],
+    "version_after": 2
+  },
+  "write_outcome": "WRITTEN",
+  "tool_calls": {
+    "must": [
+      {
+        "tool": "checklist.check",
+        "times": 3,
+        "args_subset": {
+          "visa_type": "TOURIST_UTO",
+          "docs_present": [
+            "application_form",
+            "bank_statement",
+            "employment_letter",
+            "passport"
+          ]
+        }
+      },
+      {
+        "tool": "crm.find",
+        "times": 1,
+        "args_subset": {
+          "passport_no": "UT7668016",
+          "dob": "1971-11-12"
+        }
+      },
+      {
+        "tool": "crm.update",
+        "times": 1,
+        "args_subset": {
+          "id": "rec-1001",
+          "expected_version": 1,
+          "patch": {
+            "full_name": "ERIC MORTON",
+            "nationality": "UTOPIAN",
+            "passport_expiry": "2030-11-16",
+            "email": "eric.morton@mail.uto",
+            "intended_travel_date": "2027-01-19",
+            "bank_closing_balance": "9310.72",
+            "statement_date": "2026-10-20"
+          },
+          "status": "NEEDS_REVIEW"
+        }
+      },
+      {
+        "tool": "crm.get",
+        "min_times": 1,
+        "note": "read-back after the write"
+      }
+    ],
+    "must_not": []
+  },
+  "llm_calls": {
+    "expected_doc_ids": [
+      "application_form",
+      "passport",
+      "bank_statement",
+      "employment_letter"
+    ],
+    "must_not_call": []
+  },
+  "report": {
+    "must_not_contain": [
+      "checklist: complete"
+    ]
+  },
+  "never_status": [
+    "APPROVED",
+    "REJECTED"
+  ],
+  "fault_plan": [
+    {
+      "tool": "checklist.check",
+      "call": "all",
+      "fault": {
+        "status": 503
+      }
+    }
+  ]
+}

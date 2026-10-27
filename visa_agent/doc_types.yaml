@@ -1,0 +1,5 @@
+# Content keywords decide the doc type; filename hints only break ties (docs/ARCHITECTURE.md). Stub until P3.
+application_form: {keywords: ["visa application form", "intended date of travel"], filename_hints: [form, application]}
+passport:         {keywords: ["passport", "P<UTO"], filename_hints: [passport], date_format: "%d %b %Y"}
+bank_statement:   {keywords: ["statement period", "closing balance"], filename_hints: [bank, statement]}
+employment_letter: {keywords: ["to whom it may concern", "employed"], filename_hints: [employment, letter]}

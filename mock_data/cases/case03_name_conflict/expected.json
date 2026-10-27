@@ -1,0 +1,115 @@
+{
+  "case": "case03_name_conflict",
+  "scenario": 3,
+  "title": "Name conflict form vs passport",
+  "packet": "case03_name_conflict",
+  "fault_plan_ref": "expected.fault_plan",
+  "fake_llm": "fake_llm.json",
+  "clock": "2026-10-27",
+  "issues": [
+    {
+      "kind": "CONFLICT",
+      "field": "full_name",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "ERIC COMPTON",
+          "page": 1
+        },
+        {
+          "doc": "passport",
+          "value": "ERIC MORTON",
+          "page": 1
+        }
+      ]
+    }
+  ],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "crm": {
+    "records_in_seed": [
+      "rec-1001",
+      "rec-9001"
+    ],
+    "target_record": "rec-1001",
+    "action": "UPDATE",
+    "status": "NEEDS_REVIEW",
+    "field_patch": {},
+    "notes_contain": [
+      "identity conflict"
+    ],
+    "version_after": 2
+  },
+  "write_outcome": "WRITTEN",
+  "tool_calls": {
+    "must": [
+      {
+        "tool": "checklist.check",
+        "times": 1,
+        "args_subset": {
+          "visa_type": "TOURIST_UTO",
+          "docs_present": [
+            "application_form",
+            "bank_statement",
+            "employment_letter",
+            "passport"
+          ]
+        }
+      },
+      {
+        "tool": "crm.find",
+        "times": 1,
+        "args_subset": {
+          "passport_no": "UT7668016",
+          "dob": "1971-11-12"
+        }
+      },
+      {
+        "tool": "crm.update",
+        "times": 1,
+        "args_subset": {
+          "id": "rec-1001",
+          "expected_version": 1,
+          "patch": {},
+          "status": "NEEDS_REVIEW"
+        }
+      },
+      {
+        "tool": "crm.get",
+        "min_times": 1,
+        "note": "read-back after the write"
+      }
+    ],
+    "must_not": []
+  },
+  "llm_calls": {
+    "expected_doc_ids": [
+      "application_form",
+      "passport",
+      "bank_statement",
+      "employment_letter"
+    ],
+    "must_not_call": []
+  },
+  "report": {
+    "must_not_contain": []
+  },
+  "never_status": [
+    "APPROVED",
+    "REJECTED"
+  ],
+  "fault_plan": []
+}

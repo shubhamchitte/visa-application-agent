@@ -1,0 +1,26 @@
+[project]
+name = "visa-agent"
+version = "0.1.0"
+description = "Visa application agent: LLM proposes, code disposes."
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic==2.11.7",
+    "pyyaml==6.0.2",
+    "pymupdf==1.26.3",
+    "python-dotenv==1.1.1",
+    "google-genai==1.28.0",
+    "groq==0.31.0",
+]
+
+[dependency-groups]
+dev = ["pytest==8.4.1", "reportlab==4.4.3", "faker==37.5.3"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["visa_agent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

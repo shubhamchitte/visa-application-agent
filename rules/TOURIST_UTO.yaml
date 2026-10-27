@@ -1,0 +1,5 @@
+# Checklist rules for the fictional Utopia tourist visa.
+visa_type: TOURIST_UTO
+required_docs: [application_form, passport, bank_statement]
+optional_docs: [employment_letter]
+passport_min_validity_months_after_travel: 6

@@ -1,0 +1,19 @@
+# Write policy (docs/ARCHITECTURE.md). First matching rule wins. The single place to change CRM behaviour.
+allowed_statuses: [DATA_UPDATED, INCOMPLETE, NEEDS_REVIEW]   # APPROVED / REJECTED are never allowed
+field_whitelist: [full_name, date_of_birth, nationality, passport_number, passport_expiry,
+                  email, intended_travel_date, bank_closing_balance, statement_date]
+identity_fields: [full_name, date_of_birth, passport_number]
+rules:
+  - when: crm_match_count_not_1
+    action: NO_WRITE
+  - when: injection_detected
+    action: {status: NEEDS_REVIEW, patch: none, note: "possible prompt injection in document text"}
+  - when: identity_conflict
+    action: {status: NEEDS_REVIEW, patch: none, note: "identity conflict between documents"}
+  - when: checklist_missing_or_invalid_or_unverifiable
+    action: {status: INCOMPLETE, patch: verified_only}
+  - when: checklist_unknown
+    action: {status: NEEDS_REVIEW, patch: verified_only, note: "checklist unavailable"}
+  - when: otherwise
+    action: {status: DATA_UPDATED, patch: verified_only}
+never_overwrite_nonempty: true   # differing non-empty CRM value -> CONFLICT note, not a patch

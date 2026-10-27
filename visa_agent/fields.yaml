@@ -1,0 +1,12 @@
+# Field registry. `type` selects the value-in-quote parser (docs/ARCHITECTURE.md). `source` = docs that may supply it.
+date_formats: ["%Y-%m-%d", "%d %b %Y", "%d %B %Y", "%d/%m/%Y", "%m/%d/%Y", "%d.%m.%Y"]
+fields:
+  full_name:            {type: str,         identity: true,  source: [application_form, passport]}
+  date_of_birth:        {type: date,        identity: true,  source: [application_form, passport]}
+  nationality:          {type: str,         identity: false, source: [application_form, passport]}
+  passport_number:      {type: passport_no, identity: true,  source: [application_form, passport]}
+  passport_expiry:      {type: date,        identity: false, source: [passport]}
+  email:                {type: str,         identity: false, source: [application_form]}
+  intended_travel_date: {type: date,        identity: false, source: [application_form]}
+  bank_closing_balance: {type: money,       identity: false, source: [bank_statement]}
+  statement_date:       {type: date,        identity: false, source: [bank_statement]}

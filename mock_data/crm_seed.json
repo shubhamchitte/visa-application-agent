@@ -1,0 +1,36 @@
+{
+  "records": [
+    {
+      "id": "rec-1001",
+      "version": 1,
+      "status": "NEW",
+      "fields": {
+        "passport_number": "UT7668016",
+        "date_of_birth": "1971-11-12"
+      },
+      "notes": []
+    },
+    {
+      "id": "rec-1002",
+      "version": 1,
+      "status": "NEW",
+      "fields": {
+        "passport_number": "UT7668016",
+        "date_of_birth": "1971-11-12"
+      },
+      "notes": [
+        "duplicate of rec-1001 (case 8b)"
+      ]
+    },
+    {
+      "id": "rec-9001",
+      "version": 1,
+      "status": "NEW",
+      "notes": [],
+      "fields": {
+        "passport_number": "UT8735742",
+        "date_of_birth": "1989-07-23"
+      }
+    }
+  ]
+}

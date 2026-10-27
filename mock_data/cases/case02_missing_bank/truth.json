@@ -1,0 +1,47 @@
+{
+  "canonical": {
+    "full_name": "ERIC MORTON",
+    "date_of_birth": "1971-11-12",
+    "nationality": "UTOPIAN",
+    "passport_number": "UT7668016",
+    "passport_expiry": "2030-11-16",
+    "email": "eric.morton@mail.uto",
+    "intended_travel_date": "2027-01-19",
+    "bank_closing_balance": "9310.72",
+    "statement_date": "2026-10-20"
+  },
+  "person": {
+    "given_names": "ERIC",
+    "surname": "MORTON",
+    "sex": "F",
+    "employer": "Frank Ltd",
+    "job_title": "Analyst"
+  },
+  "documents": {
+    "application_form": {
+      "full_name": "ERIC MORTON",
+      "date_of_birth": "1971-11-12",
+      "nationality": "UTOPIAN",
+      "passport_number": "UT7668016",
+      "email": "eric.morton@mail.uto",
+      "intended_travel_date": "2027-01-19"
+    },
+    "passport": {
+      "full_name": "ERIC MORTON",
+      "date_of_birth": "1971-11-12",
+      "nationality": "UTOPIAN",
+      "passport_number": "UT7668016",
+      "passport_expiry": "2030-11-16",
+      "mrz_corrupt": null
+    },
+    "bank_statement": {
+      "mode": "absent",
+      "injection": null,
+      "bank_closing_balance": "9310.72",
+      "statement_date": "2026-10-20"
+    },
+    "employment_letter": {
+      "mode": "text"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "case": "case13_llm_malformed",
+  "doc_id_key": "PDF file stem == doc type",
+  "script": {
+    "application_form": [
+      {
+        "doc_type": "application_form",
+        "fields": {
+          "full_name": {
+            "value": "ERIC MORTON",
+            "evidence_quote": "Full name: ERIC MORTON",
+            "page": 1
+          },
+          "date_of_birth": {
+            "value": "1971-11-12",
+            "evidence_quote": "Date of birth: 12 Nov 1971",
+            "page": 1
+          },
+          "nationality": {
+            "value": "UTOPIAN",
+            "evidence_quote": "Nationality: UTOPIAN",
+            "page": 1
+          },
+          "passport_number": {
+            "value": "UT7668016",
+            "evidence_quote": "Passport number: UT7668016",
+            "page": 1
+          },
+          "email": {
+            "value": "eric.morton@mail.uto",
+            "evidence_quote": "Email: eric.morton@mail.uto",
+            "page": 1
+          },
+          "intended_travel_date": {
+            "value": "2027-01-19",
+            "evidence_quote": "Intended date of travel: 19 Jan 2027",
+            "page": 1
+          }
+        }
+      }
+    ],
+    "passport": [
+      "not json {",
+      "still {not json"
+    ],
+    "bank_statement": [
+      {
+        "doc_type": "bank_statement",
+        "fields": {
+          "bank_closing_balance": {
+            "value": "9310.72",
+            "evidence_quote": "Closing balance: $9,310.72",
+            "page": 1
+          },
+          "statement_date": {
+            "value": "2026-10-20",
+            "evidence_quote": "Statement date: 20 Oct 2026",
+            "page": 1
+          }
+        }
+      }
+    ],
+    "employment_letter": [
+      {
+        "doc_type": "employment_letter",
+        "fields": {}
+      }
+    ]
+  }
+}
