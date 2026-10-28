@@ -1,7 +1,7 @@
 # uv is the supported path; venv+pip from requirements.lock (pinned) is the fallback when uv is missing.
 UV := $(shell command -v uv 2>/dev/null)
 PY ?= $(firstword $(foreach p,python3.12 python3.11 python3,$(shell command -v $(p) 2>/dev/null)))
-VENV := $(if $(UV),,.venv)
+VENV := $(if $(UV),,.venv/.installed)
 RUN := $(if $(UV),uv run,.venv/bin/python -m)
 CLI := $(if $(UV),uv run python,.venv/bin/python) -m visa_agent.cli
 
@@ -16,11 +16,13 @@ ifdef UV
 else
 	@test -n "$(PY)" || { echo "error: no python3.12/python3.11/python3 on PATH (need >= 3.11, or install uv)"; exit 1; }
 	@$(PY) -c 'import sys; sys.exit(sys.version_info < (3, 11))' || { echo "error: $(PY) is $$($(PY) -V 2>&1); need Python >= 3.11 (set PY=... or install uv)"; exit 1; }
-	$(PY) -m venv .venv && .venv/bin/pip install -q -r requirements.lock && .venv/bin/pip install -q --no-deps -e .
+	rm -rf .venv
+	$(PY) -m venv .venv && .venv/bin/pip install -q -r requirements.lock && .venv/bin/pip install -q --no-deps -e . \
+	  && touch .venv/.installed || { rm -rf .venv; echo "error: dependency install failed (see above)"; exit 1; }
 endif
 
 # venv is created on first use (uv manages its own env, so no prerequisite there)
-.venv:
+.venv/.installed:
 	$(MAKE) setup
 
 test: $(VENV)

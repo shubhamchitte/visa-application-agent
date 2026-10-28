@@ -1,0 +1,310 @@
+{
+  "case": "R7_bank_holder_mismatch",
+  "docs": [
+    {
+      "doc_id": "application_form",
+      "doc_type": "application_form",
+      "flags": []
+    },
+    {
+      "doc_id": "bank_statement",
+      "doc_type": "bank_statement",
+      "flags": []
+    },
+    {
+      "doc_id": "employment_letter",
+      "doc_type": "employment_letter",
+      "flags": []
+    },
+    {
+      "doc_id": "passport",
+      "doc_type": "passport",
+      "flags": []
+    }
+  ],
+  "extractions": {
+    "application_form": {
+      "doc_type": "application_form",
+      "fields": {
+        "surname": {
+          "value": "HAYES",
+          "evidence_quote": "HAYES",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "VALERIE",
+          "evidence_quote": "VALERIE",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1973-01-12",
+          "evidence_quote": "12.01.1973",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT6105467",
+          "evidence_quote": "UT6105467",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "email": {
+          "value": "valerie.hayes@mail.uto",
+          "evidence_quote": "valerie.hayes@mail.uto",
+          "page": 2,
+          "status": "VERIFIED"
+        },
+        "intended_travel_date": {
+          "value": "2027-01-24",
+          "evidence_quote": "24.01.2027",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "VALERIE HAYES",
+          "evidence_quote": "VALERIE | HAYES",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "bank_statement": {
+      "doc_type": "bank_statement",
+      "fields": {
+        "account_holder": {
+          "value": "MARGARET HAYES",
+          "evidence_quote": "Account Statement                                                                          Account holder                  MARGARET HAYES",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "bank_closing_balance": {
+          "value": "76339.82",
+          "evidence_quote": "Closing balance                                                                             $76,339.82",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "statement_date": {
+          "value": "2026-10-20",
+          "evidence_quote": "Statement date                              20 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "employment_letter": {
+      "doc_type": "employment_letter",
+      "fields": {
+        "employee_name": {
+          "value": "VALERIE HAYES",
+          "evidence_quote": "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - VALERIE HAYES",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Meridian Harbour Logistics Ltd",
+          "evidence_quote": "Meridian Harbour Logistics Ltd M      101 Commerce Quay, Port Elora, Utopia",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-06",
+          "evidence_quote": "Date: 06 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": "2027-01-24",
+          "evidence_quote": "approved paid annual leave from 24 Jan 2027 to 05 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_end": {
+          "value": "2027-02-05",
+          "evidence_quote": "approved paid annual leave from 24 Jan 2027 to 05 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "passport": {
+      "doc_type": "passport",
+      "fields": {
+        "surname": {
+          "value": "HAYES",
+          "evidence_quote": "HAYES",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "VALERIE",
+          "evidence_quote": "VALERIE",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1973-01-12",
+          "evidence_quote": "12 JAN 1973",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT6105467",
+          "evidence_quote": "UT6105467",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_expiry": {
+          "value": "2032-12-13",
+          "evidence_quote": "13 DEC 2032",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "VALERIE HAYES",
+          "evidence_quote": "VALERIE | HAYES",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    }
+  },
+  "issues": [
+    {
+      "kind": "CONFLICT",
+      "field": "account_holder",
+      "message": "documents disagree on account_holder",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "VALERIE HAYES",
+          "page": 1
+        },
+        {
+          "doc": "passport",
+          "value": "VALERIE HAYES",
+          "page": 1
+        },
+        {
+          "doc": "bank_statement",
+          "value": "MARGARET HAYES",
+          "page": 1
+        }
+      ]
+    }
+  ],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "present": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "plan": {
+    "record_id": "rec-2007",
+    "field_patch": {},
+    "status": "NEEDS_REVIEW",
+    "notes": [
+      "identity conflict between documents",
+      "CONFLICT account_holder: documents disagree on account_holder"
+    ],
+    "reason": "identity_conflict"
+  },
+  "write_outcome": "WRITTEN",
+  "candidates": [
+    "rec-2007"
+  ],
+  "record_after": {
+    "id": "rec-2007",
+    "version": 2,
+    "status": "NEEDS_REVIEW",
+    "fields": {
+      "passport_number": "UT6105467",
+      "date_of_birth": "1973-01-12"
+    },
+    "notes": [
+      "identity conflict between documents",
+      "CONFLICT account_holder: documents disagree on account_holder"
+    ]
+  },
+  "error": null,
+  "tool_calls": [
+    {
+      "tool": "checklist.check",
+      "args": {
+        "visa_type": "TOURIST_UTO",
+        "docs_present": [
+          "application_form",
+          "bank_statement",
+          "employment_letter",
+          "passport"
+        ]
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.find",
+      "args": {
+        "passport_no": "UT6105467",
+        "dob": "1973-01-12"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.update",
+      "args": {
+        "id": "rec-2007",
+        "patch": {},
+        "expected_version": 1,
+        "status": "NEEDS_REVIEW",
+        "notes": [
+          "identity conflict between documents",
+          "CONFLICT account_holder: documents disagree on account_holder"
+        ],
+        "idempotency_key": "f0bdd8324bff9a62dfc1cddef4a1828e464f5555428edffbeb308dc48d662749"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.get",
+      "args": {
+        "id": "rec-2007"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    }
+  ]
+}

@@ -21,6 +21,11 @@
 | application_form | email | eric.morton@mail.uto | VERIFIED | "Email: eric.morton@mail.uto" (p1) |
 | application_form | intended_travel_date | 2027-01-19 | VERIFIED | "Intended date of travel: 19 Jan 2027" (p1) |
 | application_form | full_name | ERIC MORTON | VERIFIED | "Full name: ERIC MORTON" (p1) |
+| employment_letter | employee_name | ERIC MORTON | VERIFIED | "This is to confirm that ERIC MORTON is employed at Frank Ltd" (p1) |
+| employment_letter | employer | Frank Ltd | VERIFIED | "This is to confirm that ERIC MORTON is employed at Frank Ltd" (p1) |
+| employment_letter | letter_date | 2026-10-07 | VERIFIED | "Date: 07 Oct 2026" (p1) |
+| employment_letter | leave_start | 2027-01-18 | VERIFIED | "Approved annual leave: 18 Jan 2027 to 02 Feb 2027" (p1) |
+| employment_letter | leave_end | 2027-02-02 | VERIFIED | "Approved annual leave: 18 Jan 2027 to 02 Feb 2027" (p1) |
 | passport | surname | MORTON | VERIFIED | "Surname: MORTON" (p1) |
 | passport | given_names | ERIC | VERIFIED | "Given names: ERIC" (p1) |
 | passport | date_of_birth | 1971-11-12 | VERIFIED | "Date of birth: 12 NOV 1971" (p1) |
@@ -32,6 +37,7 @@
 ## Issues
 - **MISSING** bank_closing_balance: not found in any document
 - **MISSING** statement_date: not found in any document
+- **MISSING** account_holder: not found in any document
 
 ## Checklist
 - required: application_form, passport, bank_statement
@@ -44,6 +50,7 @@
 - note: missing documents: bank_statement
 - note: MISSING bank_closing_balance: not found in any document
 - note: MISSING statement_date: not found in any document
+- note: MISSING account_holder: not found in any document
 - outcome: CRM record rec-1001 written (version 2).
 
 ## Final
@@ -55,5 +62,5 @@
 |---|---|---|---|---|
 | 1 | checklist.check | 1 | OK | `{"docs_present": ["application_form", "employment_letter", "passport"], "visa_type": "TOURIST_UTO"}` |
 | 2 | crm.find | 1 | OK | `{"dob": "1971-11-12", "passport_no": "UT7668016"}` |
-| 3 | crm.update | 1 | OK | `{"expected_version": 1, "id": "rec-1001", "idempotency_key": "2f546d06ba125cbf4055a95fa56f66d3ea1abcbc76ff80b1371461abdb30d05e", "notes": ["missing documents: bank_statement", "MISSING bank_closing_balance: not found in any document", "MISSING statement_date: not found in any document"], "patch": {"email": "eric.morton@mail.uto", "full_name": "ERIC MORTON", "intended_travel_date": "2027-01-19", "nationality": "UTOPIAN", "passport_expiry": "2030-11-16"}, "status": "INCOMPLETE"}` |
+| 3 | crm.update | 1 | OK | `{"expected_version": 1, "id": "rec-1001", "idempotency_key": "5c2b3ecc95e1031591106814427db6eeca3b758d5422b73b3e19b2a1ebd4c0ee", "notes": ["missing documents: bank_statement", "MISSING bank_closing_balance: not found in any document", "MISSING statement_date: not found in any document", "MISSING account_holder: not found in any document"], "patch": {"email": "eric.morton@mail.uto", "full_name": "ERIC MORTON", "intended_travel_date": "2027-01-19", "nationality": "UTOPIAN", "passport_expiry": "2030-11-16"}, "status": "INCOMPLETE"}` |
 | 4 | crm.get | 1 | OK | `{"id": "rec-1001"}` |

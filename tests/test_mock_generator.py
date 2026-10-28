@@ -50,8 +50,8 @@ def test_deterministic_and_matches_committed(tmp_path):
     assert filecmp.cmp(a / "crm_seed.json", COMMITTED / "crm_seed.json", shallow=False)
 
 
-def test_all_14_scenarios_covered():
-    assert {c["scenario"] for c in build_cases().values()} == set(range(1, 15))
+def test_all_15_scenarios_covered():
+    assert {c["scenario"] for c in build_cases().values()} == set(range(1, 16))
 
 
 def test_mrz_valid_except_case5():

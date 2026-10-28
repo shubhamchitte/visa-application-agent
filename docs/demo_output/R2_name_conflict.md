@@ -22,8 +22,14 @@
 | application_form | email | christopher.martin@mail.uto | VERIFIED | "christopher.martin@mail.uto" (p2) |
 | application_form | intended_travel_date | 2027-02-28 | VERIFIED | "28.02.2027" (p3) |
 | application_form | full_name | CHRISTOPHER MARTIS | VERIFIED | "CHRISTOPHER | MARTIS" (p1) |
-| bank_statement | bank_closing_balance | 14174.92 | VERIFIED | "           Closing balance                                                                             $14,174.92" (p3) |
+| bank_statement | account_holder | CHRISTOPHER MARTIN | VERIFIED | "Account holder                CHRISTOPHER MARTIN" (p1) |
+| bank_statement | bank_closing_balance | 14174.92 | VERIFIED | "Closing balance                                                                             $14,174.92" (p3) |
 | bank_statement | statement_date | 2026-10-20 | VERIFIED | "Statement date                              20 Oct 2026" (p1) |
+| employment_letter | employee_name | CHRISTOPHER MARTIN | VERIFIED | "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - CHRISTOPHER MARTIN" (p1) |
+| employment_letter | employer | Aurelia Freight & Cold Storage Ltd | VERIFIED | "Aurelia Freight & Cold Storage Ltd A      186 Commerce Quay, Salt Meridian, Utopia" (p1) |
+| employment_letter | letter_date | 2026-10-06 | VERIFIED | "Date: 06 Oct 2026" (p1) |
+| employment_letter | leave_start | 2027-02-28 | VERIFIED | "The company has approved paid annual leave from 28 Feb 2027 to 16 Mar 2027 (inclusive)" (p1) |
+| employment_letter | leave_end | 2027-03-16 | VERIFIED | "The company has approved paid annual leave from 28 Feb 2027 to 16 Mar 2027 (inclusive)" (p1) |
 | passport | surname | MARTIN | VERIFIED | "MARTIN" (p1) |
 | passport | given_names | CHRISTOPHER | VERIFIED | "CHRISTOPHER" (p1) |
 | passport | date_of_birth | 1971-12-28 | VERIFIED | "28 DEC 1971" (p1) |
@@ -34,6 +40,8 @@
 
 ## Issues
 - **CONFLICT** full_name: documents disagree on full_name (sources: [{'doc': 'application_form', 'value': 'CHRISTOPHER MARTIS', 'page': 1}, {'doc': 'passport', 'value': 'CHRISTOPHER MARTIN', 'page': 1}])
+- **CONFLICT** account_holder: documents disagree on account_holder (sources: [{'doc': 'application_form', 'value': 'CHRISTOPHER MARTIS', 'page': 1}, {'doc': 'passport', 'value': 'CHRISTOPHER MARTIN', 'page': 1}, {'doc': 'bank_statement', 'value': 'CHRISTOPHER MARTIN', 'page': 1}])
+- **CONFLICT** employee_name: documents disagree on employee_name (sources: [{'doc': 'application_form', 'value': 'CHRISTOPHER MARTIS', 'page': 1}, {'doc': 'passport', 'value': 'CHRISTOPHER MARTIN', 'page': 1}, {'doc': 'employment_letter', 'value': 'CHRISTOPHER MARTIN', 'page': 1}])
 
 ## Checklist
 - required: application_form, passport, bank_statement
@@ -45,6 +53,8 @@
 - field patch: {}
 - note: identity conflict between documents
 - note: CONFLICT full_name: documents disagree on full_name
+- note: CONFLICT account_holder: documents disagree on account_holder
+- note: CONFLICT employee_name: documents disagree on employee_name
 - outcome: CRM record rec-2002 written (version 2).
 
 ## Final
@@ -56,5 +66,5 @@
 |---|---|---|---|---|
 | 1 | checklist.check | 1 | OK | `{"docs_present": ["application_form", "bank_statement", "employment_letter", "passport"], "visa_type": "TOURIST_UTO"}` |
 | 2 | crm.find | 1 | OK | `{"dob": "1971-12-28", "passport_no": "UT8812735"}` |
-| 3 | crm.update | 1 | OK | `{"expected_version": 1, "id": "rec-2002", "idempotency_key": "0d601582bbddd2c37e54b6f5ccb28965d8fb62eae136ec9ac49734481ecf66a1", "notes": ["identity conflict between documents", "CONFLICT full_name: documents disagree on full_name"], "patch": {}, "status": "NEEDS_REVIEW"}` |
+| 3 | crm.update | 1 | OK | `{"expected_version": 1, "id": "rec-2002", "idempotency_key": "3334d23be05cedf389e92e1083eca2c5b6c5c9fad770c774cb6fb75b6390d436", "notes": ["identity conflict between documents", "CONFLICT full_name: documents disagree on full_name", "CONFLICT account_holder: documents disagree on account_holder", "CONFLICT employee_name: documents disagree on employee_name"], "patch": {}, "status": "NEEDS_REVIEW"}` |
 | 4 | crm.get | 1 | OK | `{"id": "rec-2002"}` |

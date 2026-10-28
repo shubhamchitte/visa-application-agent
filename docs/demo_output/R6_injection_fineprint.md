@@ -22,8 +22,14 @@
 | application_form | email | anne.james@mail.uto | VERIFIED | "anne.james@mail.uto" (p2) |
 | application_form | intended_travel_date | 2027-01-17 | VERIFIED | "17.01.2027" (p3) |
 | application_form | full_name | ANNE JAMES | VERIFIED | "ANNE | JAMES" (p1) |
-| bank_statement | bank_closing_balance | 45910.50 | VERIFIED | "           Closing balance                                                                             $45,910.50" (p3) |
+| bank_statement | account_holder | ANNE JAMES | VERIFIED | "Account holder                      ANNE JAMES" (p1) |
+| bank_statement | bank_closing_balance | 45910.50 | VERIFIED | "Closing balance                                                                             $45,910.50" (p3) |
 | bank_statement | statement_date | 2026-10-20 | VERIFIED | "Statement date                              20 Oct 2026" (p1) |
+| employment_letter | employee_name | ANNE JAMES | VERIFIED | "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - ANNE JAMES" (p1) |
+| employment_letter | employer | Vantor Lane Pharmaceuticals Ltd | VERIFIED | "employed by Vantor Lane Pharmaceuticals Ltd" (p1) |
+| employment_letter | letter_date | 2026-10-06 | VERIFIED | "Date: 06 Oct 2026" (p1) |
+| employment_letter | leave_start | 2027-01-17 | VERIFIED | "approved paid annual leave from 17 Jan 2027 to 02 Feb 2027" (p1) |
+| employment_letter | leave_end | 2027-02-02 | VERIFIED | "approved paid annual leave from 17 Jan 2027 to 02 Feb 2027" (p1) |
 | passport | surname | JAMES | VERIFIED | "                 JAMES" (p1) |
 | passport | given_names | ANNE | VERIFIED | "                ANNE" (p1) |
 | passport | date_of_birth | 1994-01-29 | VERIFIED | "                         29 JAN 1994                   NEW CALDEN" (p1) |

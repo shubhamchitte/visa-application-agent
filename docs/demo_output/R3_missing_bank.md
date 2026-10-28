@@ -21,6 +21,11 @@
 | application_form | email | joy.clark@mail.uto | VERIFIED | " 49 Alder Terrace, 7921 New Calden, UTOPIA / joy.clark@mail.uto          +990 21 555 2853" (p2) |
 | application_form | intended_travel_date | 2027-02-08 | VERIFIED | " 08.02.2027                                    22.02.2027" (p3) |
 | application_form | full_name | JOY CLARK | VERIFIED | " JOY                                                08.05.1978 |  CLARK                                  CLARK" (p1) |
+| employment_letter | employee_name | JOY CLARK | VERIFIED | "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - JOY CLARK" (p1) |
+| employment_letter | employer | Halcyon Bay Engineering Co. | VERIFIED | "is employed by Halcyon Bay Engineering Co. on a permanent, full-time contract." (p1) |
+| employment_letter | letter_date | 2026-10-06 | VERIFIED | "Date: 06 Oct 2026" (p1) |
+| employment_letter | leave_start | 2027-02-08 | VERIFIED | "approved paid annual leave from 08 Feb 2027 to 22 Feb 2027" (p1) |
+| employment_letter | leave_end | 2027-02-22 | VERIFIED | "approved paid annual leave from 08 Feb 2027 to 22 Feb 2027" (p1) |
 | passport | surname | CLARK | VERIFIED | "                CLARK" (p1) |
 | passport | given_names | JOY | VERIFIED | "                 JOY" (p1) |
 | passport | date_of_birth | 1978-05-08 | VERIFIED | "                         08 MAY 1978" (p1) |
@@ -32,6 +37,7 @@
 ## Issues
 - **MISSING** bank_closing_balance: not found in any document
 - **MISSING** statement_date: not found in any document
+- **MISSING** account_holder: not found in any document
 
 ## Checklist
 - required: application_form, passport, bank_statement
@@ -44,6 +50,7 @@
 - note: missing documents: bank_statement
 - note: MISSING bank_closing_balance: not found in any document
 - note: MISSING statement_date: not found in any document
+- note: MISSING account_holder: not found in any document
 - outcome: CRM record rec-2003 written (version 2).
 
 ## Final
@@ -55,5 +62,5 @@
 |---|---|---|---|---|
 | 1 | checklist.check | 1 | OK | `{"docs_present": ["application_form", "employment_letter", "passport"], "visa_type": "TOURIST_UTO"}` |
 | 2 | crm.find | 1 | OK | `{"dob": "1978-05-08", "passport_no": "UT7607287"}` |
-| 3 | crm.update | 1 | OK | `{"expected_version": 1, "id": "rec-2003", "idempotency_key": "5b4fd7f4f23fbdf856f8104bb945c9220ae3529abd85a36d3af2398ad01e4b98", "notes": ["missing documents: bank_statement", "MISSING bank_closing_balance: not found in any document", "MISSING statement_date: not found in any document"], "patch": {"email": "joy.clark@mail.uto", "full_name": "JOY CLARK", "intended_travel_date": "2027-02-08", "nationality": "UTOPIAN", "passport_expiry": "2031-06-17"}, "status": "INCOMPLETE"}` |
+| 3 | crm.update | 1 | OK | `{"expected_version": 1, "id": "rec-2003", "idempotency_key": "973e63c3d72a59de5662ac1474c8342c8299e2e45499bd6699b91259e6bae9b3", "notes": ["missing documents: bank_statement", "MISSING bank_closing_balance: not found in any document", "MISSING statement_date: not found in any document", "MISSING account_holder: not found in any document"], "patch": {"email": "joy.clark@mail.uto", "full_name": "JOY CLARK", "intended_travel_date": "2027-02-08", "nationality": "UTOPIAN", "passport_expiry": "2031-06-17"}, "status": "INCOMPLETE"}` |
 | 4 | crm.get | 1 | OK | `{"id": "rec-2003"}` |

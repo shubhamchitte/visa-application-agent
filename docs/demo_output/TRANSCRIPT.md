@@ -14,11 +14,11 @@ Output of `make demo-record` (replay provider, no network).
 
 ===  2 Missing bank statement  (provider=replay:openai/gpt-oss-120b) ===
   outcome=WRITTEN planned_status=INCOMPLETE patch=5 fields flags=[]
-  issues: MISSING:bank_closing_balance; MISSING:statement_date
+  issues: MISSING:bank_closing_balance; MISSING:statement_date; MISSING:account_holder
 
 ===  3 Name conflict form vs passport  (provider=replay:openai/gpt-oss-120b) ===
   outcome=WRITTEN planned_status=NEEDS_REVIEW patch=0 fields flags=[]
-  issues: CONFLICT:full_name
+  issues: CONFLICT:full_name; CONFLICT:account_holder; CONFLICT:employee_name
 
 ===  7 LLM returns a value whose quote is not on the page  (provider=fake) ===
   outcome=WRITTEN planned_status=INCOMPLETE patch=6 fields flags=[]
@@ -36,17 +36,21 @@ Output of `make demo-record` (replay provider, no network).
   outcome=WRITTEN planned_status=NEEDS_REVIEW patch=0 fields flags=['injection_detected']
   issues: none
 
+=== 15 Bank statement account holder is another person  (provider=fake) ===
+  outcome=WRITTEN planned_status=NEEDS_REVIEW patch=0 fields flags=[]
+  issues: CONFLICT:account_holder
+
 === R1 Realistic happy path (dense UDI form, specimen passport, 3-page statement, employment letter)  (provider=replay:openai/gpt-oss-120b) ===
   outcome=WRITTEN planned_status=DATA_UPDATED patch=7 fields flags=[]
   issues: none
 
 === R2 Surname differs by one letter, hidden in the dense form vs passport  (provider=replay:openai/gpt-oss-120b) ===
   outcome=WRITTEN planned_status=NEEDS_REVIEW patch=0 fields flags=[]
-  issues: CONFLICT:full_name
+  issues: CONFLICT:full_name; CONFLICT:account_holder; CONFLICT:employee_name
 
 === R3 Bank statement missing from an otherwise realistic packet  (provider=replay:openai/gpt-oss-120b) ===
   outcome=WRITTEN planned_status=INCOMPLETE patch=5 fields flags=[]
-  issues: MISSING:bank_closing_balance; MISSING:statement_date
+  issues: MISSING:bank_closing_balance; MISSING:statement_date; MISSING:account_holder
 
 === R4 Passport is an image-only scan (OCR path); everything else text  (skipped: not recorded; needs OCR (tesseract) at record time) ===
 
@@ -55,4 +59,8 @@ Output of `make demo-record` (replay provider, no network).
 === R6 Injection sentence buried in the bank statement's fine print  (provider=replay:openai/gpt-oss-120b) ===
   outcome=WRITTEN planned_status=NEEDS_REVIEW patch=0 fields flags=['injection_detected']
   issues: none
+
+=== R7 Bank statement account holder is a relative, not the applicant  (provider=replay:openai/gpt-oss-120b) ===
+  outcome=WRITTEN planned_status=NEEDS_REVIEW patch=0 fields flags=[]
+  issues: CONFLICT:account_holder
 ```

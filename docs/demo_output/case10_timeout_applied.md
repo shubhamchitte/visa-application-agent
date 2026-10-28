@@ -22,8 +22,14 @@
 | application_form | email | eric.morton@mail.uto | VERIFIED | "Email: eric.morton@mail.uto" (p1) |
 | application_form | intended_travel_date | 2027-01-19 | VERIFIED | "Intended date of travel: 19 Jan 2027" (p1) |
 | application_form | full_name | ERIC MORTON | VERIFIED | "Full name: ERIC MORTON" (p1) |
+| bank_statement | account_holder | ERIC MORTON | VERIFIED | "Account holder: ERIC MORTON" (p1) |
 | bank_statement | bank_closing_balance | 9310.72 | VERIFIED | "Closing balance: $9,310.72" (p1) |
 | bank_statement | statement_date | 2026-10-20 | VERIFIED | "Statement date: 20 Oct 2026" (p1) |
+| employment_letter | employee_name | ERIC MORTON | VERIFIED | "This is to confirm that ERIC MORTON is employed at Frank Ltd" (p1) |
+| employment_letter | employer | Frank Ltd | VERIFIED | "This is to confirm that ERIC MORTON is employed at Frank Ltd" (p1) |
+| employment_letter | letter_date | 2026-10-07 | VERIFIED | "Date: 07 Oct 2026" (p1) |
+| employment_letter | leave_start | 2027-01-18 | VERIFIED | "Approved annual leave: 18 Jan 2027 to 02 Feb 2027" (p1) |
+| employment_letter | leave_end | 2027-02-02 | VERIFIED | "Approved annual leave: 18 Jan 2027 to 02 Feb 2027" (p1) |
 | passport | surname | MORTON | VERIFIED | "Surname: MORTON" (p1) |
 | passport | given_names | ERIC | VERIFIED | "Given names: ERIC" (p1) |
 | passport | date_of_birth | 1971-11-12 | VERIFIED | "Date of birth: 12 NOV 1971" (p1) |

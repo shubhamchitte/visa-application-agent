@@ -79,9 +79,15 @@
     "bank_statement": {
       "doc_type": "bank_statement",
       "fields": {
+        "account_holder": {
+          "value": "CHRISTOPHER MARTIN",
+          "evidence_quote": "Account holder                CHRISTOPHER MARTIN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
         "bank_closing_balance": {
           "value": "14174.92",
-          "evidence_quote": "           Closing balance                                                                             $14,174.92",
+          "evidence_quote": "Closing balance                                                                             $14,174.92",
           "page": 3,
           "status": "VERIFIED"
         },
@@ -95,7 +101,38 @@
     },
     "employment_letter": {
       "doc_type": "employment_letter",
-      "fields": {}
+      "fields": {
+        "employee_name": {
+          "value": "CHRISTOPHER MARTIN",
+          "evidence_quote": "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - CHRISTOPHER MARTIN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Aurelia Freight & Cold Storage Ltd",
+          "evidence_quote": "Aurelia Freight & Cold Storage Ltd A      186 Commerce Quay, Salt Meridian, Utopia",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-06",
+          "evidence_quote": "Date: 06 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": "2027-02-28",
+          "evidence_quote": "The company has approved paid annual leave from 28 Feb 2027 to 16 Mar 2027 (inclusive)",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_end": {
+          "value": "2027-03-16",
+          "evidence_quote": "The company has approved paid annual leave from 28 Feb 2027 to 16 Mar 2027 (inclusive)",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
     },
     "passport": {
       "doc_type": "passport",
@@ -162,6 +199,50 @@
           "page": 1
         }
       ]
+    },
+    {
+      "kind": "CONFLICT",
+      "field": "account_holder",
+      "message": "documents disagree on account_holder",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "CHRISTOPHER MARTIS",
+          "page": 1
+        },
+        {
+          "doc": "passport",
+          "value": "CHRISTOPHER MARTIN",
+          "page": 1
+        },
+        {
+          "doc": "bank_statement",
+          "value": "CHRISTOPHER MARTIN",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "kind": "CONFLICT",
+      "field": "employee_name",
+      "message": "documents disagree on employee_name",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "CHRISTOPHER MARTIS",
+          "page": 1
+        },
+        {
+          "doc": "passport",
+          "value": "CHRISTOPHER MARTIN",
+          "page": 1
+        },
+        {
+          "doc": "employment_letter",
+          "value": "CHRISTOPHER MARTIN",
+          "page": 1
+        }
+      ]
     }
   ],
   "flags": [],
@@ -190,7 +271,9 @@
     "status": "NEEDS_REVIEW",
     "notes": [
       "identity conflict between documents",
-      "CONFLICT full_name: documents disagree on full_name"
+      "CONFLICT full_name: documents disagree on full_name",
+      "CONFLICT account_holder: documents disagree on account_holder",
+      "CONFLICT employee_name: documents disagree on employee_name"
     ],
     "reason": "identity_conflict"
   },
@@ -208,7 +291,9 @@
     },
     "notes": [
       "identity conflict between documents",
-      "CONFLICT full_name: documents disagree on full_name"
+      "CONFLICT full_name: documents disagree on full_name",
+      "CONFLICT account_holder: documents disagree on account_holder",
+      "CONFLICT employee_name: documents disagree on employee_name"
     ]
   },
   "error": null,
@@ -247,9 +332,11 @@
         "status": "NEEDS_REVIEW",
         "notes": [
           "identity conflict between documents",
-          "CONFLICT full_name: documents disagree on full_name"
+          "CONFLICT full_name: documents disagree on full_name",
+          "CONFLICT account_holder: documents disagree on account_holder",
+          "CONFLICT employee_name: documents disagree on employee_name"
         ],
-        "idempotency_key": "0d601582bbddd2c37e54b6f5ccb28965d8fb62eae136ec9ac49734481ecf66a1"
+        "idempotency_key": "3334d23be05cedf389e92e1083eca2c5b6c5c9fad770c774cb6fb75b6390d436"
       },
       "attempt": 1,
       "outcome": "OK",

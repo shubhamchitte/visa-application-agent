@@ -2,7 +2,8 @@
 allowed_statuses: [DATA_UPDATED, INCOMPLETE, NEEDS_REVIEW]   # APPROVED / REJECTED are never allowed
 field_whitelist: [full_name, date_of_birth, nationality, passport_number, passport_expiry,
                   email, intended_travel_date, bank_closing_balance, statement_date]
-identity_fields: [full_name, date_of_birth, passport_number]
+identity_fields: [full_name, date_of_birth, passport_number, account_holder, employee_name]
+review_fields: [letter_date, leave_start, leave_end]   # INVALID here -> human review, not INCOMPLETE
 rules:
   - when: crm_match_count_not_1
     action: NO_WRITE
@@ -10,6 +11,8 @@ rules:
     action: {status: NEEDS_REVIEW, patch: none, note: "possible prompt injection in document text"}
   - when: identity_conflict
     action: {status: NEEDS_REVIEW, patch: none, note: "identity conflict between documents"}
+  - when: review_field_invalid
+    action: {status: NEEDS_REVIEW, patch: verified_only, note: "employment letter check failed"}
   - when: checklist_missing_or_invalid_or_unverifiable
     action: {status: INCOMPLETE, patch: verified_only}
   - when: checklist_unknown

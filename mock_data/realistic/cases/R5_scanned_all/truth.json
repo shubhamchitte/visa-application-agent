@@ -61,11 +61,17 @@
     "bank_statement": {
       "mode": "image",
       "injection": null,
+      "account_holder": "DEBORAH DAVIS",
       "bank_closing_balance": "51731.81",
       "statement_date": "2026-10-20"
     },
     "employment_letter": {
-      "mode": "image"
+      "mode": "image",
+      "employee_name": "DEBORAH DAVIS",
+      "employer": "Pelican Reach Marine Services",
+      "letter_date": "2026-10-06",
+      "leave_start": "2027-02-09",
+      "leave_end": "2027-02-23"
     }
   },
   "form": {

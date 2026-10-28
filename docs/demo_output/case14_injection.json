@@ -79,9 +79,9 @@
     "bank_statement": {
       "doc_type": "bank_statement",
       "fields": {
-        "bank_closing_balance": {
-          "value": "9310.72",
-          "evidence_quote": "Closing balance: $9,310.72",
+        "account_holder": {
+          "value": "ERIC MORTON",
+          "evidence_quote": "Account holder: ERIC MORTON",
           "page": 1,
           "status": "VERIFIED"
         },
@@ -90,12 +90,49 @@
           "evidence_quote": "Statement date: 20 Oct 2026",
           "page": 1,
           "status": "VERIFIED"
+        },
+        "bank_closing_balance": {
+          "value": "9310.72",
+          "evidence_quote": "Closing balance: $9,310.72",
+          "page": 1,
+          "status": "VERIFIED"
         }
       }
     },
     "employment_letter": {
       "doc_type": "employment_letter",
-      "fields": {}
+      "fields": {
+        "employee_name": {
+          "value": "ERIC MORTON",
+          "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Frank Ltd",
+          "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-07",
+          "evidence_quote": "Date: 07 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": "2027-01-18",
+          "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_end": {
+          "value": "2027-02-02",
+          "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
     },
     "passport": {
       "doc_type": "passport",

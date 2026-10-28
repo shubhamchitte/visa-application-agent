@@ -22,8 +22,14 @@
 | application_form | email | ashley.mercer@mail.uto | VERIFIED | "ashley.mercer@mail.uto" (p2) |
 | application_form | intended_travel_date | 2027-02-11 | VERIFIED | "11.02.2027" (p3) |
 | application_form | full_name | ASHLEY MERCER | VERIFIED | "ASHLEY | MERCER" (p1) |
-| bank_statement | bank_closing_balance | 12498.88 | VERIFIED | "           Closing balance                                                                             $12,498.88" (p3) |
+| bank_statement | account_holder | ASHLEY MERCER | VERIFIED | "Account holder                    ASHLEY MERCER" (p1) |
+| bank_statement | bank_closing_balance | 12498.88 | VERIFIED | "Closing balance                                                                             $12,498.88" (p3) |
 | bank_statement | statement_date | 2026-10-20 | VERIFIED | "Statement date                              20 Oct 2026" (p1) |
+| employment_letter | employee_name | ASHLEY MERCER | VERIFIED | "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - ASHLEY MERCER" (p1) |
+| employment_letter | employer | Meridian Harbour Logistics Ltd | VERIFIED | "employed by Meridian Harbour Logistics Ltd on a permanent, full-time contract." (p1) |
+| employment_letter | letter_date | 2026-10-06 | VERIFIED | "Date: 06 Oct 2026" (p1) |
+| employment_letter | leave_start | 2027-02-11 | VERIFIED | "The company has approved paid annual leave from 11 Feb 2027 to 27 Feb 2027 (inclusive)" (p1) |
+| employment_letter | leave_end | 2027-02-27 | VERIFIED | "The company has approved paid annual leave from 11 Feb 2027 to 27 Feb 2027 (inclusive)" (p1) |
 | passport | surname | MERCER | VERIFIED | "MERCER" (p1) |
 | passport | given_names | ASHLEY | VERIFIED | "ASHLEY" (p1) |
 | passport | date_of_birth | 1978-07-31 | VERIFIED | "31 JUL 1978" (p1) |

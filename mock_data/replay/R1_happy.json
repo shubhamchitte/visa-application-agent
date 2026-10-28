@@ -48,39 +48,6 @@
    "raw": "{\"doc_type\":\"schengen_visa\",\"fields\":{\"surname\":{\"value\":\"MERCER\",\"evidence_quote\":\"MERCER\",\"page\":1},\"given_names\":{\"value\":\"ASHLEY\",\"evidence_quote\":\"ASHLEY\",\"page\":1},\"date_of_birth\":{\"value\":\"1978-07-31\",\"evidence_quote\":\"31.07.1978\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT6897392\",\"evidence_quote\":\"UT6897392\",\"page\":1},\"email\":{\"value\":\"ashley.mercer@mail.uto\",\"evidence_quote\":\"ashley.mercer@mail.uto\",\"page\":2},\"intended_travel_date\":{\"value\":\"2027-02-11\",\"evidence_quote\":\"11.02.2027\",\"page\":3}}}",
    "usage": 3937
   },
-  "af4ce0075e2b219eb2806a146b2ac341f363f542a4874dfe0814d454f78501b3": {
-   "response": {
-    "doc_type": "bank_statement",
-    "fields": {
-     "bank_closing_balance": {
-      "value": "12498.88",
-      "evidence_quote": "           Closing balance                                                                             $12,498.88",
-      "page": 3
-     },
-     "statement_date": {
-      "value": "2026-10-20",
-      "evidence_quote": "Statement date                              20 Oct 2026",
-      "page": 1
-     }
-    }
-   },
-   "doc_id": "bank_statement",
-   "ts": "2026-10-28T05:35:57.952618+00:00",
-   "request_id": "chatcmpl-2500b554-bb7e-434a-9a78-51379ce815e9",
-   "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"bank_closing_balance\":{\"value\":\"12498.88\",\"evidence_quote\":\"           Closing balance                                                                             $12,498.88\",\"page\":3},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date                              20 Oct 2026\",\"page\":1}}}",
-   "usage": 3301
-  },
-  "68ed82ec098fb0d5d7a8332b85b6fa870f432eb8a0d7958d57fddfb9c10accab": {
-   "response": {
-    "doc_type": "",
-    "fields": {}
-   },
-   "doc_id": "employment_letter",
-   "ts": "2026-10-28T05:36:59.093199+00:00",
-   "request_id": "chatcmpl-a14a6e81-18a6-4217-9c36-8502f2b76b90",
-   "raw": "{\"doc_type\":\"\",\"fields\":{}}",
-   "usage": 994
-  },
   "7ddc99ba206bd0562f99eaec6add74c138a100441571e8eeb1670199f3370f35": {
    "response": {
     "doc_type": "passport",
@@ -122,6 +89,70 @@
    "request_id": "chatcmpl-9819f968-af94-41e5-9bd8-0ed0ac0dcd8c",
    "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"MERCER\",\"evidence_quote\":\"MERCER\",\"page\":1},\"given_names\":{\"value\":\"ASHLEY\",\"evidence_quote\":\"ASHLEY\",\"page\":1},\"date_of_birth\":{\"value\":\"1978-07-31\",\"evidence_quote\":\"31 JUL 1978\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT6897392\",\"evidence_quote\":\"UT6897392\",\"page\":1},\"passport_expiry\":{\"value\":\"2030-12-21\",\"evidence_quote\":\"21 DEC 2030\",\"page\":1}}}",
    "usage": 1675
+  },
+  "26d1c903a9820b06b5088109e4ed097909d0abbc1dba78893addc90da61f3832": {
+   "response": {
+    "doc_type": "bank_statement",
+    "fields": {
+     "account_holder": {
+      "value": "ASHLEY MERCER",
+      "evidence_quote": "Account holder                    ASHLEY MERCER",
+      "page": 1
+     },
+     "bank_closing_balance": {
+      "value": "12498.88",
+      "evidence_quote": "Closing balance                                                                             $12,498.88",
+      "page": 3
+     },
+     "statement_date": {
+      "value": "2026-10-20",
+      "evidence_quote": "Statement date                              20 Oct 2026",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "bank_statement",
+   "ts": "2026-10-28T11:27:52.587359+00:00",
+   "request_id": "chatcmpl-f5791277-2f7f-48db-be2b-35ec6fa3fef6",
+   "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"account_holder\":{\"value\":\"ASHLEY MERCER\",\"evidence_quote\":\"Account holder                    ASHLEY MERCER\",\"page\":1},\"bank_closing_balance\":{\"value\":\"12498.88\",\"evidence_quote\":\"Closing balance                                                                             $12,498.88\",\"page\":3},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date                              20 Oct 2026\",\"page\":1}}}",
+   "usage": 3536
+  },
+  "5ba4aaf7fdcb8a6944347da24319d8e6afa4991e4b3d383ffae165843a6466dc": {
+   "response": {
+    "doc_type": "",
+    "fields": {
+     "employee_name": {
+      "value": "ASHLEY MERCER",
+      "evidence_quote": "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - ASHLEY MERCER",
+      "page": 1
+     },
+     "employer": {
+      "value": "Meridian Harbour Logistics Ltd",
+      "evidence_quote": "employed by Meridian Harbour Logistics Ltd on a permanent, full-time contract.",
+      "page": 1
+     },
+     "letter_date": {
+      "value": "2026-10-06",
+      "evidence_quote": "Date: 06 Oct 2026",
+      "page": 1
+     },
+     "leave_start": {
+      "value": "2027-02-11",
+      "evidence_quote": "The company has approved paid annual leave from 11 Feb 2027 to 27 Feb 2027 (inclusive)",
+      "page": 1
+     },
+     "leave_end": {
+      "value": "2027-02-27",
+      "evidence_quote": "The company has approved paid annual leave from 11 Feb 2027 to 27 Feb 2027 (inclusive)",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "employment_letter",
+   "ts": "2026-10-28T11:28:54.658296+00:00",
+   "request_id": "chatcmpl-f8c7c760-994d-4819-bdf8-18d006c5c6fd",
+   "raw": "{\"doc_type\":\"\",\"fields\":{\"employee_name\":{\"value\":\"ASHLEY MERCER\",\"evidence_quote\":\"RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - ASHLEY MERCER\",\"page\":1},\"employer\":{\"value\":\"Meridian Harbour Logistics Ltd\",\"evidence_quote\":\"employed by Meridian Harbour Logistics Ltd on a permanent, full-time contract.\",\"page\":1},\"letter_date\":{\"value\":\"2026-10-06\",\"evidence_quote\":\"Date: 06 Oct 2026\",\"page\":1},\"leave_start\":{\"value\":\"2027-02-11\",\"evidence_quote\":\"The company has approved paid annual leave from 11 Feb 2027 to 27 Feb 2027 (inclusive)\",\"page\":1},\"leave_end\":{\"value\":\"2027-02-27\",\"evidence_quote\":\"The company has approved paid annual leave from 11 Feb 2027 to 27 Feb 2027 (inclusive)\",\"page\":1}}}",
+   "usage": 1687
   }
  }
 }

@@ -62,7 +62,7 @@ observations. Summary: the LLM proposes tool calls through the gateway and plan 
 ## LLM split
 | Use | Provider | Status |
 |---|---|---|
-| Field extraction (one doc per call, strict JSON schema, temperature 0) | **Groq `openai/gpt-oss-120b`** (`llm/groq.py`) | Measured by `make eval-live`; full numbers in EVAL_RESULTS.md: clean set 115/115 fields correct and VERIFIED; realistic set 66/66 (1 raw bilingual nationality proposal on R6, normalised in code after verify). Caveat: clean synthetic packets from one generator, no OCR noise; this is not real-world accuracy. |
+| Field extraction (one doc per call, strict JSON schema, temperature 0) | **Groq `openai/gpt-oss-120b`** (`llm/groq.py`) | Measured by `make eval-live`; full numbers in EVAL_RESULTS.md: clean set 155/155 fields correct and VERIFIED; realistic set 112/112 (1 raw bilingual nationality proposal on R6, normalised in code after verify). Caveat: clean synthetic packets from one generator, no OCR noise; this is not real-world accuracy. |
 | Same interface | **Gemini** (`llm/gemini.py`, default `gemini-3.5-flash-lite`) | Wired and unit-tested with mocked clients (error mapping, malformed output). **Never run against the live API**, so no accuracy claim. |
 | Control-logic tests | `FakeLLM` (canned per case) | 168 passed, 2 skipped (offline), frozen clock. |
 | Demo / quota safety | `ReplayLLM` (recordings of real Groq output in `mock_data/replay/`) | `make demo` default. |

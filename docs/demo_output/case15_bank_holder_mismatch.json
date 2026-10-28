@@ -1,0 +1,310 @@
+{
+  "case": "case15_bank_holder_mismatch",
+  "docs": [
+    {
+      "doc_id": "application_form",
+      "doc_type": "application_form",
+      "flags": []
+    },
+    {
+      "doc_id": "bank_statement",
+      "doc_type": "bank_statement",
+      "flags": []
+    },
+    {
+      "doc_id": "employment_letter",
+      "doc_type": "employment_letter",
+      "flags": []
+    },
+    {
+      "doc_id": "passport",
+      "doc_type": "passport",
+      "flags": []
+    }
+  ],
+  "extractions": {
+    "application_form": {
+      "doc_type": "application_form",
+      "fields": {
+        "surname": {
+          "value": "MORTON",
+          "evidence_quote": "Full name: ERIC MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "ERIC",
+          "evidence_quote": "Full name: ERIC MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1971-11-12",
+          "evidence_quote": "Date of birth: 12 Nov 1971",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "Nationality: UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT7668016",
+          "evidence_quote": "Passport number: UT7668016",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "email": {
+          "value": "eric.morton@mail.uto",
+          "evidence_quote": "Email: eric.morton@mail.uto",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "intended_travel_date": {
+          "value": "2027-01-19",
+          "evidence_quote": "Intended date of travel: 19 Jan 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "ERIC MORTON",
+          "evidence_quote": "Full name: ERIC MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "bank_statement": {
+      "doc_type": "bank_statement",
+      "fields": {
+        "account_holder": {
+          "value": "AMY MORTON",
+          "evidence_quote": "Account holder: AMY MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "bank_closing_balance": {
+          "value": "9310.72",
+          "evidence_quote": "Closing balance: $9,310.72",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "statement_date": {
+          "value": "2026-10-20",
+          "evidence_quote": "Statement date: 20 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "employment_letter": {
+      "doc_type": "employment_letter",
+      "fields": {
+        "employee_name": {
+          "value": "ERIC MORTON",
+          "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Frank Ltd",
+          "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-07",
+          "evidence_quote": "Date: 07 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": "2027-01-18",
+          "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_end": {
+          "value": "2027-02-02",
+          "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "passport": {
+      "doc_type": "passport",
+      "fields": {
+        "surname": {
+          "value": "MORTON",
+          "evidence_quote": "Surname: MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "ERIC",
+          "evidence_quote": "Given names: ERIC",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1971-11-12",
+          "evidence_quote": "Date of birth: 12 NOV 1971",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "Nationality: UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT7668016",
+          "evidence_quote": "Passport No: UT7668016",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_expiry": {
+          "value": "2030-11-16",
+          "evidence_quote": "Date of expiry: 16 NOV 2030",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "ERIC MORTON",
+          "evidence_quote": "Given names: ERIC | Surname: MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    }
+  },
+  "issues": [
+    {
+      "kind": "CONFLICT",
+      "field": "account_holder",
+      "message": "documents disagree on account_holder",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "ERIC MORTON",
+          "page": 1
+        },
+        {
+          "doc": "passport",
+          "value": "ERIC MORTON",
+          "page": 1
+        },
+        {
+          "doc": "bank_statement",
+          "value": "AMY MORTON",
+          "page": 1
+        }
+      ]
+    }
+  ],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "present": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "plan": {
+    "record_id": "rec-1001",
+    "field_patch": {},
+    "status": "NEEDS_REVIEW",
+    "notes": [
+      "identity conflict between documents",
+      "CONFLICT account_holder: documents disagree on account_holder"
+    ],
+    "reason": "identity_conflict"
+  },
+  "write_outcome": "WRITTEN",
+  "candidates": [
+    "rec-1001"
+  ],
+  "record_after": {
+    "id": "rec-1001",
+    "version": 2,
+    "status": "NEEDS_REVIEW",
+    "fields": {
+      "passport_number": "UT7668016",
+      "date_of_birth": "1971-11-12"
+    },
+    "notes": [
+      "identity conflict between documents",
+      "CONFLICT account_holder: documents disagree on account_holder"
+    ]
+  },
+  "error": null,
+  "tool_calls": [
+    {
+      "tool": "checklist.check",
+      "args": {
+        "visa_type": "TOURIST_UTO",
+        "docs_present": [
+          "application_form",
+          "bank_statement",
+          "employment_letter",
+          "passport"
+        ]
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.find",
+      "args": {
+        "passport_no": "UT7668016",
+        "dob": "1971-11-12"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.update",
+      "args": {
+        "id": "rec-1001",
+        "patch": {},
+        "expected_version": 1,
+        "status": "NEEDS_REVIEW",
+        "notes": [
+          "identity conflict between documents",
+          "CONFLICT account_holder: documents disagree on account_holder"
+        ],
+        "idempotency_key": "792f2b3ae09fd7bf97ffa135e6065c3ad29638fb392d8fa4b2e22320dc5ffa06"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.get",
+      "args": {
+        "id": "rec-1001"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    }
+  ]
+}

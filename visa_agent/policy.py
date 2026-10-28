@@ -6,13 +6,14 @@ from .schemas import Issue, IssueKind, WritePlan
 
 
 def facts(matches: list[dict[str, Any]] | None, issues: list[Issue], checklist: dict[str, Any] | str,
-          injection: bool, identity_fields: list[str]) -> dict[str, bool]:
+          injection: bool, identity_fields: list[str], review_fields: list[str] = ()) -> dict[str, bool]:
     kinds = {i.kind for i in issues}
     unknown = checklist == "UNKNOWN"
     return {
         "crm_match_count_not_1": matches is None or len(matches) != 1,
         "injection_detected": injection,
         "identity_conflict": any(i.kind == IssueKind.CONFLICT and i.field in identity_fields for i in issues),
+        "review_field_invalid": any(i.kind == IssueKind.INVALID and i.field in review_fields for i in issues),
         "checklist_missing_or_invalid_or_unverifiable": (not unknown and bool(checklist.get("missing")))
                                                        or bool(kinds & {IssueKind.INVALID, IssueKind.UNVERIFIABLE}),
         "checklist_unknown": unknown,
@@ -43,7 +44,7 @@ def decide(matches: list[dict[str, Any]] | None, values: dict[str, str], issues:
            checklist: dict[str, Any] | str, injection: bool, policy: dict[str, Any]) -> WritePlan:
     """`matches` None means identity not verified (no lookup was made). First matching rule wins.
     Never returns APPROVED/REJECTED (WritePlan's type forbids it); never creates a record."""
-    f = facts(matches, issues, checklist, injection, policy["identity_fields"])
+    f = facts(matches, issues, checklist, injection, policy["identity_fields"], policy.get("review_fields", []))
     rule = next(r for r in policy["rules"] if f[r["when"]])
     if rule["action"] == "NO_WRITE":
         if matches is None:

@@ -61,6 +61,16 @@
       "notes": []
     },
     {
+      "id": "rec-2007",
+      "version": 1,
+      "status": "NEW",
+      "fields": {
+        "passport_number": "UT6105467",
+        "date_of_birth": "1973-01-12"
+      },
+      "notes": []
+    },
+    {
       "id": "rec-9901",
       "version": 1,
       "status": "NEW",

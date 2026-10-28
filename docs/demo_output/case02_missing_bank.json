@@ -73,7 +73,38 @@
     },
     "employment_letter": {
       "doc_type": "employment_letter",
-      "fields": {}
+      "fields": {
+        "employee_name": {
+          "value": "ERIC MORTON",
+          "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Frank Ltd",
+          "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-07",
+          "evidence_quote": "Date: 07 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": "2027-01-18",
+          "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_end": {
+          "value": "2027-02-02",
+          "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
     },
     "passport": {
       "doc_type": "passport",
@@ -135,6 +166,12 @@
       "field": "statement_date",
       "message": "not found in any document",
       "sources": []
+    },
+    {
+      "kind": "MISSING",
+      "field": "account_holder",
+      "message": "not found in any document",
+      "sources": []
     }
   ],
   "flags": [],
@@ -170,7 +207,8 @@
     "notes": [
       "missing documents: bank_statement",
       "MISSING bank_closing_balance: not found in any document",
-      "MISSING statement_date: not found in any document"
+      "MISSING statement_date: not found in any document",
+      "MISSING account_holder: not found in any document"
     ],
     "reason": "checklist_missing_or_invalid_or_unverifiable"
   },
@@ -194,7 +232,8 @@
     "notes": [
       "missing documents: bank_statement",
       "MISSING bank_closing_balance: not found in any document",
-      "MISSING statement_date: not found in any document"
+      "MISSING statement_date: not found in any document",
+      "MISSING account_holder: not found in any document"
     ]
   },
   "error": null,
@@ -239,9 +278,10 @@
         "notes": [
           "missing documents: bank_statement",
           "MISSING bank_closing_balance: not found in any document",
-          "MISSING statement_date: not found in any document"
+          "MISSING statement_date: not found in any document",
+          "MISSING account_holder: not found in any document"
         ],
-        "idempotency_key": "2f546d06ba125cbf4055a95fa56f66d3ea1abcbc76ff80b1371461abdb30d05e"
+        "idempotency_key": "5c2b3ecc95e1031591106814427db6eeca3b758d5422b73b3e19b2a1ebd4c0ee"
       },
       "attempt": 1,
       "outcome": "OK",

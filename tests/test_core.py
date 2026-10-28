@@ -9,7 +9,7 @@ from visa_agent.llm.fake import FakeLLM
 from visa_agent.orchestrator import load_config
 from visa_agent.policy import decide
 from visa_agent.schemas import Extraction, Field, FieldStatus, Issue, IssueKind
-from visa_agent.validators import add_months, check_dates, check_mrz, cross_doc, mrz_check_digit, parse_date
+from visa_agent.validators import add_months, check_dates, check_letter, check_mrz, cross_doc, mrz_check_digit, parse_date
 from visa_agent.verify import normalize, value_in_quote, verify
 
 CFG = load_config()
@@ -272,3 +272,58 @@ def test_full_name_never_asked_and_cross_doc_compares_derived_name_only():
     assert cross_doc({"application_form": mk("Mercer", "Ashley"), "passport": mk("MERCER", "ASHLEY")}, FIELDS) == []
     [c] = cross_doc({"application_form": mk("MARTIS", "ASHLEY"), "passport": mk("MARTIN", "ASHLEY")}, FIELDS)
     assert (c.kind, c.field) == (IssueKind.CONFLICT, "full_name")  # one conflict, on the name, not one per part
+
+
+def _named(doc_type, **fields):
+    return Extraction(doc_type=doc_type, fields={k: Field(value=v, page=1, status=FieldStatus.VERIFIED) for k, v in fields.items()})
+
+
+def test_bank_holder_and_employee_name_match_full_name_normalised():
+    exts = {"passport": _named("passport", full_name="ERIC MORTON"),
+            "bank_statement": _named("bank_statement", account_holder="Eric  Morton"),
+            "employment_letter": _named("employment_letter", employee_name="eric morton")}
+    assert cross_doc(exts, FIELDS) == []
+
+
+def test_bank_holder_mismatch_is_identity_conflict_needing_review():
+    exts = {"application_form": _named("application_form", full_name="ERIC MORTON"),
+            "passport": _named("passport", full_name="ERIC MORTON"),
+            "bank_statement": _named("bank_statement", account_holder="AMY MORTON")}
+    [c] = cross_doc(exts, FIELDS)
+    assert (c.kind, c.field) == (IssueKind.CONFLICT, "account_holder")
+    assert [s["doc"] for s in c.sources] == ["application_form", "passport", "bank_statement"]
+    rec = {"id": "rec-1", "version": 1, "fields": {}}
+    plan = decide([rec], {"full_name": "ERIC MORTON"}, [c], {"missing": []}, False, load_config()["policy"])
+    assert (plan.status, plan.field_patch, plan.reason) == ("NEEDS_REVIEW", {}, "identity_conflict")
+
+
+def test_employee_name_mismatch_is_conflict():
+    exts = {"passport": _named("passport", full_name="ERIC MORTON"),
+            "employment_letter": _named("employment_letter", employee_name="ERIC MORTIMER")}
+    assert [(i.kind, i.field) for i in cross_doc(exts, FIELDS)] == [(IssueKind.CONFLICT, "employee_name")]
+
+
+LETTER_RULES = {"employment_letter_max_age_days": 90, "employment_letter_leave_must_cover_travel": True}
+LETTER_OK = {"letter_date": "2026-10-07", "leave_start": "2027-01-18", "leave_end": "2027-02-02", "intended_travel_date": "2027-01-19"}
+
+
+def test_letter_checks_pass_and_skip_when_absent():
+    today = date(2026, 10, 27)
+    assert check_letter(LETTER_OK, today, LETTER_RULES) == []
+    assert check_letter({"intended_travel_date": "2027-01-19"}, today, LETTER_RULES) == []  # no letter: nothing checked
+
+
+def test_stale_letter_is_invalid_and_needs_review():
+    [i] = check_letter({**LETTER_OK, "letter_date": "2026-07-28"}, date(2026, 10, 27), LETTER_RULES)  # 91 days
+    assert (i.kind, i.field) == (IssueKind.INVALID, "letter_date")
+    assert check_letter({**LETTER_OK, "letter_date": "2026-07-29"}, date(2026, 10, 27), LETTER_RULES) == []  # 90 days
+    rec = {"id": "rec-1", "version": 1, "fields": {}}
+    plan = decide([rec], {"email": "a@b.uto"}, [i], {"missing": []}, False, load_config()["policy"])
+    assert (plan.status, plan.reason) == ("NEEDS_REVIEW", "review_field_invalid")
+
+
+def test_leave_not_covering_travel_is_invalid():
+    today = date(2026, 10, 27)
+    late = check_letter({**LETTER_OK, "leave_start": "2027-01-20"}, today, LETTER_RULES)
+    early = check_letter({**LETTER_OK, "leave_end": "2027-01-18"}, today, LETTER_RULES)
+    assert [(i.kind, i.field) for i in late + early] == [(IssueKind.INVALID, "leave_start"), (IssueKind.INVALID, "leave_end")]

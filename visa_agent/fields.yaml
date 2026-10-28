@@ -14,3 +14,10 @@ fields:
   intended_travel_date: {type: date,        identity: false, source: [application_form], hint: "Schengen form label: Intended date of arrival"}
   bank_closing_balance: {type: money,       identity: false, source: [bank_statement]}
   statement_date:       {type: date,        identity: false, source: [bank_statement]}
+  # same_as: compared in validators.cross_doc with the derived full_name (same normalisation); never patched.
+  account_holder:       {type: name,        identity: true,  same_as: full_name, source: [bank_statement]}
+  employee_name:        {type: name,        identity: true,  same_as: full_name, source: [employment_letter]}
+  employer:             {type: str,         identity: false, source: [employment_letter]}
+  letter_date:          {type: date,        identity: false, source: [employment_letter]}
+  leave_start:          {type: date,        identity: false, source: [employment_letter], hint: "first day of approved leave"}
+  leave_end:            {type: date,        identity: false, source: [employment_letter], hint: "last day of approved leave"}

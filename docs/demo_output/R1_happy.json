@@ -79,9 +79,15 @@
     "bank_statement": {
       "doc_type": "bank_statement",
       "fields": {
+        "account_holder": {
+          "value": "ASHLEY MERCER",
+          "evidence_quote": "Account holder                    ASHLEY MERCER",
+          "page": 1,
+          "status": "VERIFIED"
+        },
         "bank_closing_balance": {
           "value": "12498.88",
-          "evidence_quote": "           Closing balance                                                                             $12,498.88",
+          "evidence_quote": "Closing balance                                                                             $12,498.88",
           "page": 3,
           "status": "VERIFIED"
         },
@@ -95,7 +101,38 @@
     },
     "employment_letter": {
       "doc_type": "employment_letter",
-      "fields": {}
+      "fields": {
+        "employee_name": {
+          "value": "ASHLEY MERCER",
+          "evidence_quote": "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - ASHLEY MERCER",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Meridian Harbour Logistics Ltd",
+          "evidence_quote": "employed by Meridian Harbour Logistics Ltd on a permanent, full-time contract.",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-06",
+          "evidence_quote": "Date: 06 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": "2027-02-11",
+          "evidence_quote": "The company has approved paid annual leave from 11 Feb 2027 to 27 Feb 2027 (inclusive)",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_end": {
+          "value": "2027-02-27",
+          "evidence_quote": "The company has approved paid annual leave from 11 Feb 2027 to 27 Feb 2027 (inclusive)",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
     },
     "passport": {
       "doc_type": "passport",

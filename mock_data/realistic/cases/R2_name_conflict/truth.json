@@ -62,11 +62,17 @@
     "bank_statement": {
       "mode": "text",
       "injection": null,
+      "account_holder": "CHRISTOPHER MARTIN",
       "bank_closing_balance": "14174.92",
       "statement_date": "2026-10-20"
     },
     "employment_letter": {
-      "mode": "text"
+      "mode": "text",
+      "employee_name": "CHRISTOPHER MARTIN",
+      "employer": "Aurelia Freight & Cold Storage Ltd",
+      "letter_date": "2026-10-06",
+      "leave_start": "2027-02-28",
+      "leave_end": "2027-03-16"
     }
   },
   "form": {

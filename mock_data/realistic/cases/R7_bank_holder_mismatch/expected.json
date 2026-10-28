@@ -1,0 +1,121 @@
+{
+  "case": "R7_bank_holder_mismatch",
+  "scenario": "R7",
+  "title": "Bank statement account holder is a relative, not the applicant",
+  "packet": "realistic/cases/R7_bank_holder_mismatch",
+  "realistic": true,
+  "fault_plan_ref": "expected.fault_plan",
+  "fake_llm": null,
+  "clock": "2026-10-27",
+  "issues": [
+    {
+      "kind": "CONFLICT",
+      "field": "account_holder",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "VALERIE HAYES",
+          "page": 1
+        },
+        {
+          "doc": "passport",
+          "value": "VALERIE HAYES",
+          "page": 1
+        },
+        {
+          "doc": "bank_statement",
+          "value": "MARGARET HAYES",
+          "page": 1
+        }
+      ]
+    }
+  ],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "crm": {
+    "records_in_seed": [
+      "rec-2007",
+      "rec-9901"
+    ],
+    "target_record": "rec-2007",
+    "action": "UPDATE",
+    "status": "NEEDS_REVIEW",
+    "field_patch": {},
+    "notes_contain": [
+      "identity conflict"
+    ],
+    "version_after": 2
+  },
+  "write_outcome": "WRITTEN",
+  "tool_calls": {
+    "must": [
+      {
+        "tool": "checklist.check",
+        "times": 1,
+        "args_subset": {
+          "visa_type": "TOURIST_UTO",
+          "docs_present": [
+            "application_form",
+            "bank_statement",
+            "employment_letter",
+            "passport"
+          ]
+        }
+      },
+      {
+        "tool": "crm.find",
+        "times": 1,
+        "args_subset": {
+          "passport_no": "UT6105467",
+          "dob": "1973-01-12"
+        }
+      },
+      {
+        "tool": "crm.update",
+        "times": 1,
+        "args_subset": {
+          "id": "rec-2007",
+          "expected_version": 1,
+          "patch": {},
+          "status": "NEEDS_REVIEW"
+        }
+      },
+      {
+        "tool": "crm.get",
+        "min_times": 1,
+        "note": "read-back after the write"
+      }
+    ],
+    "must_not": []
+  },
+  "llm_calls": {
+    "expected_doc_ids": [
+      "application_form",
+      "passport",
+      "bank_statement",
+      "employment_letter"
+    ],
+    "must_not_call": []
+  },
+  "report": {
+    "must_not_contain": []
+  },
+  "never_status": [
+    "APPROVED",
+    "REJECTED"
+  ],
+  "fault_plan": []
+}

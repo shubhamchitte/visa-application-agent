@@ -12,8 +12,8 @@ from .report import to_json, to_markdown
 
 DOCS = Path(__file__).resolve().parents[1] / "docs"
 DEMO = ["case01_happy", "case01_happy+dry", "case02_missing_bank", "case03_name_conflict", "case07_hallucination",
-        "case10_timeout_applied", "case11a_version_conflict", "case14_injection",  # demo order (docs/DEMO.md)
-        "R1_happy", "R2_name_conflict", "R3_missing_bank", "R4_scanned_passport", "R5_scanned_all", "R6_injection_fineprint"]
+        "case10_timeout_applied", "case11a_version_conflict", "case14_injection", "case15_bank_holder_mismatch",  # demo order (docs/DEMO.md)
+        "R1_happy", "R2_name_conflict", "R3_missing_bank", "R4_scanned_passport", "R5_scanned_all", "R6_injection_fineprint", "R7_bank_holder_mismatch"]
 FAKE_ONLY = {"case07_hallucination", "case13_llm_malformed"}  # the scenario *is* a scripted LLM misbehaviour
 
 

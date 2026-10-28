@@ -3,3 +3,6 @@ visa_type: TOURIST_UTO
 required_docs: [application_form, passport, bank_statement]
 optional_docs: [employment_letter]
 passport_min_validity_months_after_travel: 6
+# Employment letter checks (run only when the optional letter is present and its fields VERIFIED).
+employment_letter_max_age_days: 90           # letter_date older than this vs --today -> INVALID letter_date
+employment_letter_leave_must_cover_travel: true  # intended_travel_date outside leave_start..leave_end -> INVALID

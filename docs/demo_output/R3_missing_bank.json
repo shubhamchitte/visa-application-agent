@@ -73,7 +73,38 @@
     },
     "employment_letter": {
       "doc_type": "employment_letter",
-      "fields": {}
+      "fields": {
+        "employee_name": {
+          "value": "JOY CLARK",
+          "evidence_quote": "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - JOY CLARK",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Halcyon Bay Engineering Co.",
+          "evidence_quote": "is employed by Halcyon Bay Engineering Co. on a permanent, full-time contract.",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-06",
+          "evidence_quote": "Date: 06 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": "2027-02-08",
+          "evidence_quote": "approved paid annual leave from 08 Feb 2027 to 22 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_end": {
+          "value": "2027-02-22",
+          "evidence_quote": "approved paid annual leave from 08 Feb 2027 to 22 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
     },
     "passport": {
       "doc_type": "passport",
@@ -135,6 +166,12 @@
       "field": "statement_date",
       "message": "not found in any document",
       "sources": []
+    },
+    {
+      "kind": "MISSING",
+      "field": "account_holder",
+      "message": "not found in any document",
+      "sources": []
     }
   ],
   "flags": [],
@@ -170,7 +207,8 @@
     "notes": [
       "missing documents: bank_statement",
       "MISSING bank_closing_balance: not found in any document",
-      "MISSING statement_date: not found in any document"
+      "MISSING statement_date: not found in any document",
+      "MISSING account_holder: not found in any document"
     ],
     "reason": "checklist_missing_or_invalid_or_unverifiable"
   },
@@ -194,7 +232,8 @@
     "notes": [
       "missing documents: bank_statement",
       "MISSING bank_closing_balance: not found in any document",
-      "MISSING statement_date: not found in any document"
+      "MISSING statement_date: not found in any document",
+      "MISSING account_holder: not found in any document"
     ]
   },
   "error": null,
@@ -239,9 +278,10 @@
         "notes": [
           "missing documents: bank_statement",
           "MISSING bank_closing_balance: not found in any document",
-          "MISSING statement_date: not found in any document"
+          "MISSING statement_date: not found in any document",
+          "MISSING account_holder: not found in any document"
         ],
-        "idempotency_key": "5b4fd7f4f23fbdf856f8104bb945c9220ae3529abd85a36d3af2398ad01e4b98"
+        "idempotency_key": "973e63c3d72a59de5662ac1474c8342c8299e2e45499bd6699b91259e6bae9b3"
       },
       "attempt": 1,
       "outcome": "OK",

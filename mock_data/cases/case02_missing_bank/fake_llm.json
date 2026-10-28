@@ -84,7 +84,33 @@
     "employment_letter": [
       {
         "doc_type": "employment_letter",
-        "fields": {}
+        "fields": {
+          "employee_name": {
+            "value": "ERIC MORTON",
+            "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+            "page": 1
+          },
+          "employer": {
+            "value": "Frank Ltd",
+            "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+            "page": 1
+          },
+          "letter_date": {
+            "value": "2026-10-07",
+            "evidence_quote": "Date: 07 Oct 2026",
+            "page": 1
+          },
+          "leave_start": {
+            "value": "2027-01-18",
+            "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+            "page": 1
+          },
+          "leave_end": {
+            "value": "2027-02-02",
+            "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+            "page": 1
+          }
+        }
       }
     ]
   }

@@ -2,16 +2,16 @@
 
 These offline tests prove the control logic (verification, policy, gateway guards, retries) using scripted LLM output. They do not measure extraction accuracy; that lives in EVAL_RESULTS.md (real model, separate evidence).
 
-16/16 scenarios match their golden. Issues listed are the expected subset vs everything raised.
+17/17 scenarios match their golden. Issues listed are the expected subset vs everything raised.
 
 | # | case | scenario | expected (outcome / status / issues) | actual (outcome / status / issues) | result |
 |---|---|---|---|---|---|
 | 1 | case01_happy | Happy path | WRITTEN / DATA_UPDATED / none | WRITTEN / DATA_UPDATED / none | PASS |
-| 2 | case02_missing_bank | Missing bank statement | WRITTEN / INCOMPLETE / MISSING:bank_closing_balance, MISSING:statement_date | WRITTEN / INCOMPLETE / MISSING:bank_closing_balance, MISSING:statement_date | PASS |
-| 3 | case03_name_conflict | Name conflict form vs passport | WRITTEN / NEEDS_REVIEW / CONFLICT:full_name | WRITTEN / NEEDS_REVIEW / CONFLICT:full_name | PASS |
+| 2 | case02_missing_bank | Missing bank statement | WRITTEN / INCOMPLETE / MISSING:bank_closing_balance, MISSING:statement_date | WRITTEN / INCOMPLETE / MISSING:account_holder, MISSING:bank_closing_balance, MISSING:statement_date | PASS |
+| 3 | case03_name_conflict | Name conflict form vs passport | WRITTEN / NEEDS_REVIEW / CONFLICT:full_name | WRITTEN / NEEDS_REVIEW / CONFLICT:account_holder, CONFLICT:employee_name, CONFLICT:full_name | PASS |
 | 4 | case04_passport_expiry | Passport expires <6 months after travel | WRITTEN / INCOMPLETE / INVALID:passport_expiry | WRITTEN / INCOMPLETE / INVALID:passport_expiry | PASS |
 | 5 | case05_bad_mrz | Bad MRZ check digit | NO_WRITE / NO_WRITE / INVALID:passport_number | NO_WRITE / identity_unverified / INVALID:passport_number | PASS |
-| 6 | case06_no_text_layer | Bank statement is an image-only page | WRITTEN / INCOMPLETE / UNVERIFIABLE:bank_closing_balance, UNVERIFIABLE:statement_date | WRITTEN / INCOMPLETE / UNVERIFIABLE:bank_closing_balance, UNVERIFIABLE:statement_date | PASS |
+| 6 | case06_no_text_layer | Bank statement is an image-only page | WRITTEN / INCOMPLETE / UNVERIFIABLE:bank_closing_balance, UNVERIFIABLE:statement_date | WRITTEN / INCOMPLETE / UNVERIFIABLE:account_holder, UNVERIFIABLE:bank_closing_balance, UNVERIFIABLE:statement_date | PASS |
 | 7 | case07_hallucination | LLM returns a value whose quote is not on the page | WRITTEN / INCOMPLETE / UNVERIFIABLE:email | WRITTEN / INCOMPLETE / UNVERIFIABLE:email | PASS |
 | 8 | case08a_crm_no_match | CRM has no matching record | NO_WRITE / NO_WRITE / none | NO_WRITE / crm_match_count_not_1 / none | PASS |
 | 8 | case08b_crm_multiple | CRM has two matching records (duplicates) | NO_WRITE / NO_WRITE / none | NO_WRITE / crm_match_count_not_1 / none | PASS |
@@ -22,3 +22,4 @@ These offline tests prove the control logic (verification, policy, gateway guard
 | 12 | case12_checklist_down | Checklist tool down -> UNKNOWN | WRITTEN / NEEDS_REVIEW / none | WRITTEN / NEEDS_REVIEW / none | PASS |
 | 13 | case13_llm_malformed | LLM malformed JSON twice (passport) | NO_WRITE / NO_WRITE / UNVERIFIABLE:passport_expiry, UNVERIFIABLE:passport_number, UNVERIFIABLE:date_of_birth | NO_WRITE / identity_unverified / UNVERIFIABLE:date_of_birth, UNVERIFIABLE:full_name, UNVERIFIABLE:given_names, UNVERIFIABLE:nationality, UNVERIFIABLE:passport_expiry, UNVERIFIABLE:passport_number, UNVERIFIABLE:surname | PASS |
 | 14 | case14_injection | Injection text in bank statement | WRITTEN / NEEDS_REVIEW / none | WRITTEN / NEEDS_REVIEW / none | PASS |
+| 15 | case15_bank_holder_mismatch | Bank statement account holder is another person | WRITTEN / NEEDS_REVIEW / CONFLICT:account_holder | WRITTEN / NEEDS_REVIEW / CONFLICT:account_holder | PASS |

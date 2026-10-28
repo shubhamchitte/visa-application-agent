@@ -1,0 +1,158 @@
+{
+ "model": "openai/gpt-oss-120b",
+ "entries": {
+  "c8e700143eb2b3c3c16cd0426e1300ade8d229d90c475eae742d5abdb8738561": {
+   "response": {
+    "doc_type": "extraction",
+    "fields": {
+     "surname": {
+      "value": "HAYES",
+      "evidence_quote": "HAYES",
+      "page": 1
+     },
+     "given_names": {
+      "value": "VALERIE",
+      "evidence_quote": "VALERIE",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1973-01-12",
+      "evidence_quote": "12.01.1973",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": "UTOPIAN",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT6105467",
+      "evidence_quote": "UT6105467",
+      "page": 1
+     },
+     "email": {
+      "value": "valerie.hayes@mail.uto",
+      "evidence_quote": "valerie.hayes@mail.uto",
+      "page": 2
+     },
+     "intended_travel_date": {
+      "value": "2027-01-24",
+      "evidence_quote": "24.01.2027",
+      "page": 3
+     }
+    }
+   },
+   "doc_id": "application_form",
+   "ts": "2026-10-28T11:31:41.705061+00:00",
+   "request_id": "chatcmpl-abeb558d-171e-4f86-aee7-e166250d941d",
+   "raw": "{\"doc_type\":\"extraction\",\"fields\":{\"surname\":{\"value\":\"HAYES\",\"evidence_quote\":\"HAYES\",\"page\":1},\"given_names\":{\"value\":\"VALERIE\",\"evidence_quote\":\"VALERIE\",\"page\":1},\"date_of_birth\":{\"value\":\"1973-01-12\",\"evidence_quote\":\"12.01.1973\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT6105467\",\"evidence_quote\":\"UT6105467\",\"page\":1},\"email\":{\"value\":\"valerie.hayes@mail.uto\",\"evidence_quote\":\"valerie.hayes@mail.uto\",\"page\":2},\"intended_travel_date\":{\"value\":\"2027-01-24\",\"evidence_quote\":\"24.01.2027\",\"page\":3}}}",
+   "usage": 4058
+  },
+  "4c11cd70e1d7a188045c78f77d78a30fe046214609419568b113bed09fc88586": {
+   "response": {
+    "doc_type": "account_statement",
+    "fields": {
+     "account_holder": {
+      "value": "MARGARET HAYES",
+      "evidence_quote": "Account Statement                                                                          Account holder                  MARGARET HAYES",
+      "page": 1
+     },
+     "bank_closing_balance": {
+      "value": "76339.82",
+      "evidence_quote": "Closing balance                                                                             $76,339.82",
+      "page": 3
+     },
+     "statement_date": {
+      "value": "2026-10-20",
+      "evidence_quote": "Statement date                              20 Oct 2026",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "bank_statement",
+   "ts": "2026-10-28T11:32:43.828842+00:00",
+   "request_id": "chatcmpl-2f403c59-9a11-432e-a94f-34ee2afe6953",
+   "raw": "{\"doc_type\":\"account_statement\",\"fields\":{\"account_holder\":{\"value\":\"MARGARET HAYES\",\"evidence_quote\":\"Account Statement                                                                          Account holder                  MARGARET HAYES\",\"page\":1},\"bank_closing_balance\":{\"value\":\"76339.82\",\"evidence_quote\":\"Closing balance                                                                             $76,339.82\",\"page\":3},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date                              20 Oct 2026\",\"page\":1}}}",
+   "usage": 3544
+  },
+  "63079167e115e087605a2617880067c115a1fb283178263987d2e5b97300eae7": {
+   "response": {
+    "doc_type": "employment_verification",
+    "fields": {
+     "employee_name": {
+      "value": "VALERIE HAYES",
+      "evidence_quote": "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - VALERIE HAYES",
+      "page": 1
+     },
+     "employer": {
+      "value": "Meridian Harbour Logistics Ltd",
+      "evidence_quote": "Meridian Harbour Logistics Ltd M      101 Commerce Quay, Port Elora, Utopia",
+      "page": 1
+     },
+     "letter_date": {
+      "value": "2026-10-06",
+      "evidence_quote": "Date: 06 Oct 2026",
+      "page": 1
+     },
+     "leave_start": {
+      "value": "2027-01-24",
+      "evidence_quote": "approved paid annual leave from 24 Jan 2027 to 05 Feb 2027",
+      "page": 1
+     },
+     "leave_end": {
+      "value": "2027-02-05",
+      "evidence_quote": "approved paid annual leave from 24 Jan 2027 to 05 Feb 2027",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "employment_letter",
+   "ts": "2026-10-28T11:33:45.677761+00:00",
+   "request_id": "chatcmpl-7960514e-6aa6-49da-9982-ccfb131d3280",
+   "raw": "{\"doc_type\":\"employment_verification\",\"fields\":{\"employee_name\":{\"value\":\"VALERIE HAYES\",\"evidence_quote\":\"RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - VALERIE HAYES\",\"page\":1},\"employer\":{\"value\":\"Meridian Harbour Logistics Ltd\",\"evidence_quote\":\"Meridian Harbour Logistics Ltd M      101 Commerce Quay, Port Elora, Utopia\",\"page\":1},\"letter_date\":{\"value\":\"2026-10-06\",\"evidence_quote\":\"Date: 06 Oct 2026\",\"page\":1},\"leave_start\":{\"value\":\"2027-01-24\",\"evidence_quote\":\"approved paid annual leave from 24 Jan 2027 to 05 Feb 2027\",\"page\":1},\"leave_end\":{\"value\":\"2027-02-05\",\"evidence_quote\":\"approved paid annual leave from 24 Jan 2027 to 05 Feb 2027\",\"page\":1}}}",
+   "usage": 1586
+  },
+  "c9e5e8c32f58100c03eeafc0cc6d565a7dbba347ca1648916c66e997f2a9c124": {
+   "response": {
+    "doc_type": "passport",
+    "fields": {
+     "surname": {
+      "value": "HAYES",
+      "evidence_quote": "HAYES",
+      "page": 1
+     },
+     "given_names": {
+      "value": "VALERIE",
+      "evidence_quote": "VALERIE",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1973-01-12",
+      "evidence_quote": "12 JAN 1973",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": "UTOPIAN",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT6105467",
+      "evidence_quote": "UT6105467",
+      "page": 1
+     },
+     "passport_expiry": {
+      "value": "2032-12-13",
+      "evidence_quote": "13 DEC 2032",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "passport",
+   "ts": "2026-10-28T11:33:55.617316+00:00",
+   "request_id": "chatcmpl-f9a32b90-bc98-47e9-8ae7-2312f3246353",
+   "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"HAYES\",\"evidence_quote\":\"HAYES\",\"page\":1},\"given_names\":{\"value\":\"VALERIE\",\"evidence_quote\":\"VALERIE\",\"page\":1},\"date_of_birth\":{\"value\":\"1973-01-12\",\"evidence_quote\":\"12 JAN 1973\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT6105467\",\"evidence_quote\":\"UT6105467\",\"page\":1},\"passport_expiry\":{\"value\":\"2032-12-13\",\"evidence_quote\":\"13 DEC 2032\",\"page\":1}}}",
+   "usage": 1632
+  }
+ }
+}

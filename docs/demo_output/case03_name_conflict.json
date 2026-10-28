@@ -79,9 +79,9 @@
     "bank_statement": {
       "doc_type": "bank_statement",
       "fields": {
-        "bank_closing_balance": {
-          "value": "9310.72",
-          "evidence_quote": "Closing balance: $9,310.72",
+        "account_holder": {
+          "value": "ERIC MORTON",
+          "evidence_quote": "Account holder: ERIC MORTON",
           "page": 1,
           "status": "VERIFIED"
         },
@@ -90,12 +90,49 @@
           "evidence_quote": "Statement date: 20 Oct 2026",
           "page": 1,
           "status": "VERIFIED"
+        },
+        "bank_closing_balance": {
+          "value": "9310.72",
+          "evidence_quote": "Closing balance: $9,310.72",
+          "page": 1,
+          "status": "VERIFIED"
         }
       }
     },
     "employment_letter": {
       "doc_type": "employment_letter",
-      "fields": {}
+      "fields": {
+        "employee_name": {
+          "value": "ERIC MORTON",
+          "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Frank Ltd",
+          "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-07",
+          "evidence_quote": "Date: 07 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": "2027-01-18",
+          "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_end": {
+          "value": "2027-02-02",
+          "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
     },
     "passport": {
       "doc_type": "passport",
@@ -162,6 +199,50 @@
           "page": 1
         }
       ]
+    },
+    {
+      "kind": "CONFLICT",
+      "field": "account_holder",
+      "message": "documents disagree on account_holder",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "ERIC COMPTON",
+          "page": 1
+        },
+        {
+          "doc": "passport",
+          "value": "ERIC MORTON",
+          "page": 1
+        },
+        {
+          "doc": "bank_statement",
+          "value": "ERIC MORTON",
+          "page": 1
+        }
+      ]
+    },
+    {
+      "kind": "CONFLICT",
+      "field": "employee_name",
+      "message": "documents disagree on employee_name",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "ERIC COMPTON",
+          "page": 1
+        },
+        {
+          "doc": "passport",
+          "value": "ERIC MORTON",
+          "page": 1
+        },
+        {
+          "doc": "employment_letter",
+          "value": "ERIC MORTON",
+          "page": 1
+        }
+      ]
     }
   ],
   "flags": [],
@@ -190,7 +271,9 @@
     "status": "NEEDS_REVIEW",
     "notes": [
       "identity conflict between documents",
-      "CONFLICT full_name: documents disagree on full_name"
+      "CONFLICT full_name: documents disagree on full_name",
+      "CONFLICT account_holder: documents disagree on account_holder",
+      "CONFLICT employee_name: documents disagree on employee_name"
     ],
     "reason": "identity_conflict"
   },
@@ -208,7 +291,9 @@
     },
     "notes": [
       "identity conflict between documents",
-      "CONFLICT full_name: documents disagree on full_name"
+      "CONFLICT full_name: documents disagree on full_name",
+      "CONFLICT account_holder: documents disagree on account_holder",
+      "CONFLICT employee_name: documents disagree on employee_name"
     ]
   },
   "error": null,
@@ -247,9 +332,11 @@
         "status": "NEEDS_REVIEW",
         "notes": [
           "identity conflict between documents",
-          "CONFLICT full_name: documents disagree on full_name"
+          "CONFLICT full_name: documents disagree on full_name",
+          "CONFLICT account_holder: documents disagree on account_holder",
+          "CONFLICT employee_name: documents disagree on employee_name"
         ],
-        "idempotency_key": "beb4208e033330662e19a3ec7a08c2e740f99ba2dfd302203121ff54511ec566"
+        "idempotency_key": "5d173f8b58b11369f9b72cc80de77b037970a7019763f407b7cefa3efc7c239c"
       },
       "attempt": 1,
       "outcome": "OK",

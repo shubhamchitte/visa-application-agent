@@ -48,39 +48,6 @@
    "raw": "{\"doc_type\":\"schengen_visa_application\",\"fields\":{\"surname\":{\"value\":\"MARTIS\",\"evidence_quote\":\"MARTIS\",\"page\":1},\"given_names\":{\"value\":\"CHRISTOPHER\",\"evidence_quote\":\"CHRISTOPHER\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-12-28\",\"evidence_quote\":\"28.12.1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT8812735\",\"evidence_quote\":\"UT8812735\",\"page\":1},\"email\":{\"value\":\"christopher.martin@mail.uto\",\"evidence_quote\":\"christopher.martin@mail.uto\",\"page\":2},\"intended_travel_date\":{\"value\":\"2027-02-28\",\"evidence_quote\":\"28.02.2027\",\"page\":3}}}",
    "usage": 4030
   },
-  "171f773775012ae142f462b935fc650f1211802539688b5cfa7c2fc8d5b1d825": {
-   "response": {
-    "doc_type": "bank_statement",
-    "fields": {
-     "bank_closing_balance": {
-      "value": "14174.92",
-      "evidence_quote": "           Closing balance                                                                             $14,174.92",
-      "page": 3
-     },
-     "statement_date": {
-      "value": "2026-10-20",
-      "evidence_quote": "Statement date                              20 Oct 2026",
-      "page": 1
-     }
-    }
-   },
-   "doc_id": "bank_statement",
-   "ts": "2026-10-28T05:39:15.381849+00:00",
-   "request_id": "chatcmpl-0645e7e0-5767-40c8-9c83-f310752e460e",
-   "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"bank_closing_balance\":{\"value\":\"14174.92\",\"evidence_quote\":\"           Closing balance                                                                             $14,174.92\",\"page\":3},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date                              20 Oct 2026\",\"page\":1}}}",
-   "usage": 3429
-  },
-  "adaaaba9ca9a52bed900b26899531b861e49fe66b7ae84ecac3e7a1bd7b64008": {
-   "response": {
-    "doc_type": "employment_verification",
-    "fields": {}
-   },
-   "doc_id": "employment_letter",
-   "ts": "2026-10-28T05:40:16.509787+00:00",
-   "request_id": "chatcmpl-832f45bb-9c7d-4bf1-937f-29a7d6f04744",
-   "raw": "{\"doc_type\":\"employment_verification\",\"fields\":{}}",
-   "usage": 892
-  },
   "ca9660e8a98122f94c95ed1bf2a15654c023862931d52bf51cf48c6ea84bbe3a": {
    "response": {
     "doc_type": "passport",
@@ -122,6 +89,70 @@
    "request_id": "chatcmpl-114316f5-da9c-410d-92a9-3baa65d14ce9",
    "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"MARTIN\",\"evidence_quote\":\"MARTIN\",\"page\":1},\"given_names\":{\"value\":\"CHRISTOPHER\",\"evidence_quote\":\"CHRISTOPHER\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-12-28\",\"evidence_quote\":\"28 DEC 1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT8812735\",\"evidence_quote\":\"UT8812735\",\"page\":1},\"passport_expiry\":{\"value\":\"2034-02-23\",\"evidence_quote\":\"23 FEB 2034\",\"page\":1}}}",
    "usage": 1642
+  },
+  "f44ea0df64d74a193a1a4aa2ee68f817e699e612ba2ca9844527ecc2b0585f62": {
+   "response": {
+    "doc_type": "bank_statement",
+    "fields": {
+     "account_holder": {
+      "value": "CHRISTOPHER MARTIN",
+      "evidence_quote": "Account holder                CHRISTOPHER MARTIN",
+      "page": 1
+     },
+     "bank_closing_balance": {
+      "value": "14174.92",
+      "evidence_quote": "Closing balance                                                                             $14,174.92",
+      "page": 3
+     },
+     "statement_date": {
+      "value": "2026-10-20",
+      "evidence_quote": "Statement date                              20 Oct 2026",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "bank_statement",
+   "ts": "2026-10-28T11:29:04.885863+00:00",
+   "request_id": "chatcmpl-01644fdb-1f46-42ce-8a43-d772443154dc",
+   "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"account_holder\":{\"value\":\"CHRISTOPHER MARTIN\",\"evidence_quote\":\"Account holder                CHRISTOPHER MARTIN\",\"page\":1},\"bank_closing_balance\":{\"value\":\"14174.92\",\"evidence_quote\":\"Closing balance                                                                             $14,174.92\",\"page\":3},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date                              20 Oct 2026\",\"page\":1}}}",
+   "usage": 3442
+  },
+  "c0332bf8a67ccddc24c8ce2a635c4cb86d0f93a57b95a94fea8ab9a6d7b06515": {
+   "response": {
+    "doc_type": "employment_verification",
+    "fields": {
+     "employee_name": {
+      "value": "CHRISTOPHER MARTIN",
+      "evidence_quote": "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - CHRISTOPHER MARTIN",
+      "page": 1
+     },
+     "employer": {
+      "value": "Aurelia Freight & Cold Storage Ltd",
+      "evidence_quote": "Aurelia Freight & Cold Storage Ltd A      186 Commerce Quay, Salt Meridian, Utopia",
+      "page": 1
+     },
+     "letter_date": {
+      "value": "2026-10-06",
+      "evidence_quote": "Date: 06 Oct 2026",
+      "page": 1
+     },
+     "leave_start": {
+      "value": "2027-02-28",
+      "evidence_quote": "The company has approved paid annual leave from 28 Feb 2027 to 16 Mar 2027 (inclusive)",
+      "page": 1
+     },
+     "leave_end": {
+      "value": "2027-03-16",
+      "evidence_quote": "The company has approved paid annual leave from 28 Feb 2027 to 16 Mar 2027 (inclusive)",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "employment_letter",
+   "ts": "2026-10-28T11:30:06.980567+00:00",
+   "request_id": "chatcmpl-6a3a2c4f-4b9b-4194-881a-2395ebfb3b27",
+   "raw": "{\"doc_type\":\"employment_verification\",\"fields\":{\"employee_name\":{\"value\":\"CHRISTOPHER MARTIN\",\"evidence_quote\":\"RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - CHRISTOPHER MARTIN\",\"page\":1},\"employer\":{\"value\":\"Aurelia Freight & Cold Storage Ltd\",\"evidence_quote\":\"Aurelia Freight & Cold Storage Ltd A      186 Commerce Quay, Salt Meridian, Utopia\",\"page\":1},\"letter_date\":{\"value\":\"2026-10-06\",\"evidence_quote\":\"Date: 06 Oct 2026\",\"page\":1},\"leave_start\":{\"value\":\"2027-02-28\",\"evidence_quote\":\"The company has approved paid annual leave from 28 Feb 2027 to 16 Mar 2027 (inclusive)\",\"page\":1},\"leave_end\":{\"value\":\"2027-03-16\",\"evidence_quote\":\"The company has approved paid annual leave from 28 Feb 2027 to 16 Mar 2027 (inclusive)\",\"page\":1}}}",
+   "usage": 1744
   }
  }
 }

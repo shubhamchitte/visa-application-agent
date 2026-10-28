@@ -48,39 +48,6 @@
    "raw": "{\"doc_type\":\"visa_application_form\",\"fields\":{\"surname\":{\"value\":\"COMPTON\",\"evidence_quote\":\"Full name: ERIC COMPTON\",\"page\":1},\"given_names\":{\"value\":\"ERIC\",\"evidence_quote\":\"Full name: ERIC COMPTON\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-11-12\",\"evidence_quote\":\"Date of birth: 12 Nov 1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"Nationality: UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT7668016\",\"evidence_quote\":\"Passport number: UT7668016\",\"page\":1},\"email\":{\"value\":\"eric.morton@mail.uto\",\"evidence_quote\":\"Email: eric.morton@mail.uto\",\"page\":1},\"intended_travel_date\":{\"value\":\"2027-01-19\",\"evidence_quote\":\"Intended date of travel: 19 Jan 2027\",\"page\":1}}}",
    "usage": 1607
   },
-  "40aff47732dc1b77fa28bfe78ffea565d310f65af1274d3e6403b484c36b6db1": {
-   "response": {
-    "doc_type": "bank_statement",
-    "fields": {
-     "bank_closing_balance": {
-      "value": "9310.72",
-      "evidence_quote": "Closing balance: $9,310.72",
-      "page": 1
-     },
-     "statement_date": {
-      "value": "2026-10-20",
-      "evidence_quote": "Statement date: 20 Oct 2026",
-      "page": 1
-     }
-    }
-   },
-   "doc_id": "bank_statement",
-   "ts": "2026-10-28T05:27:35.739979+00:00",
-   "request_id": "chatcmpl-727835a8-c8ca-4180-a833-ad6c902a3ec6",
-   "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"bank_closing_balance\":{\"value\":\"9310.72\",\"evidence_quote\":\"Closing balance: $9,310.72\",\"page\":1},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date: 20 Oct 2026\",\"page\":1}}}",
-   "usage": 1027
-  },
-  "4510a8cdf051826413c5195f47ff534ef38919418e3a1b8002cd6c672ee4f660": {
-   "response": {
-    "doc_type": "extraction",
-    "fields": {}
-   },
-   "doc_id": "employment_letter",
-   "ts": "2026-10-28T05:27:44.712816+00:00",
-   "request_id": "chatcmpl-288860ef-33bf-43cf-96a3-48a63be2c6d3",
-   "raw": "{\"doc_type\":\"extraction\",\"fields\":{}}",
-   "usage": 469
-  },
   "563afb2f04aedfafb9076157d1d4e0d2b6fd6a3d22ffeb8ae21abeb061beb9e2": {
    "response": {
     "doc_type": "passport",
@@ -122,6 +89,70 @@
    "request_id": "chatcmpl-a8380efe-3c6b-4f99-9a8a-2a07a712cae0",
    "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"MORTON\",\"evidence_quote\":\"Surname: MORTON\",\"page\":1},\"given_names\":{\"value\":\"ERIC\",\"evidence_quote\":\"Given names: ERIC\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-11-12\",\"evidence_quote\":\"Date of birth: 12 NOV 1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"Nationality: UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT7668016\",\"evidence_quote\":\"Passport No: UT7668016\",\"page\":1},\"passport_expiry\":{\"value\":\"2030-11-16\",\"evidence_quote\":\"Date of expiry: 16 NOV 2030\",\"page\":1}}}",
    "usage": 1428
+  },
+  "7eb9b0560a8551e13769566f3d531f21b20def7b77b7c61192118b0b980331b9": {
+   "response": {
+    "doc_type": "bank_statement",
+    "fields": {
+     "account_holder": {
+      "value": "ERIC MORTON",
+      "evidence_quote": "Account holder: ERIC MORTON",
+      "page": 1
+     },
+     "statement_date": {
+      "value": "2026-10-20",
+      "evidence_quote": "Statement date: 20 Oct 2026",
+      "page": 1
+     },
+     "bank_closing_balance": {
+      "value": "9310.72",
+      "evidence_quote": "Closing balance: $9,310.72",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "bank_statement",
+   "ts": "2026-10-28T11:34:37.089041+00:00",
+   "request_id": "chatcmpl-e0bc6b48-fbf0-4cdf-bbce-e0840d89983a",
+   "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"account_holder\":{\"value\":\"ERIC MORTON\",\"evidence_quote\":\"Account holder: ERIC MORTON\",\"page\":1},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date: 20 Oct 2026\",\"page\":1},\"bank_closing_balance\":{\"value\":\"9310.72\",\"evidence_quote\":\"Closing balance: $9,310.72\",\"page\":1}}}",
+   "usage": 1151
+  },
+  "eb810652dfb2e3f1798ea37ed6dd38e57948fc75c333125e339e385244b9d8f5": {
+   "response": {
+    "doc_type": "letter",
+    "fields": {
+     "employee_name": {
+      "value": "ERIC MORTON",
+      "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+      "page": 1
+     },
+     "employer": {
+      "value": "Frank Ltd",
+      "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+      "page": 1
+     },
+     "letter_date": {
+      "value": "2026-10-07",
+      "evidence_quote": "Date: 07 Oct 2026",
+      "page": 1
+     },
+     "leave_start": {
+      "value": "2027-01-18",
+      "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+      "page": 1
+     },
+     "leave_end": {
+      "value": "2027-02-02",
+      "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "employment_letter",
+   "ts": "2026-10-28T11:34:47.372299+00:00",
+   "request_id": "chatcmpl-1749e5e3-0000-4416-a631-62a153eac076",
+   "raw": "{\"doc_type\":\"letter\",\"fields\":{\"employee_name\":{\"value\":\"ERIC MORTON\",\"evidence_quote\":\"This is to confirm that ERIC MORTON is employed at Frank Ltd\",\"page\":1},\"employer\":{\"value\":\"Frank Ltd\",\"evidence_quote\":\"This is to confirm that ERIC MORTON is employed at Frank Ltd\",\"page\":1},\"letter_date\":{\"value\":\"2026-10-07\",\"evidence_quote\":\"Date: 07 Oct 2026\",\"page\":1},\"leave_start\":{\"value\":\"2027-01-18\",\"evidence_quote\":\"Approved annual leave: 18 Jan 2027 to 02 Feb 2027\",\"page\":1},\"leave_end\":{\"value\":\"2027-02-02\",\"evidence_quote\":\"Approved annual leave: 18 Jan 2027 to 02 Feb 2027\",\"page\":1}}}",
+   "usage": 1460
   }
  }
 }

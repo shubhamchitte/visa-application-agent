@@ -48,17 +48,6 @@
    "raw": "{\"doc_type\":\"visa_application\",\"fields\":{\"surname\":{\"value\":\"MORTON\",\"evidence_quote\":\"Full name: ERIC MORTON\",\"page\":1},\"given_names\":{\"value\":\"ERIC\",\"evidence_quote\":\"Full name: ERIC MORTON\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-11-12\",\"evidence_quote\":\"Date of birth: 12 Nov 1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"Nationality: UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT7668016\",\"evidence_quote\":\"Passport number: UT7668016\",\"page\":1},\"email\":{\"value\":\"eric.morton@mail.uto\",\"evidence_quote\":\"Email: eric.morton@mail.uto\",\"page\":1},\"intended_travel_date\":{\"value\":\"2027-01-19\",\"evidence_quote\":\"Intended date of travel: 19 Jan 2027\",\"page\":1}}}",
    "usage": 1690
   },
-  "4510a8cdf051826413c5195f47ff534ef38919418e3a1b8002cd6c672ee4f660": {
-   "response": {
-    "doc_type": "extraction",
-    "fields": {}
-   },
-   "doc_id": "employment_letter",
-   "ts": "2026-10-28T05:26:13.544416+00:00",
-   "request_id": "chatcmpl-6f4a9d92-7a04-4667-8607-4e6a26ed3ee5",
-   "raw": "{\"doc_type\":\"extraction\",\"fields\":{}}",
-   "usage": 469
-  },
   "563afb2f04aedfafb9076157d1d4e0d2b6fd6a3d22ffeb8ae21abeb061beb9e2": {
    "response": {
     "doc_type": "passport",
@@ -100,6 +89,43 @@
    "request_id": "chatcmpl-14f85b59-8bb5-40f5-9026-954f5ae7bcfb",
    "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"MORTON\",\"evidence_quote\":\"Surname: MORTON\",\"page\":1},\"given_names\":{\"value\":\"ERIC\",\"evidence_quote\":\"Given names: ERIC\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-11-12\",\"evidence_quote\":\"Date of birth: 12 NOV 1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"Nationality: UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT7668016\",\"evidence_quote\":\"Passport No: UT7668016\",\"page\":1},\"passport_expiry\":{\"value\":\"2030-11-16\",\"evidence_quote\":\"Date of expiry: 16 NOV 2030\",\"page\":1}}}",
    "usage": 1427
+  },
+  "eb810652dfb2e3f1798ea37ed6dd38e57948fc75c333125e339e385244b9d8f5": {
+   "response": {
+    "doc_type": "letter",
+    "fields": {
+     "employee_name": {
+      "value": "ERIC MORTON",
+      "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+      "page": 1
+     },
+     "employer": {
+      "value": "Frank Ltd",
+      "evidence_quote": "This is to confirm that ERIC MORTON is employed at Frank Ltd",
+      "page": 1
+     },
+     "letter_date": {
+      "value": "2026-10-07",
+      "evidence_quote": "Date: 07 Oct 2026",
+      "page": 1
+     },
+     "leave_start": {
+      "value": "2027-01-18",
+      "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+      "page": 1
+     },
+     "leave_end": {
+      "value": "2027-02-02",
+      "evidence_quote": "Approved annual leave: 18 Jan 2027 to 02 Feb 2027",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "employment_letter",
+   "ts": "2026-10-28T11:34:27.289692+00:00",
+   "request_id": "chatcmpl-acc0d874-7809-4c74-9c3c-464363864f7b",
+   "raw": "{\"doc_type\":\"letter\",\"fields\":{\"employee_name\":{\"value\":\"ERIC MORTON\",\"evidence_quote\":\"This is to confirm that ERIC MORTON is employed at Frank Ltd\",\"page\":1},\"employer\":{\"value\":\"Frank Ltd\",\"evidence_quote\":\"This is to confirm that ERIC MORTON is employed at Frank Ltd\",\"page\":1},\"letter_date\":{\"value\":\"2026-10-07\",\"evidence_quote\":\"Date: 07 Oct 2026\",\"page\":1},\"leave_start\":{\"value\":\"2027-01-18\",\"evidence_quote\":\"Approved annual leave: 18 Jan 2027 to 02 Feb 2027\",\"page\":1},\"leave_end\":{\"value\":\"2027-02-02\",\"evidence_quote\":\"Approved annual leave: 18 Jan 2027 to 02 Feb 2027\",\"page\":1}}}",
+   "usage": 1536
   }
  }
 }

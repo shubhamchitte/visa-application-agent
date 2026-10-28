@@ -79,9 +79,15 @@
     "bank_statement": {
       "doc_type": "bank_statement",
       "fields": {
+        "account_holder": {
+          "value": "ANNE JAMES",
+          "evidence_quote": "Account holder                      ANNE JAMES",
+          "page": 1,
+          "status": "VERIFIED"
+        },
         "bank_closing_balance": {
           "value": "45910.50",
-          "evidence_quote": "           Closing balance                                                                             $45,910.50",
+          "evidence_quote": "Closing balance                                                                             $45,910.50",
           "page": 3,
           "status": "VERIFIED"
         },
@@ -95,7 +101,38 @@
     },
     "employment_letter": {
       "doc_type": "employment_letter",
-      "fields": {}
+      "fields": {
+        "employee_name": {
+          "value": "ANNE JAMES",
+          "evidence_quote": "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - ANNE JAMES",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Vantor Lane Pharmaceuticals Ltd",
+          "evidence_quote": "employed by Vantor Lane Pharmaceuticals Ltd",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-06",
+          "evidence_quote": "Date: 06 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": "2027-01-17",
+          "evidence_quote": "approved paid annual leave from 17 Jan 2027 to 02 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_end": {
+          "value": "2027-02-02",
+          "evidence_quote": "approved paid annual leave from 17 Jan 2027 to 02 Feb 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
     },
     "passport": {
       "doc_type": "passport",

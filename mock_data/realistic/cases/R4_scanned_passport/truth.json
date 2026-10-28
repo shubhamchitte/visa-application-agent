@@ -61,11 +61,17 @@
     "bank_statement": {
       "mode": "text",
       "injection": null,
+      "account_holder": "DAVID MALDONADO",
       "bank_closing_balance": "33494.31",
       "statement_date": "2026-10-20"
     },
     "employment_letter": {
-      "mode": "text"
+      "mode": "text",
+      "employee_name": "DAVID MALDONADO",
+      "employer": "Northgate Civic Software Ltd",
+      "letter_date": "2026-10-06",
+      "leave_start": "2027-02-21",
+      "leave_end": "2027-03-07"
     }
   },
   "form": {

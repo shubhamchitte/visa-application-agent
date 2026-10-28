@@ -61,11 +61,17 @@
     "bank_statement": {
       "mode": "absent",
       "injection": null,
+      "account_holder": "JOY CLARK",
       "bank_closing_balance": "6093.15",
       "statement_date": "2026-10-20"
     },
     "employment_letter": {
-      "mode": "text"
+      "mode": "text",
+      "employee_name": "JOY CLARK",
+      "employer": "Halcyon Bay Engineering Co.",
+      "letter_date": "2026-10-06",
+      "leave_start": "2027-02-08",
+      "leave_end": "2027-02-22"
     }
   },
   "form": {

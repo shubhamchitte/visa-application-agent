@@ -80,13 +80,18 @@ def _norm(value: str, ftype: str) -> str:
 
 def cross_doc(extractions: dict[str, Extraction], fields_cfg: dict[str, Any]) -> list[Issue]:
     """Any field verified in 2+ docs must agree (names normalized). Never auto-resolved: CONFLICT with both sources.
-    Name parts (`part_of`) are compared once, through the derived full_name built from the normalised parts."""
+    Name parts (`part_of`) are compared once, through the derived full_name built from the normalised parts.
+    A `same_as` field (bank account holder, letter employee name) is compared with that field's verified values."""
+    def verified(name: str, docs: list[str]) -> list[tuple[str, Any]]:
+        return [(d, extractions[d].fields[name]) for d in docs
+                if d in extractions and name in extractions[d].fields and extractions[d].fields[name].status == FieldStatus.VERIFIED]
     issues = []
     for name, cfg in fields_cfg.items():
         if cfg.get("part_of"):
             continue
-        srcs = [(d, extractions[d].fields[name]) for d in cfg["source"]
-                if d in extractions and name in extractions[d].fields and extractions[d].fields[name].status == FieldStatus.VERIFIED]
+        srcs = verified(name, cfg["source"])
+        if srcs and (ref := cfg.get("same_as")):
+            srcs = verified(ref, fields_cfg[ref]["source"]) + srcs
         if len({_norm(f.value, cfg["type"]) for _, f in srcs}) > 1:
             issues.append(Issue(kind=IssueKind.CONFLICT, field=name, message=f"documents disagree on {name}",
                                 sources=[{"doc": d, "value": f.value, "page": f.page} for d, f in srcs]))
@@ -109,6 +114,23 @@ def check_dates(values: dict[str, str], today: date, rules: dict[str, Any]) -> l
     return issues
 
 
+def check_letter(values: dict[str, str], today: date, rules: dict[str, Any]) -> list[Issue]:
+    """Employment letter (optional doc): not older than N days, and its leave period covers the travel date.
+    Each check runs only when its VERIFIED values exist, i.e. only when the letter is present."""
+    issues = []
+    letter, start, end, travel = (values.get(k) for k in ("letter_date", "leave_start", "leave_end", "intended_travel_date"))
+    max_age = rules.get("employment_letter_max_age_days")
+    if letter and max_age is not None and (today - date.fromisoformat(letter)).days > max_age:
+        issues.append(Issue(kind=IssueKind.INVALID, field="letter_date",
+                            message=f"employment letter dated {letter} is older than {max_age} days"))
+    if travel and rules.get("employment_letter_leave_must_cover_travel"):
+        for field, bad in (("leave_start", start and start > travel), ("leave_end", end and end < travel)):
+            if bad:
+                issues.append(Issue(kind=IssueKind.INVALID, field=field,
+                                    message=f"approved leave {start or '?'} to {end or '?'} does not cover travel {travel}"))
+    return issues
+
+
 def validate(extractions: dict[str, Extraction], docs: dict[str, dict[str, Any]], today: date,
              rules: dict[str, Any], fields_cfg: dict[str, Any]) -> list[Issue]:
     """Return INVALID/CONFLICT issues. `today` comes from the injected clock."""
@@ -121,4 +143,4 @@ def validate(extractions: dict[str, Extraction], docs: dict[str, dict[str, Any]]
             f = extractions.get(d) and extractions[d].fields.get(name)
             if f and f.status == FieldStatus.VERIFIED:
                 values.setdefault(name, f.value)
-    return issues + check_dates(values, today, rules)
+    return issues + check_dates(values, today, rules) + check_letter(values, today, rules)

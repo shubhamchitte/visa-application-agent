@@ -61,11 +61,17 @@
     "bank_statement": {
       "mode": "text",
       "injection": null,
+      "account_holder": "ASHLEY MERCER",
       "bank_closing_balance": "12498.88",
       "statement_date": "2026-10-20"
     },
     "employment_letter": {
-      "mode": "text"
+      "mode": "text",
+      "employee_name": "ASHLEY MERCER",
+      "employer": "Meridian Harbour Logistics Ltd",
+      "letter_date": "2026-10-06",
+      "leave_start": "2027-02-11",
+      "leave_end": "2027-02-27"
     }
   },
   "form": {
