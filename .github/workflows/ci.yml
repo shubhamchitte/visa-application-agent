@@ -11,6 +11,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      # no uv on the runner, so the Makefile builds .venv from requirements.lock
-      - run: make test
-      - run: make demo
+      # no uv on the runner; PY=python pins the matrix interpreter (the runner also ships python3.12)
+      - run: python -V
+      - run: make test PY=python
+      - run: make demo PY=python

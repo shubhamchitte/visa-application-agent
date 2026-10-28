@@ -43,7 +43,7 @@ def demo(a) -> int:
                 lines.append(text)
                 continue
             exp, res, llm = run_case(d, lambda c, d, r: make_llm(c, d, r, provider=use), Path(tmp), dry_run=dry)
-            text = f"\n=== {exp['scenario']:>2} {exp['title']}{' [dry-run]' if dry else ''}  (provider={use}{':' + getattr(llm, "model", "") if use == 'replay' else ''}) ===\n{_summary(res)}"
+            text = f"\n=== {exp['scenario']:>2} {exp['title']}{' [dry-run]' if dry else ''}  (provider={use}{':' + getattr(llm, 'model', '') if use == 'replay' else ''}) ===\n{_summary(res)}"
             if dry and res.plan:
                 text += "\n  CRM diff: " + json.dumps(res.plan.field_patch)
             print(text)
