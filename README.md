@@ -7,6 +7,9 @@ reported, never guessed. The principle is **LLM proposes, code disposes**: the L
 `{value, evidence_quote, page}`. Verification, validation, the write decision, retries and the report are
 deterministic Python, tested offline. Plain Python, no agent framework, about 1,800 lines of source.
 
+![Architecture: the LLM proposes, code decides](docs/architecture.png)
+<sub>Orange = LLM proposes, blue = deterministic code decides. Editable source: [docs/architecture.drawio](docs/architecture.drawio); details in [ARCHITECTURE](docs/ARCHITECTURE.md).</sub>
+
 ## Quickstart
 Requirements: `make`, Python 3.11+, and internet for the first run (installs pinned packages). No API key needed.
 
