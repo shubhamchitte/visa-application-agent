@@ -77,5 +77,5 @@ docs/                     ARCHITECTURE SAFEGUARDS LIMITATIONS DEMO TEST_RESULTS 
 ```
 
 ## Docs
-[ARCHITECTURE](docs/ARCHITECTURE.md) | [SAFEGUARDS](docs/SAFEGUARDS.md) | [LIMITATIONS](docs/LIMITATIONS.md) |
+[Architecture diagram](docs/architecture.png) | [ARCHITECTURE](docs/ARCHITECTURE.md) | [SAFEGUARDS](docs/SAFEGUARDS.md) | [LIMITATIONS](docs/LIMITATIONS.md) |
 [DEMO](docs/DEMO.md) | [TEST_RESULTS](docs/TEST_RESULTS.md) | [EVAL_RESULTS](docs/EVAL_RESULTS.md) |

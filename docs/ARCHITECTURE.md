@@ -1,5 +1,6 @@
 # Architecture
 
+![Architecture diagram](architecture.png) ([editable source](architecture.drawio))
 ## Principle: LLM proposes, code disposes
 The LLM does one job: for one document, return `{value, evidence_quote, page}` per field (`extract.py:47`).
 Everything else is deterministic and testable offline: classification, evidence verification, validation,
