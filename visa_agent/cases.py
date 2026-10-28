@@ -31,5 +31,5 @@ def run_case(name: str | Path, make_llm, tmp: Path, dry_run: bool = False):
                        retry=RetryPolicy(sleep=lambda s: None, rand=lambda: 0.5), clock=lambda: "T")
     llm = make_llm(exp["case"], d, Path(exp["packet"]).name)
     res = run(packet_dir(d, exp), Deps(llm=llm, gateway=gw, today=lambda: date.fromisoformat(exp["clock"])),
-              dry_run=dry_run, case=exp["case"])
+              dry_run=dry_run, case=exp["case"], ocr=exp.get("ocr"))
     return exp, res, llm

@@ -1,0 +1,158 @@
+{
+ "model": "openai/gpt-oss-120b",
+ "entries": {
+  "495173aae05927faa5d31fcd58d0ce7eab8f5d105be0ad094aa1ebdbf8a3eaf0": {
+   "response": {
+    "doc_type": "extraction",
+    "fields": {
+     "surname": {
+      "value": "DAVIS",
+      "evidence_quote": "DAVIS",
+      "page": 1
+     },
+     "given_names": {
+      "value": "DEBORAH",
+      "evidence_quote": "DEBORAH",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1973-06-18",
+      "evidence_quote": "18.06.1973",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": "UTOPIAN",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT0134224",
+      "evidence_quote": "UT0134224",
+      "page": 1
+     },
+     "email": {
+      "value": "deborah.davis@mailuto",
+      "evidence_quote": "deborah.davis@mailuto",
+      "page": 2
+     },
+     "intended_travel_date": {
+      "value": "2027-02-09",
+      "evidence_quote": "09.02.2027",
+      "page": 3
+     }
+    }
+   },
+   "doc_id": "application_form",
+   "ts": "2026-10-28T14:40:33.890495+00:00",
+   "request_id": "chatcmpl-82e85399-2ad0-4c8b-a5fa-a28d2d8eb292",
+   "raw": "{\"doc_type\":\"extraction\",\"fields\":{\"surname\":{\"value\":\"DAVIS\",\"evidence_quote\":\"DAVIS\",\"page\":1},\"given_names\":{\"value\":\"DEBORAH\",\"evidence_quote\":\"DEBORAH\",\"page\":1},\"date_of_birth\":{\"value\":\"1973-06-18\",\"evidence_quote\":\"18.06.1973\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT0134224\",\"evidence_quote\":\"UT0134224\",\"page\":1},\"email\":{\"value\":\"deborah.davis@mailuto\",\"evidence_quote\":\"deborah.davis@mailuto\",\"page\":2},\"intended_travel_date\":{\"value\":\"2027-02-09\",\"evidence_quote\":\"09.02.2027\",\"page\":3}}}",
+   "usage": 3801
+  },
+  "e290ecc32e400b5b47ce01472eb8ea9913d909d7594d5a2891d053ab5527a0a6": {
+   "response": {
+    "doc_type": "bank_statement",
+    "fields": {
+     "account_holder": {
+      "value": "DEBORAHDAVIS",
+      "evidence_quote": "DEBORAHDAVIS",
+      "page": 1
+     },
+     "bank_closing_balance": {
+      "value": "51731.81",
+      "evidence_quote": "Closing balance $51,731.81",
+      "page": 1
+     },
+     "statement_date": {
+      "value": "2026-10-20",
+      "evidence_quote": "Statement date 20Oct2026",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "bank_statement",
+   "ts": "2026-10-28T14:41:36.215628+00:00",
+   "request_id": "chatcmpl-dd50be2a-5c9e-4f06-8e8a-b69dd5c360e0",
+   "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"account_holder\":{\"value\":\"DEBORAHDAVIS\",\"evidence_quote\":\"DEBORAHDAVIS\",\"page\":1},\"bank_closing_balance\":{\"value\":\"51731.81\",\"evidence_quote\":\"Closing balance $51,731.81\",\"page\":1},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date 20Oct2026\",\"page\":1}}}",
+   "usage": 3333
+  },
+  "fa2b17972af69ba02df3eeb1d752bd91d14e0a4f94510408234120cdf9a63342": {
+   "response": {
+    "doc_type": "employment_verification",
+    "fields": {
+     "employee_name": {
+      "value": "DEBORAHDAVIS",
+      "evidence_quote": "RE:EMPLOYMENTVERIFICATIONANDAPPROVEDLEAVE-DEBORAHDAVIS",
+      "page": 1
+     },
+     "employer": {
+      "value": "Pelican Reach Marine Services",
+      "evidence_quote": "Pelican Reach Marine Services",
+      "page": 1
+     },
+     "letter_date": {
+      "value": "2026-10-06",
+      "evidence_quote": "Date:06Oct2026",
+      "page": 1
+     },
+     "leave_start": {
+      "value": null,
+      "evidence_quote": null,
+      "page": null
+     },
+     "leave_end": {
+      "value": null,
+      "evidence_quote": null,
+      "page": null
+     }
+    }
+   },
+   "doc_id": "employment_letter",
+   "ts": "2026-10-28T14:42:38.682070+00:00",
+   "request_id": "chatcmpl-037d854c-07b6-415a-a8cb-f6581d362fe2",
+   "raw": "{\"doc_type\":\"employment_verification\",\"fields\":{\"employee_name\":{\"value\":\"DEBORAHDAVIS\",\"evidence_quote\":\"RE:EMPLOYMENTVERIFICATIONANDAPPROVEDLEAVE-DEBORAHDAVIS\",\"page\":1},\"employer\":{\"value\":\"Pelican Reach Marine Services\",\"evidence_quote\":\"Pelican Reach Marine Services\",\"page\":1},\"letter_date\":{\"value\":\"2026-10-06\",\"evidence_quote\":\"Date:06Oct2026\",\"page\":1},\"leave_start\":{\"value\":null,\"evidence_quote\":null,\"page\":null},\"leave_end\":{\"value\":null,\"evidence_quote\":null,\"page\":null}}}",
+   "usage": 1869
+  },
+  "e49069bec98e2c92ae9b4231d02ef8ab8de596f75d7324595871bbbda2bd3b2d": {
+   "response": {
+    "doc_type": "passport",
+    "fields": {
+     "surname": {
+      "value": "DAVIS",
+      "evidence_quote": "DAVIS",
+      "page": 1
+     },
+     "given_names": {
+      "value": "DEBORAH",
+      "evidence_quote": "DEBORAH",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1973-06-18",
+      "evidence_quote": "18JUN 1973",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": "UTOPIAN/UTOPIENNE",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT0134224",
+      "evidence_quote": "UT0134224",
+      "page": 1
+     },
+     "passport_expiry": {
+      "value": "2031-11-26",
+      "evidence_quote": "26NOV2031",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "passport",
+   "ts": "2026-10-28T14:42:48.807555+00:00",
+   "request_id": "chatcmpl-12315594-3d53-4d71-a597-73d0b7558663",
+   "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"DAVIS\",\"evidence_quote\":\"DAVIS\",\"page\":1},\"given_names\":{\"value\":\"DEBORAH\",\"evidence_quote\":\"DEBORAH\",\"page\":1},\"date_of_birth\":{\"value\":\"1973-06-18\",\"evidence_quote\":\"18JUN 1973\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN/UTOPIENNE\",\"page\":1},\"passport_number\":{\"value\":\"UT0134224\",\"evidence_quote\":\"UT0134224\",\"page\":1},\"passport_expiry\":{\"value\":\"2031-11-26\",\"evidence_quote\":\"26NOV2031\",\"page\":1}}}",
+   "usage": 1638
+  }
+ }
+}

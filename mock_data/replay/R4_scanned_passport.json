@@ -1,0 +1,158 @@
+{
+ "model": "openai/gpt-oss-120b",
+ "entries": {
+  "0236548d5cbf689ebb32b05ae54a0730b9a0a4fd43b32e17323d172bd1cce846": {
+   "response": {
+    "doc_type": "schengen_visa_application",
+    "fields": {
+     "surname": {
+      "value": "MALDONADO",
+      "evidence_quote": "MALDONADO",
+      "page": 1
+     },
+     "given_names": {
+      "value": "DAVID",
+      "evidence_quote": "DAVID",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1970-06-09",
+      "evidence_quote": "09.06.1970",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": "UTOPIAN",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT4279522",
+      "evidence_quote": "UT4279522",
+      "page": 1
+     },
+     "email": {
+      "value": "david.maldonado@mail.uto",
+      "evidence_quote": "david.maldonado@mail.uto",
+      "page": 2
+     },
+     "intended_travel_date": {
+      "value": "2027-02-21",
+      "evidence_quote": "21.02.2027",
+      "page": 3
+     }
+    }
+   },
+   "doc_id": "application_form",
+   "ts": "2026-10-28T14:37:40.392513+00:00",
+   "request_id": "chatcmpl-19c6dd84-3419-43ba-9415-21b551d001b2",
+   "raw": "{\"doc_type\":\"schengen_visa_application\",\"fields\":{\"surname\":{\"value\":\"MALDONADO\",\"evidence_quote\":\"MALDONADO\",\"page\":1},\"given_names\":{\"value\":\"DAVID\",\"evidence_quote\":\"DAVID\",\"page\":1},\"date_of_birth\":{\"value\":\"1970-06-09\",\"evidence_quote\":\"09.06.1970\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT4279522\",\"evidence_quote\":\"UT4279522\",\"page\":1},\"email\":{\"value\":\"david.maldonado@mail.uto\",\"evidence_quote\":\"david.maldonado@mail.uto\",\"page\":2},\"intended_travel_date\":{\"value\":\"2027-02-21\",\"evidence_quote\":\"21.02.2027\",\"page\":3}}}",
+   "usage": 4099
+  },
+  "1881c0773ac32a81e98b8b034b59886b9f211bacb4f66032b71d1f44b9a7a062": {
+   "response": {
+    "doc_type": "bank_statement",
+    "fields": {
+     "account_holder": {
+      "value": "DAVID MALDONADO",
+      "evidence_quote": "Account holder                    DAVID MALDONADO",
+      "page": 1
+     },
+     "bank_closing_balance": {
+      "value": "33494.31",
+      "evidence_quote": "Closing balance                                                                             $33,494.31",
+      "page": 3
+     },
+     "statement_date": {
+      "value": "2026-10-20",
+      "evidence_quote": "Statement date                              20 Oct 2026",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "bank_statement",
+   "ts": "2026-10-28T14:38:42.567735+00:00",
+   "request_id": "chatcmpl-22cc3915-380b-4d86-b81d-df93cf3d0b49",
+   "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"account_holder\":{\"value\":\"DAVID MALDONADO\",\"evidence_quote\":\"Account holder                    DAVID MALDONADO\",\"page\":1},\"bank_closing_balance\":{\"value\":\"33494.31\",\"evidence_quote\":\"Closing balance                                                                             $33,494.31\",\"page\":3},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date                              20 Oct 2026\",\"page\":1}}}",
+   "usage": 3520
+  },
+  "8333e267fb4bc4d32e3a49bc6542eb6c700614b7358f34c67cee847b0aebe68a": {
+   "response": {
+    "doc_type": "",
+    "fields": {
+     "employee_name": {
+      "value": "DAVID MALDONADO",
+      "evidence_quote": "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - DAVID MALDONADO",
+      "page": 1
+     },
+     "employer": {
+      "value": "Northgate Civic Software Ltd",
+      "evidence_quote": "is employed by Northgate Civic Software Ltd on a permanent, full-time contract.",
+      "page": 1
+     },
+     "letter_date": {
+      "value": "2026-10-06",
+      "evidence_quote": "Date: 06 Oct 2026",
+      "page": 1
+     },
+     "leave_start": {
+      "value": "2027-02-21",
+      "evidence_quote": "The company has approved paid annual leave from 21 Feb 2027 to 07 Mar 2027 (inclusive)",
+      "page": 1
+     },
+     "leave_end": {
+      "value": "2027-03-07",
+      "evidence_quote": "The company has approved paid annual leave from 21 Feb 2027 to 07 Mar 2027 (inclusive)",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "employment_letter",
+   "ts": "2026-10-28T14:39:44.854483+00:00",
+   "request_id": "chatcmpl-f2c67704-31af-48dd-95e6-3c17c6b14a34",
+   "raw": "{\"doc_type\":\"\",\"fields\":{\"employee_name\":{\"value\":\"DAVID MALDONADO\",\"evidence_quote\":\"RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - DAVID MALDONADO\",\"page\":1},\"employer\":{\"value\":\"Northgate Civic Software Ltd\",\"evidence_quote\":\"is employed by Northgate Civic Software Ltd on a permanent, full-time contract.\",\"page\":1},\"letter_date\":{\"value\":\"2026-10-06\",\"evidence_quote\":\"Date: 06 Oct 2026\",\"page\":1},\"leave_start\":{\"value\":\"2027-02-21\",\"evidence_quote\":\"The company has approved paid annual leave from 21 Feb 2027 to 07 Mar 2027 (inclusive)\",\"page\":1},\"leave_end\":{\"value\":\"2027-03-07\",\"evidence_quote\":\"The company has approved paid annual leave from 21 Feb 2027 to 07 Mar 2027 (inclusive)\",\"page\":1}}}",
+   "usage": 1842
+  },
+  "507c6d7206ef601a06153a60cdd3f1e8de49cc7a16ce56ea0cea07b92a153424": {
+   "response": {
+    "doc_type": "passport",
+    "fields": {
+     "surname": {
+      "value": "MALDONADO",
+      "evidence_quote": "MALDONADO",
+      "page": 1
+     },
+     "given_names": {
+      "value": "DAVID",
+      "evidence_quote": "DAVID",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1970-06-09",
+      "evidence_quote": "09JUN 1970",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": "UTOPIAN/UTOPIENNE",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT4279522",
+      "evidence_quote": "UT4279522",
+      "page": 1
+     },
+     "passport_expiry": {
+      "value": "2030-11-12",
+      "evidence_quote": "12NOV2030",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "passport",
+   "ts": "2026-10-28T14:39:54.892696+00:00",
+   "request_id": "chatcmpl-e4e003fa-66cc-4591-82b4-c4c0951db896",
+   "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"MALDONADO\",\"evidence_quote\":\"MALDONADO\",\"page\":1},\"given_names\":{\"value\":\"DAVID\",\"evidence_quote\":\"DAVID\",\"page\":1},\"date_of_birth\":{\"value\":\"1970-06-09\",\"evidence_quote\":\"09JUN 1970\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN/UTOPIENNE\",\"page\":1},\"passport_number\":{\"value\":\"UT4279522\",\"evidence_quote\":\"UT4279522\",\"page\":1},\"passport_expiry\":{\"value\":\"2030-11-12\",\"evidence_quote\":\"12NOV2030\",\"page\":1}}}",
+   "usage": 1606
+  }
+ }
+}

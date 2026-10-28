@@ -16,5 +16,7 @@ Committed, deterministic output of `make demo-record` (replay provider, no netwo
 | [R1_happy](R1_happy.md) | Realistic happy path (dense UDI form, specimen passport, 3-page statement, employment letter) | WRITTEN / DATA_UPDATED | 1 |
 | [R2_name_conflict](R2_name_conflict.md) | Surname differs by one letter, hidden in the dense form vs passport | WRITTEN / NEEDS_REVIEW | 1 |
 | [R3_missing_bank](R3_missing_bank.md) | Bank statement missing from an otherwise realistic packet | WRITTEN / INCOMPLETE | 1 |
+| [R4_scanned_passport](R4_scanned_passport.md) | Passport is an image-only scan (OCR path); everything else text | WRITTEN / NEEDS_REVIEW | 1 |
+| [R5_scanned_all](R5_scanned_all.md) | Fully scanned packet (all four documents image-only) | WRITTEN / NEEDS_REVIEW | 1 |
 | [R6_injection_fineprint](R6_injection_fineprint.md) | Injection sentence buried in the bank statement's fine print | WRITTEN / NEEDS_REVIEW | 1 |
 | [R7_bank_holder_mismatch](R7_bank_holder_mismatch.md) | Bank statement account holder is a relative, not the applicant | WRITTEN / NEEDS_REVIEW | 1 |

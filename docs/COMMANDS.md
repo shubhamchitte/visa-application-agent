@@ -5,18 +5,19 @@ Run every command from the repository root.
 ## Requirements
 - `make` and Python 3.11+ (or `uv`).
 - Internet on the first run only: `make` builds `.venv` and installs the pinned dependencies. After that everything offline works without a network.
-- Optional: `tesseract` (`brew install tesseract`) for the scanned cases R4 and R5.
+- Optional: `make setup-ocr` (RapidOCR into `.venv`, about 200 MB, wheels only) for the scanned cases R4 and R5. `VISA_OCR=auto|rapidocr|tesseract|none` picks the backend (auto: RapidOCR, else tesseract on PATH, else none).
 
 `make run` uses `TODAY=2026-10-27` (a fixed clock, so results are stable) and a scratch CRM at `/tmp/visa_crm.json` that is reset on every run.
 
 ## Quick table
 | Command | What it does | LLM | Expected outcome |
 |---|---|---|---|
-| `make test` | pytest suite | FakeLLM / mocks | 177 passed, 2 skipped |
-| `make demo` | all demo scenarios (clean cases incl. fault plans 07-13, case15, R1-R7) | FakeLLM for clean cases, replay for R1-R7 | one result per scenario, no error; R4 and R5 print "skipped: not recorded" |
+| `make test` | pytest suite | FakeLLM / mocks | 225 passed, 1 xfailed with `make setup-ocr` (R5: known OCR misread); 224 passed, 2 skipped without OCR |
+| `make demo` | all demo scenarios (clean cases incl. fault plans 07-13, case15, R1-R7) | FakeLLM for clean cases, replay for R1-R7 | one result per scenario, no error; without `make setup-ocr`, R4 and R5 print "skipped: needs RapidOCR" |
 | `make test-report` | regenerates `docs/TEST_RESULTS.md` | FakeLLM / mocks | file rewritten |
 | `make demo-record` | regenerates `docs/demo_output/` | replay | files rewritten |
 | `make run CASE=mock_data/cases/<case>` | one clean case (table below) | FakeLLM from `<case>/fake_llm.json` | status from that case's `expected.json` |
+| `make case CASE=case09` | one case with its golden fault plan, like `make demo` (works for the fault cases 07-13, which have no packet of their own); prints the report | FakeLLM (realistic R*: replay) | the case's `expected.json` outcome |
 | `make run CASE=R1` ... `R7` | one realistic case (short name resolves to `mock_data/realistic/cases/R*_*`) | replay (recorded real responses) | see table below |
 | `make run-agent` | agent mode on case14 (injection) | replay (recorded proposals) | first `crm.update` REJECTED (plan guard: status 'FLAGGED' is not the planned 'NEEDS_REVIEW'); the retry with the planned status is accepted: `NEEDS_REVIEW`, WRITTEN |
 | `make run-agent AGENT_CASE=mock_data/cases/case01_happy` | agent mode on case01 | replay | `DATA_UPDATED`, WRITTEN (CRM version 3): one write with the 7 fields, then a redundant empty update (`patch {}`, status `DATA_UPDATED`) that the plan guard allows; a 404 for visa type "tourist" on `checklist.check` is shown and harmless |
@@ -35,13 +36,13 @@ Always FakeLLM, even if `LLM_PROVIDER` is set. Compare with `<case>/expected.jso
 | case04_passport_expiry | INCOMPLETE (INVALID passport_expiry: under 6 months after travel), WRITTEN |
 | case05_bad_mrz | NO_WRITE (identity unverified) |
 | case06_no_text_layer | INCOMPLETE (UNVERIFIABLE bank fields), WRITTEN |
-| case07_hallucination | needs `make demo` (INCOMPLETE, UNVERIFIABLE email, WRITTEN) |
-| case08a_crm_no_match, case08b_crm_multiple | need `make demo` (NO_WRITE) |
-| case09_crm_503_retry | needs `make demo` (DATA_UPDATED after 2 retries) |
-| case10_timeout_applied | needs `make demo` (DATA_UPDATED, same idempotency key) |
-| case11a_version_conflict, case11b_unprocessable | need `make demo` (WRITE_FAILED, 409 / 422 not retried) |
-| case12_checklist_down | needs `make demo` (NEEDS_REVIEW, checklist UNKNOWN) |
-| case13_llm_malformed | needs `make demo` (NO_WRITE, passport fields UNVERIFIABLE) |
+| case07_hallucination | `make case CASE=case07` (INCOMPLETE, UNVERIFIABLE email, WRITTEN) |
+| case08a_crm_no_match, case08b_crm_multiple | `make case CASE=case08a` / `case08b` (NO_WRITE) |
+| case09_crm_503_retry | `make case CASE=case09` (DATA_UPDATED after 2 retries) |
+| case10_timeout_applied | `make case CASE=case10` (DATA_UPDATED, same idempotency key) |
+| case11a_version_conflict, case11b_unprocessable | `make case CASE=case11a` / `case11b` (WRITE_FAILED, 409 / 422 not retried) |
+| case12_checklist_down | `make case CASE=case12` (NEEDS_REVIEW, checklist UNKNOWN) |
+| case13_llm_malformed | `make case CASE=case13` (NO_WRITE, passport fields UNVERIFIABLE) |
 | case14_injection | NEEDS_REVIEW (injection_detected), WRITTEN |
 | case15_bank_holder_mismatch | NEEDS_REVIEW (CONFLICT account_holder: bank statement says AMY MORTON), WRITTEN |
 
@@ -53,13 +54,13 @@ Replay of recorded real responses. Compare with `mock_data/realistic/cases/<case
 | R1 | DATA_UPDATED, WRITTEN |
 | R2 | NEEDS_REVIEW, CONFLICT full_name (MARTIS vs MARTIN) plus account_holder and employee_name, WRITTEN |
 | R3 | INCOMPLETE, bank statement missing, WRITTEN |
-| R4 | scanned passport: needs tesseract and is not recorded, so `make run` fails with a "recording stale" error. Not runnable offline |
-| R5 | fully scanned: needs tesseract and is not recorded; without tesseract it ends NO_WRITE (identity unverified) |
+| R4 | after `make setup-ocr`: NEEDS_REVIEW, WRITTEN (passport OCR'd, MRZ checks pass; note "fields read by OCR; confirm against the scan"; verified fields patched) |
+| R5 | after `make setup-ocr`: NEEDS_REVIEW, WRITTEN; OCR note; INVALID email (OCR misread `deborah.davis@mailuto`, not written); INVALID leave_start/leave_end (letter present, OCR dropped the leave line, so leave cannot be shown to cover travel) |
 | R6 | NEEDS_REVIEW, injection_detected, WRITTEN |
 | R7 | NEEDS_REVIEW, CONFLICT account_holder (relative's account), WRITTEN |
 
 ## Live LLM
-1. `cp .env.example .env`, then set `GROQ_API_KEY=` in `.env`.
+1. `cp .env.example .env`, then set `GROQ_API_KEY=` in `.env` (the CLI loads it; already-exported variables win, and `.env`'s `LLM_PROVIDER` is ignored, so pass `LLM_PROVIDER=groq` on the command line).
 2. Live extraction on an existing realistic case:
    `LLM_PROVIDER=groq make run CASE=R2`
    Expected: same as replay (NEEDS_REVIEW, CONFLICT full_name).
@@ -79,7 +80,7 @@ Cost and timing: one extraction call per document, so about 4 calls for a full p
 ## Gotchas
 - Clean cases always use FakeLLM, even with `LLM_PROVIDER` set. R1-R7 use replay.
 - Cases 07-13 have no documents of their own (they reuse case01's packet and inject a fault plan from `expected.json`); a bare `make run` on them gives NO_WRITE. Use `make demo` or `make test`.
-- R4, R5 and `case06_no_text_layer` involve scanned or text-less PDFs; OCR needs `tesseract`, otherwise those fields stay UNVERIFIABLE.
+- R4 and R5 are recorded on RapidOCR text; without `make setup-ocr` they are skipped (a plain `make run CASE=R4` then ends NO_WRITE, passport UNVERIFIABLE). `case06_no_text_layer` always runs with OCR off (`"ocr": "none"` in its expected.json).
 - A mistyped path silently falls back by basename: `mock_data/realistic/cases/case01_happy` does not exist, so it runs the clean `case01_happy`. Check the first lines of the report.
 - A new folder without `LLM_PROVIDER=groq` falls back to replay, finds no recording and fails.
 - If a live run fails during a presentation, show the recorded outputs in `docs/demo_output/`.

@@ -1,4 +1,7 @@
 # Field registry. `type` selects the value-in-quote parser (docs/ARCHITECTURE.md). `source` = docs that may supply it.
+# `labels` bind a value to its printed label: the quote must contain one, and the value must be the first date or
+# amount after it (`role: end`: the second, for a "from X to Y" range). Set only where the generated and realistic
+# PDFs print the label on the value's own line; column-layout fields (form, passport) are unanchored (docs/LIMITATIONS.md).
 date_formats: ["%Y-%m-%d", "%d %b %Y", "%d %B %Y", "%d/%m/%Y", "%m/%d/%Y", "%d.%m.%Y"]
 fields:
   surname:              {type: name,        identity: true,  part_of: full_name, source: [application_form, passport]}
@@ -12,12 +15,12 @@ fields:
   passport_expiry:      {type: date,        identity: false, source: [passport]}
   email:                {type: str,         identity: false, source: [application_form]}
   intended_travel_date: {type: date,        identity: false, source: [application_form], hint: "Schengen form label: Intended date of arrival"}
-  bank_closing_balance: {type: money,       identity: false, source: [bank_statement]}
-  statement_date:       {type: date,        identity: false, source: [bank_statement]}
+  bank_closing_balance: {type: money,       identity: false, source: [bank_statement], labels: ["closing balance"], currency: [$, UTD]}
+  statement_date:       {type: date,        identity: false, source: [bank_statement], labels: ["statement date"]}
   # same_as: compared in validators.cross_doc with the derived full_name (same normalisation); never patched.
   account_holder:       {type: name,        identity: true,  same_as: full_name, source: [bank_statement]}
   employee_name:        {type: name,        identity: true,  same_as: full_name, source: [employment_letter]}
   employer:             {type: str,         identity: false, source: [employment_letter]}
-  letter_date:          {type: date,        identity: false, source: [employment_letter]}
-  leave_start:          {type: date,        identity: false, source: [employment_letter], hint: "first day of approved leave"}
-  leave_end:            {type: date,        identity: false, source: [employment_letter], hint: "last day of approved leave"}
+  letter_date:          {type: date,        identity: false, source: [employment_letter], labels: ["date:"]}
+  leave_start:          {type: date,        identity: false, source: [employment_letter], hint: "first day of approved leave", labels: ["annual leave"]}
+  leave_end:            {type: date,        identity: false, source: [employment_letter], hint: "last day of approved leave", labels: ["annual leave"], role: end}

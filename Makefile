@@ -5,7 +5,7 @@ VENV := $(if $(UV),,.venv/.installed)
 RUN := $(if $(UV),uv run,.venv/bin/python -m)
 CLI := $(if $(UV),uv run python,.venv/bin/python) -m visa_agent.cli
 
-.PHONY: setup test smoke demo demo-record run run-agent eval-live test-report clean
+.PHONY: setup setup-ocr test smoke demo demo-record run case run-agent eval-live test-report clean
 CASE ?= mock_data/cases/case01_happy
 AGENT_CASE ?= mock_data/cases/case14_injection
 TODAY ?= 2026-10-27
@@ -19,6 +19,14 @@ else
 	rm -rf .venv
 	$(PY) -m venv .venv && .venv/bin/pip install -q -r requirements.lock && .venv/bin/pip install -q --no-deps -e . \
 	  && touch .venv/.installed || { rm -rf .venv; echo "error: dependency install failed (see above)"; exit 1; }
+endif
+
+# optional: RapidOCR for the scanned cases (R4/R5); make demo / make test work without it
+setup-ocr: $(VENV)
+ifdef UV
+	uv sync --extra ocr
+else
+	.venv/bin/pip install -q -r requirements-ocr.txt
 endif
 
 # venv is created on first use (uv manages its own env, so no prerequisite there)
@@ -42,6 +50,10 @@ demo-record: $(VENV)
 run: $(VENV)
 	rm -f $(CRM)
 	$(CLI) run $(CASE) --today $(TODAY) --crm $(CRM) $(DRY)
+
+# make case CASE=case09 [DRY=--dry-run]: one case (incl. fault cases 07-13) with its golden fault plan, like make demo
+case: $(VENV)
+	$(CLI) case $(notdir $(CASE)) $(DRY)
 
 # make run-agent [AGENT_CASE=mock_data/cases/case01_happy]: agent mode, replays the recorded real-Groq proposals (no network)
 run-agent: $(VENV)

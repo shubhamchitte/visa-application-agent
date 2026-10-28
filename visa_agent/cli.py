@@ -9,6 +9,7 @@ from datetime import date
 from pathlib import Path
 
 import yaml
+from dotenv import dotenv_values, find_dotenv
 
 from .llm.fake import FakeLLM
 from .orchestrator import HERE, Deps, run
@@ -34,6 +35,9 @@ def _audit_path() -> Path:
 
 
 def main(argv: list[str] | None = None) -> int:
+    for k, v in dotenv_values(find_dotenv(usecwd=True)).items():  # .env supplies keys/models only, never overriding the environment.
+        if k != "LLM_PROVIDER" and v is not None:  # the provider stays per-command (replay/fake) unless exported
+            os.environ.setdefault(k, v)
     ap = argparse.ArgumentParser(prog="visa_agent")
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run")
@@ -53,6 +57,9 @@ def main(argv: list[str] | None = None) -> int:
     e.add_argument("--record", action="store_true", help="with --live: save responses for replay")
     e.add_argument("--set", choices=["clean", "realistic"], default="clean", help="generated cases or mock_data/realistic")
     e.add_argument("--only", nargs="*", help="case-name prefixes, e.g. R1 R2")
+    c = sub.add_parser("case", help="one mock case with its fault plan (e.g. case09), report to stdout")
+    c.add_argument("name")
+    c.add_argument("--dry-run", action="store_true")
     sub.add_parser("test-report")
     a = ap.parse_args(argv)
     if a.cmd != "run":
@@ -91,7 +98,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Mode: {label}")
         result = run_agent(a.packet, deps)
     else:
-        result = run(a.packet, deps, dry_run=a.dry_run)
+        exp = a.packet / "expected.json"
+        result = run(a.packet, deps, dry_run=a.dry_run, ocr=json.loads(exp.read_text()).get("ocr") if exp.exists() else None)
     out_dir = save(result, Path(os.getenv("AUDIT_DIR", "runs")))
     print(to_json(result) if a.json else to_markdown(result))
     print(f"Report saved: {out_dir}/report.md, report.json")

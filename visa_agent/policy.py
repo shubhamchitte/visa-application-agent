@@ -6,14 +6,18 @@ from .schemas import Issue, IssueKind, WritePlan
 
 
 def facts(matches: list[dict[str, Any]] | None, issues: list[Issue], checklist: dict[str, Any] | str,
-          injection: bool, identity_fields: list[str], review_fields: list[str] = ()) -> dict[str, bool]:
+          injection: bool, identity_fields: list[str], review_fields: list[str] = (), ocr: bool = False,
+          duplicate: bool = False) -> dict[str, bool]:
     kinds = {i.kind for i in issues}
     unknown = checklist == "UNKNOWN"
     return {
         "crm_match_count_not_1": matches is None or len(matches) != 1,
         "injection_detected": injection,
         "identity_conflict": any(i.kind == IssueKind.CONFLICT and i.field in identity_fields for i in issues),
+        "duplicate_doc_type": duplicate,
+        "ocr_used": ocr,
         "review_field_invalid": any(i.kind == IssueKind.INVALID and i.field in review_fields for i in issues),
+        "field_conflict": IssueKind.CONFLICT in kinds,  # identity conflicts matched an earlier rule
         "checklist_missing_or_invalid_or_unverifiable": (not unknown and bool(checklist.get("missing")))
                                                        or bool(kinds & {IssueKind.INVALID, IssueKind.UNVERIFIABLE}),
         "checklist_unknown": unknown,
@@ -41,10 +45,11 @@ def verified_patch(values: dict[str, str], record: dict[str, Any], issues: list[
 
 
 def decide(matches: list[dict[str, Any]] | None, values: dict[str, str], issues: list[Issue],
-           checklist: dict[str, Any] | str, injection: bool, policy: dict[str, Any]) -> WritePlan:
+           checklist: dict[str, Any] | str, injection: bool, policy: dict[str, Any], ocr: bool = False,
+           duplicate: bool = False) -> WritePlan:
     """`matches` None means identity not verified (no lookup was made). First matching rule wins.
     Never returns APPROVED/REJECTED (WritePlan's type forbids it); never creates a record."""
-    f = facts(matches, issues, checklist, injection, policy["identity_fields"], policy.get("review_fields", []))
+    f = facts(matches, issues, checklist, injection, policy["identity_fields"], policy.get("review_fields", []), ocr, duplicate)
     rule = next(r for r in policy["rules"] if f[r["when"]])
     if rule["action"] == "NO_WRITE":
         if matches is None:
@@ -62,4 +67,7 @@ def decide(matches: list[dict[str, Any]] | None, values: dict[str, str], issues:
     if isinstance(checklist, dict) and checklist.get("missing"):
         notes.append("missing documents: " + ", ".join(checklist["missing"]))
     notes += [f"{i.kind.value} {i.field}: {i.message}" for i in issues]
+    if not patch and record.get("status") == act["status"] and set(notes) <= set(record.get("notes") or []):
+        return WritePlan(record_id=None, reason="no_change",  # a rerun must not bump the version for nothing
+                         notes=[f"CRM record {record['id']} already has this status, values and notes; nothing to write"])
     return WritePlan(record_id=record["id"], field_patch=patch, status=act["status"], notes=notes, reason=rule["when"])

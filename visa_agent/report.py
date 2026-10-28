@@ -19,7 +19,7 @@ def _calls(r: RunResult) -> list[dict]:
 
 
 def to_json(result: RunResult) -> str:
-    d = json.loads(result.model_dump_json(exclude={"audit"}))
+    d = json.loads(result.model_dump_json(exclude={"audit", "matched_version"}))
     d["tool_calls"] = _calls(result)
     return json.dumps(d, indent=2)
 

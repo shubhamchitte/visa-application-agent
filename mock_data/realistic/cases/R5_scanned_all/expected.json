@@ -30,7 +30,7 @@
     ],
     "target_record": "rec-2005",
     "action": "UPDATE",
-    "status": "DATA_UPDATED",
+    "status": "NEEDS_REVIEW",
     "field_patch": {
       "full_name": "DEBORAH DAVIS",
       "nationality": "UTOPIAN",
@@ -40,7 +40,9 @@
       "bank_closing_balance": "51731.81",
       "statement_date": "2026-10-20"
     },
-    "notes_contain": [],
+    "notes_contain": [
+      "fields read by OCR"
+    ],
     "version_after": 2
   },
   "write_outcome": "WRITTEN",
@@ -82,7 +84,7 @@
             "bank_closing_balance": "51731.81",
             "statement_date": "2026-10-20"
           },
-          "status": "DATA_UPDATED"
+          "status": "NEEDS_REVIEW"
         }
       },
       {

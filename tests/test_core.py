@@ -179,6 +179,36 @@ def test_policy_patch_never_overwrites_and_skips_flagged_fields():
     assert any("CONFLICT email" in n for n in plan.notes)
 
 
+def test_policy_ocr_needs_review_keeps_patch_but_conflict_and_injection_win():
+    plan = decide([REC], {"nationality": "UTOPIAN"}, [], OK_CL, False, P, ocr=True)
+    assert (plan.reason, plan.status, plan.field_patch) == ("ocr_used", "NEEDS_REVIEW", {"nationality": "UTOPIAN"})
+    assert any("fields read by OCR" in n for n in plan.notes)
+    conflict = [issue(IssueKind.CONFLICT, "full_name")]
+    assert decide([REC], {}, conflict, OK_CL, False, P, ocr=True).reason == "identity_conflict"
+    assert decide([REC], {}, [], OK_CL, True, P, ocr=True).reason == "injection_detected"
+
+
+@pytest.mark.parametrize("email,ok", [("a.b@mail.uto", True), ("deborah.davis@mailuto", False), ("x@", False), ("a b@c.de", False)])
+def test_email_format(email, ok):
+    from visa_agent.validators import EMAIL
+    assert bool(EMAIL.match(email)) == ok
+
+
+def test_cli_dotenv_fills_keys_but_not_provider(tmp_path, monkeypatch):
+    import os
+    from visa_agent.cli import main
+    (tmp_path / ".env").write_text("LLM_PROVIDER=fake\nGROQ_MODEL=from-dotenv\nGROQ_API_KEY=x\n")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.delenv("LLM_PROVIDER", raising=False)
+    monkeypatch.delenv("GROQ_MODEL", raising=False)
+    monkeypatch.setenv("GROQ_API_KEY", "exported")
+    with pytest.raises(SystemExit):
+        main(["--help"])
+    assert "LLM_PROVIDER" not in os.environ and os.environ["GROQ_MODEL"] == "from-dotenv"
+    assert os.environ["GROQ_API_KEY"] == "exported"
+    monkeypatch.delenv("GROQ_MODEL")
+
+
 # ---- classification ----
 DT = CFG["doc_types"]
 
@@ -310,7 +340,7 @@ LETTER_OK = {"letter_date": "2026-10-07", "leave_start": "2027-01-18", "leave_en
 def test_letter_checks_pass_and_skip_when_absent():
     today = date(2026, 10, 27)
     assert check_letter(LETTER_OK, today, LETTER_RULES) == []
-    assert check_letter({"intended_travel_date": "2027-01-19"}, today, LETTER_RULES) == []  # no letter: nothing checked
+    assert check_letter({"intended_travel_date": "2027-01-19"}, today, LETTER_RULES, letter_present=False) == []  # no letter: nothing checked
 
 
 def test_stale_letter_is_invalid_and_needs_review():

@@ -1,0 +1,340 @@
+{
+  "case": "R5_scanned_all",
+  "docs": [
+    {
+      "doc_id": "application_form",
+      "doc_type": "application_form",
+      "flags": [
+        "ocr_used"
+      ]
+    },
+    {
+      "doc_id": "bank_statement",
+      "doc_type": "bank_statement",
+      "flags": [
+        "ocr_used"
+      ]
+    },
+    {
+      "doc_id": "employment_letter",
+      "doc_type": "employment_letter",
+      "flags": [
+        "ocr_used"
+      ]
+    },
+    {
+      "doc_id": "passport",
+      "doc_type": "passport",
+      "flags": [
+        "ocr_used"
+      ]
+    }
+  ],
+  "extractions": {
+    "application_form": {
+      "doc_type": "application_form",
+      "fields": {
+        "surname": {
+          "value": "DAVIS",
+          "evidence_quote": "DAVIS",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "DEBORAH",
+          "evidence_quote": "DEBORAH",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1973-06-18",
+          "evidence_quote": "18.06.1973",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT0134224",
+          "evidence_quote": "UT0134224",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "email": {
+          "value": "deborah.davis@mailuto",
+          "evidence_quote": "deborah.davis@mailuto",
+          "page": 2,
+          "status": "VERIFIED"
+        },
+        "intended_travel_date": {
+          "value": "2027-02-09",
+          "evidence_quote": "09.02.2027",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "DEBORAH DAVIS",
+          "evidence_quote": "DEBORAH | DAVIS",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "bank_statement": {
+      "doc_type": "bank_statement",
+      "fields": {
+        "account_holder": {
+          "value": "DEBORAHDAVIS",
+          "evidence_quote": "DEBORAHDAVIS",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "bank_closing_balance": {
+          "value": "51731.81",
+          "evidence_quote": "Closing balance $51,731.81",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "statement_date": {
+          "value": "2026-10-20",
+          "evidence_quote": "Statement date 20Oct2026",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "employment_letter": {
+      "doc_type": "employment_letter",
+      "fields": {
+        "employee_name": {
+          "value": "DEBORAHDAVIS",
+          "evidence_quote": "RE:EMPLOYMENTVERIFICATIONANDAPPROVEDLEAVE-DEBORAHDAVIS",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Pelican Reach Marine Services",
+          "evidence_quote": "Pelican Reach Marine Services",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-06",
+          "evidence_quote": "Date:06Oct2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": null,
+          "evidence_quote": null,
+          "page": null,
+          "status": "MISSING"
+        },
+        "leave_end": {
+          "value": null,
+          "evidence_quote": null,
+          "page": null,
+          "status": "MISSING"
+        }
+      }
+    },
+    "passport": {
+      "doc_type": "passport",
+      "fields": {
+        "surname": {
+          "value": "DAVIS",
+          "evidence_quote": "DAVIS",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "DEBORAH",
+          "evidence_quote": "DEBORAH",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1973-06-18",
+          "evidence_quote": "18JUN 1973",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "UTOPIAN/UTOPIENNE",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT0134224",
+          "evidence_quote": "UT0134224",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_expiry": {
+          "value": "2031-11-26",
+          "evidence_quote": "26NOV2031",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "DEBORAH DAVIS",
+          "evidence_quote": "DEBORAH | DAVIS",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    }
+  },
+  "issues": [
+    {
+      "kind": "INVALID",
+      "field": "email",
+      "message": "email 'deborah.davis@mailuto' is not local@domain.tld",
+      "sources": []
+    },
+    {
+      "kind": "INVALID",
+      "field": "leave_start",
+      "message": "leave_start not verified from the letter; leave cannot be shown to cover travel",
+      "sources": []
+    },
+    {
+      "kind": "INVALID",
+      "field": "leave_end",
+      "message": "leave_end not verified from the letter; leave cannot be shown to cover travel",
+      "sources": []
+    }
+  ],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "present": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "plan": {
+    "record_id": "rec-2005",
+    "field_patch": {
+      "full_name": "DEBORAH DAVIS",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2031-11-26",
+      "intended_travel_date": "2027-02-09",
+      "bank_closing_balance": "51731.81",
+      "statement_date": "2026-10-20"
+    },
+    "status": "NEEDS_REVIEW",
+    "notes": [
+      "fields read by OCR; confirm against the scan",
+      "INVALID email: email 'deborah.davis@mailuto' is not local@domain.tld",
+      "INVALID leave_start: leave_start not verified from the letter; leave cannot be shown to cover travel",
+      "INVALID leave_end: leave_end not verified from the letter; leave cannot be shown to cover travel"
+    ],
+    "reason": "ocr_used"
+  },
+  "write_outcome": "WRITTEN",
+  "candidates": [
+    "rec-2005"
+  ],
+  "record_after": {
+    "id": "rec-2005",
+    "version": 2,
+    "status": "NEEDS_REVIEW",
+    "fields": {
+      "passport_number": "UT0134224",
+      "date_of_birth": "1973-06-18",
+      "full_name": "DEBORAH DAVIS",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2031-11-26",
+      "intended_travel_date": "2027-02-09",
+      "bank_closing_balance": "51731.81",
+      "statement_date": "2026-10-20"
+    },
+    "notes": [
+      "fields read by OCR; confirm against the scan",
+      "INVALID email: email 'deborah.davis@mailuto' is not local@domain.tld",
+      "INVALID leave_start: leave_start not verified from the letter; leave cannot be shown to cover travel",
+      "INVALID leave_end: leave_end not verified from the letter; leave cannot be shown to cover travel"
+    ]
+  },
+  "error": null,
+  "tool_calls": [
+    {
+      "tool": "checklist.check",
+      "args": {
+        "visa_type": "TOURIST_UTO",
+        "docs_present": [
+          "application_form",
+          "bank_statement",
+          "employment_letter",
+          "passport"
+        ]
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.find",
+      "args": {
+        "passport_no": "UT0134224",
+        "dob": "1973-06-18"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.update",
+      "args": {
+        "id": "rec-2005",
+        "patch": {
+          "full_name": "DEBORAH DAVIS",
+          "nationality": "UTOPIAN",
+          "passport_expiry": "2031-11-26",
+          "intended_travel_date": "2027-02-09",
+          "bank_closing_balance": "51731.81",
+          "statement_date": "2026-10-20"
+        },
+        "expected_version": 1,
+        "status": "NEEDS_REVIEW",
+        "notes": [
+          "fields read by OCR; confirm against the scan",
+          "INVALID email: email 'deborah.davis@mailuto' is not local@domain.tld",
+          "INVALID leave_start: leave_start not verified from the letter; leave cannot be shown to cover travel",
+          "INVALID leave_end: leave_end not verified from the letter; leave cannot be shown to cover travel"
+        ],
+        "idempotency_key": "0548bbf85aac99d7fb11b743cceb55f3bce5a4a8aff49648b101e8b5a029feec"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.get",
+      "args": {
+        "id": "rec-2005"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    }
+  ]
+}

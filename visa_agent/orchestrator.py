@@ -54,13 +54,14 @@ def identity(extractions: dict[str, Extraction], issues: list[Issue]) -> tuple[s
     return p.fields["passport_number"].value, p.fields["date_of_birth"].value
 
 
-def run(packet: Path, deps: Deps, dry_run: bool = False, case: str | None = None, cfg: dict | None = None) -> RunResult:
+def run(packet: Path, deps: Deps, dry_run: bool = False, case: str | None = None, cfg: dict | None = None,
+        ocr: str | None = None) -> RunResult:
     cfg = cfg or load_config()
     fields_cfg, formats = cfg["fields"]["fields"], cfg["fields"]["date_formats"]
     res = RunResult(case=case or Path(packet).name)
 
     # 1-2 ingest, classify, injection scan
-    docs = ing.ingest(Path(packet))
+    docs = ing.ingest(Path(packet), ocr)
     by_type: dict[str, dict[str, Any]] = {}
     for d in docs:
         t, flags = ing.classify(d, cfg["doc_types"])
@@ -110,11 +111,14 @@ def run(packet: Path, deps: Deps, dry_run: bool = False, case: str | None = None
         try:
             matches = deps.gateway.call("crm.find", {"passport_no": ident[0], "dob": ident[1]})
             res.candidates = [m["id"] for m in matches]
+            res.matched_version = matches[0]["version"] if len(matches) == 1 else None
         except ToolError as e:  # CRM down is not "no match": say so
             res.error = f"crm.find failed: {e}"
             res.plan = WritePlan(record_id=None, reason="crm_unavailable", notes=[f"CRM lookup failed; nothing written ({e})"])
     if res.plan is None:
-        res.plan = pol.decide(matches, values, res.issues, res.checklist, "injection_detected" in res.flags, cfg["policy"])
+        res.plan = pol.decide(matches, values, res.issues, res.checklist, "injection_detected" in res.flags, cfg["policy"],
+                              ocr=any(d.get("ocr_used") for d in by_type.values()),
+                              duplicate=any("duplicate_type" in d["flags"] for d in res.docs))
 
     # 8 write + read-back
     plan = res.plan
@@ -123,7 +127,7 @@ def run(packet: Path, deps: Deps, dry_run: bool = False, case: str | None = None
     elif dry_run:
         res.write_outcome = "DRY_RUN"
     else:
-        res.write_outcome = write(deps.gateway, plan, matches[0]["version"], res)
+        res.write_outcome = write(deps.gateway, plan, res.matched_version, res)
     res.audit = list(deps.gateway.audit)
     return res
 

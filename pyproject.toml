@@ -12,6 +12,10 @@ dependencies = [
     "groq==0.31.0",
 ]
 
+[project.optional-dependencies]
+# RapidOCR for image-only pages (VISA_OCR=auto picks it when installed); full pins in requirements-ocr.txt
+ocr = ["rapidocr-onnxruntime==1.4.4", "onnxruntime==1.23.2"]
+
 [dependency-groups]
 dev = ["pytest==8.4.1", "reportlab==4.4.3", "faker==37.5.3", "pypdf==6.21.3", "numpy==2.4.6", "pillow==13.0.0"]
 

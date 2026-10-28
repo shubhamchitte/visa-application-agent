@@ -338,7 +338,7 @@ def build_cases() -> dict[str, dict]:
         t, issues=[issue("UNVERIFIABLE", f) for f in BANK_FIELDS],
         patch=golden_patch(t["canonical"], BANK_FIELDS), status="INCOMPLETE",
         llm_docs=["application_form", "passport", "employment_letter"], llm_not_called=["bank_statement"],
-        checklist={"required": REQUIRED, "missing": []}, extra={"no_text_layer_docs": ["bank_statement"], "classification_note":
+        checklist={"required": REQUIRED, "missing": []}, extra={"ocr": "none", "no_text_layer_docs": ["bank_statement"], "classification_note":
                "no text layer -> classified by filename only and flagged no_text_layer"}))
 
     def halluc(t):

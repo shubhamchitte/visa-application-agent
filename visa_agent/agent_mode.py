@@ -12,12 +12,18 @@ from .tools.gateway import GuardRejected, ToolError
 MAX_STEPS = 6
 
 
-def plan_guard(args: dict[str, Any], plan: WritePlan) -> str | None:
-    """Reason to reject a crm.update that goes beyond the plan, or None if it is within it."""
+def plan_guard(args: Any, plan: WritePlan, versions: set[int]) -> str | None:
+    """Reason to reject a crm.update that goes beyond the plan, or None if it is within it.
+    `versions`: the version crm.find saw plus the ones this run's own writes produced; anything else means
+    someone else changed the record since the plan was made (stale plan)."""
+    if not isinstance(args, dict) or not isinstance(args.get("patch", {}), dict) or not isinstance(args.get("notes", []), list):
+        return "malformed arguments (args, patch and notes must be an object, an object and a list)"
     if plan.record_id is None:
         return "plan is NO_WRITE"
     if args.get("id") != plan.record_id:
         return f"id {args.get('id')!r} is not the planned record {plan.record_id!r}"
+    if args.get("expected_version") not in versions:
+        return f"expected_version {args.get('expected_version')!r} is not a version this run planned against or wrote"
     extra = {k: v for k, v in (args.get("patch") or {}).items() if plan.field_patch.get(k) != v}
     if extra:
         return f"patch beyond plan: {sorted(extra)}"
@@ -25,6 +31,8 @@ def plan_guard(args: dict[str, Any], plan: WritePlan) -> str | None:
         return f"status {args.get('status')!r} is not the planned {plan.status!r}"
     if not set(args.get("notes") or []) <= set(plan.notes):
         return "notes beyond plan"
+    if not args.get("patch") and args.get("status") is None and not args.get("notes"):
+        return "update changes nothing (it would only bump the version)"
     return None
 
 
@@ -39,19 +47,21 @@ def run_agent(packet: Path, deps: Deps, case: str | None = None, max_steps: int 
     res = run(packet, deps, dry_run=True, case=case, cfg=cfg)  # verified state + the plan; no write
     gw, plan, state = deps.gateway, res.plan, agent_state(res, cfg)
     history: list[dict[str, Any]] = []
+    versions = {res.matched_version} - {None}
     res.write_outcome = "NO_WRITE"
     for _ in range(max_steps):
         call = deps.llm.propose_tool_call(state, gw.specs(), history)
         if call.get("done"):
             break
         name, args = call.get("tool"), call.get("args") or {}
-        why = plan_guard(args, plan) if name == "crm.update" else None
+        why = plan_guard(args, plan, versions) if name == "crm.update" else None
         try:
             if why:
                 gw._log(name, args, attempt=0, outcome="REJECTED", error=f"plan guard: {why}")
                 raise GuardRejected(f"plan guard: {why}")
             obs = {"ok": gw.call(name, args)}
             if name == "crm.update":
+                versions.add(obs["ok"]["version"])
                 res.write_outcome = "WRITTEN"
                 problem = read_back(gw, plan, res)  # verify the real record against the full plan, not the agent's claim
                 if problem:

@@ -6,6 +6,7 @@ import time
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+from . import ingest
 from .cases import CASES, REALISTIC, run_case
 from .llm.replay import REPLAY_DIR, make_llm
 from .report import to_json, to_markdown
@@ -37,8 +38,10 @@ def demo(a) -> int:
             exp = json.loads((d / "expected.json").read_text())
             recorded = (REPLAY_DIR / f"{Path(exp['packet']).name}.json").exists()
             use = prov if prov != "replay" or (name not in FAKE_ONLY and recorded) else "fake"
-            if exp.get("realistic") and not recorded:  # no scripted output exists for real-layout docs
-                text = f"\n=== {exp['scenario']:>2} {exp['title']}  (skipped: not recorded; needs OCR (tesseract) at record time) ==="
+            no_ocr = exp.get("ocr_required") and ingest.ocr_backend() != "rapidocr"  # recorded on RapidOCR text
+            if exp.get("realistic") and (not recorded or no_ocr):  # no scripted output exists for real-layout docs
+                why = "needs RapidOCR: `make setup-ocr`" if no_ocr else "not recorded"
+                text = f"\n=== {exp['scenario']:>2} {exp['title']}  (skipped: {why}) ==="
                 print(text)
                 lines.append(text)
                 continue
@@ -70,6 +73,21 @@ def demo(a) -> int:
     return 0
 
 
+def case(a) -> int:
+    """One case with its golden fault plan and scripted LLM output (realistic: the replayed recording); prints the report.
+    Works for the fault cases 07-13, which reuse case01's packet and so cannot be shown with `run`."""
+    name = Path(a.name).name
+    hits = [d for root in (CASES, REALISTIC) for d in sorted(root.glob(name + "*")) if (d / "expected.json").exists()]
+    if not hits:
+        print(f"no case matches {name!r}")
+        return 2
+    with tempfile.TemporaryDirectory() as tmp:
+        prov = lambda c, d, r: make_llm(c, d, r, provider="replay" if d.parent == REALISTIC else "fake")
+        _, res, _ = run_case(hits[0], prov, Path(tmp), dry_run=a.dry_run)
+    print(to_markdown(res))  # exit 0 even on WRITE_FAILED: cases 11a/11b fail the write on purpose
+    return 0
+
+
 class _Tap:
     """Wraps a client and keeps the raw proposals, so hallucinations are counted before verify drops them."""
     def __init__(self, inner, pause: float = 0):
@@ -96,13 +114,13 @@ def _truth(case_dir: Path) -> dict:
 
 def _quote_rate(dirs: list[Path]) -> str:
     """Verbatim-quote rate and call count computed from the recording files (raw responses vs the PDF text)."""
-    from . import ingest, verify
+    from . import verify
     from .cases import packet_dir
     ok = n = calls = 0
     for d in dirs:
         exp = json.loads((d / "expected.json").read_text())
         saved = json.loads((REPLAY_DIR / f"{Path(exp['packet']).name}.json").read_text())
-        pages = {x["doc_id"]: " ".join(verify.normalize(p["text"]) for p in x["pages"]) for x in ingest.ingest(packet_dir(d, exp))}
+        pages = {x["doc_id"]: " ".join(verify.normalize(p["text"]) for p in x["pages"]) for x in ingest.ingest(packet_dir(d, exp), exp.get("ocr"))}
         for e in saved["entries"].values():
             calls += bool(e.get("request_id"))
             for f in ((e["response"].get("fields")) or {}).values():
@@ -132,6 +150,9 @@ def eval(a) -> int:  # noqa: A001 (CLI verb)
             exp = json.loads((d / "expected.json").read_text())
             if prov == "replay" and not (REPLAY_DIR / f"{Path(exp['packet']).name}.json").exists():
                 notes.append(f"{d.name}: not recorded, skipped")
+                continue
+            if exp.get("ocr_required") and ingest.ocr_backend() != "rapidocr":
+                notes.append(f"{d.name}: needs RapidOCR (`make setup-ocr`), skipped")
                 continue
             tap = {}
             def mk(c, cd, r, tap=tap):

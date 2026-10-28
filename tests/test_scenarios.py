@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 
 from visa_agent.cli import build_gateway
+from visa_agent.ingest import ocr_backend
 from visa_agent.llm.fake import FakeLLM
 from visa_agent.llm.replay import REPLAY_DIR, ReplayLLM
 from visa_agent.orchestrator import Deps, run
@@ -57,18 +58,25 @@ def _subset(sub, full) -> bool:
 
 
 
+# Goldens assume perfect OCR. Known RapidOCR misreads (docs/LIMITATIONS.md); strict: fixing OCR must flip these.
+OCR_MISREADS = {"R5_scanned_all": "RapidOCR reads the form email 'mail.uto' as 'mailuto'; the email-format check now flags it INVALID and drops it, so the patch lacks email vs the perfect-OCR golden"}
+
+
 def _realistic_param(p: Path):
     exp = json.loads((p / "expected.json").read_text())
+    if exp.get("ocr_required") and ocr_backend() != "rapidocr":  # recorded on RapidOCR text (replay keys hash it)
+        return pytest.param(p, marks=pytest.mark.skip(reason=f"{p.name}: needs RapidOCR (`make setup-ocr`)"))
     if not (REPLAY_DIR / f"{p.name}.json").exists():
-        why = "needs OCR (tesseract not installed at record time)" if exp.get("ocr_required") else "not recorded"
-        return pytest.param(p, marks=pytest.mark.skip(reason=f"{p.name}: no replay recording ({why})"))
+        return pytest.param(p, marks=pytest.mark.skip(reason=f"{p.name}: no replay recording"))
+    if p.name in OCR_MISREADS:
+        return pytest.param(p, marks=pytest.mark.xfail(strict=True, reason=OCR_MISREADS[p.name]))
     return p
 
 
 @pytest.mark.parametrize("case_dir", CASES + [_realistic_param(p) for p in REALISTIC], ids=lambda p: p.name)
 def test_scenario(case_dir, tmp_path):
     exp, crm, gw, llm, deps = setup_case(case_dir, tmp_path)
-    res = run(case_dir if exp.get("realistic") else ROOT / "cases" / exp["packet"], deps, case=exp["case"])
+    res = run(case_dir if exp.get("realistic") else ROOT / "cases" / exp["packet"], deps, case=exp["case"], ocr=exp.get("ocr"))
 
     got = {(i.kind.value, i.field): i for i in res.issues}
     for e in exp["issues"]:

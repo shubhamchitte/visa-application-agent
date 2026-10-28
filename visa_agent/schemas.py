@@ -71,4 +71,5 @@ class RunResult(BaseModel):
     candidates: list[str] = []                 # CRM record ids returned by crm.find
     record_after: dict[str, Any] | None = None  # read-back after the write attempt
     error: str | None = None                    # tool error that stopped the write, if any
+    matched_version: int | None = None          # CRM version seen by crm.find; every write must expect it
     audit: list[dict[str, Any]] = []

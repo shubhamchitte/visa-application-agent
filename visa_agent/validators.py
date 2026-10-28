@@ -8,6 +8,7 @@ from typing import Any
 from .schemas import Extraction, FieldStatus, Issue, IssueKind
 
 MRZ_LINE = re.compile(r"^[A-Z0-9<]{44}$")
+EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$")  # local@domain.tld
 
 
 def parse_date(token: str, formats: list[str], declared: str | None = None) -> set[date]:
@@ -72,16 +73,17 @@ def check_mrz(passport: Extraction, doc: dict[str, Any]) -> list[Issue]:
     return issues
 
 
-def _norm(value: str, ftype: str) -> str:
+def _norm(value: str, ftype: str, ocr: bool = False) -> str:
     if ftype == "passport_no":
         return value.replace(" ", "").upper()
-    return " ".join(unicodedata.normalize("NFKC", value).split()).casefold()
+    return ("" if ocr and ftype == "name" else " ").join(unicodedata.normalize("NFKC", value).split()).casefold()
 
 
-def cross_doc(extractions: dict[str, Extraction], fields_cfg: dict[str, Any]) -> list[Issue]:
+def cross_doc(extractions: dict[str, Extraction], fields_cfg: dict[str, Any], ocr_docs: set[str] = frozenset()) -> list[Issue]:
     """Any field verified in 2+ docs must agree (names normalized). Never auto-resolved: CONFLICT with both sources.
     Name parts (`part_of`) are compared once, through the derived full_name built from the normalised parts.
-    A `same_as` field (bank account holder, letter employee name) is compared with that field's verified values."""
+    A `same_as` field (bank account holder, letter employee name) is compared with that field's verified values.
+    If any source is an OCR doc, names compare without whitespace (OCR drops spaces: "DEBORAHDAVIS"); letters must match."""
     def verified(name: str, docs: list[str]) -> list[tuple[str, Any]]:
         return [(d, extractions[d].fields[name]) for d in docs
                 if d in extractions and name in extractions[d].fields and extractions[d].fields[name].status == FieldStatus.VERIFIED]
@@ -92,7 +94,8 @@ def cross_doc(extractions: dict[str, Extraction], fields_cfg: dict[str, Any]) ->
         srcs = verified(name, cfg["source"])
         if srcs and (ref := cfg.get("same_as")):
             srcs = verified(ref, fields_cfg[ref]["source"]) + srcs
-        if len({_norm(f.value, cfg["type"]) for _, f in srcs}) > 1:
+        ocr = any(d in ocr_docs for d, _ in srcs)
+        if len({_norm(f.value, cfg["type"], ocr) for _, f in srcs}) > 1:
             issues.append(Issue(kind=IssueKind.CONFLICT, field=name, message=f"documents disagree on {name}",
                                 sources=[{"doc": d, "value": f.value, "page": f.page} for d, f in srcs]))
     return issues
@@ -114,18 +117,26 @@ def check_dates(values: dict[str, str], today: date, rules: dict[str, Any]) -> l
     return issues
 
 
-def check_letter(values: dict[str, str], today: date, rules: dict[str, Any]) -> list[Issue]:
-    """Employment letter (optional doc): not older than N days, and its leave period covers the travel date.
-    Each check runs only when its VERIFIED values exist, i.e. only when the letter is present."""
+def check_letter(values: dict[str, str], today: date, rules: dict[str, Any], letter_present: bool = True) -> list[Issue]:
+    """Employment letter (optional doc): not dated in the future, not older than N days, and its leave period covers
+    the travel date. Runs only when the letter is present; then an unproven leave date is INVALID, not skipped."""
     issues = []
+    if not letter_present:
+        return issues
     letter, start, end, travel = (values.get(k) for k in ("letter_date", "leave_start", "leave_end", "intended_travel_date"))
     max_age = rules.get("employment_letter_max_age_days")
-    if letter and max_age is not None and (today - date.fromisoformat(letter)).days > max_age:
+    if letter and date.fromisoformat(letter) > today:
+        issues.append(Issue(kind=IssueKind.INVALID, field="letter_date", message=f"employment letter dated {letter} is in the future"))
+    elif letter and max_age is not None and (today - date.fromisoformat(letter)).days > max_age:
         issues.append(Issue(kind=IssueKind.INVALID, field="letter_date",
                             message=f"employment letter dated {letter} is older than {max_age} days"))
-    if travel and rules.get("employment_letter_leave_must_cover_travel"):
-        for field, bad in (("leave_start", start and start > travel), ("leave_end", end and end < travel)):
-            if bad:
+    if rules.get("employment_letter_leave_must_cover_travel"):
+        for field, value, bad in (("leave_start", start, travel and start and start > travel),
+                                  ("leave_end", end, travel and end and end < travel)):
+            if not value:
+                issues.append(Issue(kind=IssueKind.INVALID, field=field,
+                                    message=f"{field} not verified from the letter; leave cannot be shown to cover travel"))
+            elif bad:
                 issues.append(Issue(kind=IssueKind.INVALID, field=field,
                                     message=f"approved leave {start or '?'} to {end or '?'} does not cover travel {travel}"))
     return issues
@@ -134,7 +145,7 @@ def check_letter(values: dict[str, str], today: date, rules: dict[str, Any]) -> 
 def validate(extractions: dict[str, Extraction], docs: dict[str, dict[str, Any]], today: date,
              rules: dict[str, Any], fields_cfg: dict[str, Any]) -> list[Issue]:
     """Return INVALID/CONFLICT issues. `today` comes from the injected clock."""
-    issues = cross_doc(extractions, fields_cfg)
+    issues = cross_doc(extractions, fields_cfg, {t for t, d in docs.items() if d.get("ocr_used")})
     if "passport" in extractions:
         issues += check_mrz(extractions["passport"], docs["passport"])
     values = {}
@@ -143,4 +154,6 @@ def validate(extractions: dict[str, Extraction], docs: dict[str, dict[str, Any]]
             f = extractions.get(d) and extractions[d].fields.get(name)
             if f and f.status == FieldStatus.VERIFIED:
                 values.setdefault(name, f.value)
-    return issues + check_dates(values, today, rules) + check_letter(values, today, rules)
+    if values.get("email") and not EMAIL.match(values["email"]):
+        issues.append(Issue(kind=IssueKind.INVALID, field="email", message=f"email {values['email']!r} is not local@domain.tld"))
+    return issues + check_dates(values, today, rules) + check_letter(values, today, rules, "employment_letter" in docs)

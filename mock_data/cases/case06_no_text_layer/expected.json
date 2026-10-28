@@ -115,6 +115,7 @@
     "REJECTED"
   ],
   "fault_plan": [],
+  "ocr": "none",
   "no_text_layer_docs": [
     "bank_statement"
   ],

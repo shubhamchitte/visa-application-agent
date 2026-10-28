@@ -11,8 +11,14 @@ rules:
     action: {status: NEEDS_REVIEW, patch: none, note: "possible prompt injection in document text"}
   - when: identity_conflict
     action: {status: NEEDS_REVIEW, patch: none, note: "identity conflict between documents"}
+  - when: duplicate_doc_type   # two files of one type: which one is right is a human's call, so nothing is patched
+    action: {status: NEEDS_REVIEW, patch: none, note: "two documents of the same type; only the first was read"}
+  - when: ocr_used   # OCR text is weaker evidence: verified fields are still patched so the human confirms, not retypes
+    action: {status: NEEDS_REVIEW, patch: verified_only, note: "fields read by OCR; confirm against the scan"}
   - when: review_field_invalid
     action: {status: NEEDS_REVIEW, patch: verified_only, note: "employment letter check failed"}
+  - when: field_conflict   # non-identity CONFLICT (e.g. nationality): the field is dropped, a human picks the value
+    action: {status: NEEDS_REVIEW, patch: verified_only, note: "documents disagree on a field"}
   - when: checklist_missing_or_invalid_or_unverifiable
     action: {status: INCOMPLETE, patch: verified_only}
   - when: checklist_unknown

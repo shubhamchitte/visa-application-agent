@@ -1,0 +1,309 @@
+{
+  "case": "R4_scanned_passport",
+  "docs": [
+    {
+      "doc_id": "application_form",
+      "doc_type": "application_form",
+      "flags": []
+    },
+    {
+      "doc_id": "bank_statement",
+      "doc_type": "bank_statement",
+      "flags": []
+    },
+    {
+      "doc_id": "employment_letter",
+      "doc_type": "employment_letter",
+      "flags": []
+    },
+    {
+      "doc_id": "passport",
+      "doc_type": "passport",
+      "flags": [
+        "ocr_used"
+      ]
+    }
+  ],
+  "extractions": {
+    "application_form": {
+      "doc_type": "application_form",
+      "fields": {
+        "surname": {
+          "value": "MALDONADO",
+          "evidence_quote": "MALDONADO",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "DAVID",
+          "evidence_quote": "DAVID",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1970-06-09",
+          "evidence_quote": "09.06.1970",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT4279522",
+          "evidence_quote": "UT4279522",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "email": {
+          "value": "david.maldonado@mail.uto",
+          "evidence_quote": "david.maldonado@mail.uto",
+          "page": 2,
+          "status": "VERIFIED"
+        },
+        "intended_travel_date": {
+          "value": "2027-02-21",
+          "evidence_quote": "21.02.2027",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "DAVID MALDONADO",
+          "evidence_quote": "DAVID | MALDONADO",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "bank_statement": {
+      "doc_type": "bank_statement",
+      "fields": {
+        "account_holder": {
+          "value": "DAVID MALDONADO",
+          "evidence_quote": "Account holder                    DAVID MALDONADO",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "bank_closing_balance": {
+          "value": "33494.31",
+          "evidence_quote": "Closing balance                                                                             $33,494.31",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "statement_date": {
+          "value": "2026-10-20",
+          "evidence_quote": "Statement date                              20 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "employment_letter": {
+      "doc_type": "employment_letter",
+      "fields": {
+        "employee_name": {
+          "value": "DAVID MALDONADO",
+          "evidence_quote": "RE: EMPLOYMENT VERIFICATION AND APPROVED LEAVE - DAVID MALDONADO",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "employer": {
+          "value": "Northgate Civic Software Ltd",
+          "evidence_quote": "is employed by Northgate Civic Software Ltd on a permanent, full-time contract.",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "letter_date": {
+          "value": "2026-10-06",
+          "evidence_quote": "Date: 06 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_start": {
+          "value": "2027-02-21",
+          "evidence_quote": "The company has approved paid annual leave from 21 Feb 2027 to 07 Mar 2027 (inclusive)",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "leave_end": {
+          "value": "2027-03-07",
+          "evidence_quote": "The company has approved paid annual leave from 21 Feb 2027 to 07 Mar 2027 (inclusive)",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "passport": {
+      "doc_type": "passport",
+      "fields": {
+        "surname": {
+          "value": "MALDONADO",
+          "evidence_quote": "MALDONADO",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "DAVID",
+          "evidence_quote": "DAVID",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1970-06-09",
+          "evidence_quote": "09JUN 1970",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "UTOPIAN/UTOPIENNE",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT4279522",
+          "evidence_quote": "UT4279522",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_expiry": {
+          "value": "2030-11-12",
+          "evidence_quote": "12NOV2030",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "DAVID MALDONADO",
+          "evidence_quote": "DAVID | MALDONADO",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    }
+  },
+  "issues": [],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "present": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "plan": {
+    "record_id": "rec-2004",
+    "field_patch": {
+      "full_name": "DAVID MALDONADO",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2030-11-12",
+      "email": "david.maldonado@mail.uto",
+      "intended_travel_date": "2027-02-21",
+      "bank_closing_balance": "33494.31",
+      "statement_date": "2026-10-20"
+    },
+    "status": "NEEDS_REVIEW",
+    "notes": [
+      "fields read by OCR; confirm against the scan"
+    ],
+    "reason": "ocr_used"
+  },
+  "write_outcome": "WRITTEN",
+  "candidates": [
+    "rec-2004"
+  ],
+  "record_after": {
+    "id": "rec-2004",
+    "version": 2,
+    "status": "NEEDS_REVIEW",
+    "fields": {
+      "passport_number": "UT4279522",
+      "date_of_birth": "1970-06-09",
+      "full_name": "DAVID MALDONADO",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2030-11-12",
+      "email": "david.maldonado@mail.uto",
+      "intended_travel_date": "2027-02-21",
+      "bank_closing_balance": "33494.31",
+      "statement_date": "2026-10-20"
+    },
+    "notes": [
+      "fields read by OCR; confirm against the scan"
+    ]
+  },
+  "error": null,
+  "tool_calls": [
+    {
+      "tool": "checklist.check",
+      "args": {
+        "visa_type": "TOURIST_UTO",
+        "docs_present": [
+          "application_form",
+          "bank_statement",
+          "employment_letter",
+          "passport"
+        ]
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.find",
+      "args": {
+        "passport_no": "UT4279522",
+        "dob": "1970-06-09"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.update",
+      "args": {
+        "id": "rec-2004",
+        "patch": {
+          "full_name": "DAVID MALDONADO",
+          "nationality": "UTOPIAN",
+          "passport_expiry": "2030-11-12",
+          "email": "david.maldonado@mail.uto",
+          "intended_travel_date": "2027-02-21",
+          "bank_closing_balance": "33494.31",
+          "statement_date": "2026-10-20"
+        },
+        "expected_version": 1,
+        "status": "NEEDS_REVIEW",
+        "notes": [
+          "fields read by OCR; confirm against the scan"
+        ],
+        "idempotency_key": "1bbcaaf82668cbc69e62a5969b107a2564a5ff8bf618ddcd3f6abe62286f6daa"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.get",
+      "args": {
+        "id": "rec-2004"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    }
+  ]
+}

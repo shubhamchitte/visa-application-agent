@@ -679,7 +679,8 @@ def expected_for(cid: str, t: dict) -> dict:
                                notes_contain=["possible prompt injection"], extra={"injected_text": g.INJECTION})
     # scanned cases: main expectation assumes the OCR path reads the scan; fallback is "no OCR available"
     scanned = sorted(d for d, v in t["documents"].items() if v.get("mode") == "image")
-    exp = g.expected_base(t, extra={"scanned_docs": scanned, "ocr_required": True,
+    # OCR is weaker evidence: policy rule ocr_used -> NEEDS_REVIEW, verified fields still patched for the human to confirm
+    exp = g.expected_base(t, status="NEEDS_REVIEW", notes_contain=["fields read by OCR"], extra={"scanned_docs": scanned, "ocr_required": True,
                                     "ocr_note": "expected outcome when OCR recovers the text (flags ocr_used); "
                                                 "see expected_without_ocr for the safe fallback"})
     if "passport" in scanned:
