@@ -29,6 +29,8 @@ Groq free tier may train on data: use mock data only. Gemini is wired but unveri
 **Scanned packets.** R4 and R5 are image-only scans. They are skipped in `make demo` and the eval (not recorded); OCR
 wiring is covered by `tests/test_ocr.py` with a mocked OCR call. See [LIMITATIONS](docs/LIMITATIONS.md).
 
+**How to run anything:** [docs/COMMANDS.md](docs/COMMANDS.md) (every command, expected outcome, live Groq).
+
 **Read the output without running anything:** [docs/demo_output/](docs/demo_output/README.md) (every scenario:
 fields with quotes, issues, CRM plan, status), [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md), and
 [docs/sample_docs/](docs/sample_docs/) (page images of the realistic documents).
@@ -122,4 +124,4 @@ docs/                     ARCHITECTURE SAFEGUARDS LIMITATIONS DEMO TEST_RESULTS 
 
 ## Docs
 [Architecture diagram](docs/architecture.png) | [ARCHITECTURE](docs/ARCHITECTURE.md) | [SAFEGUARDS](docs/SAFEGUARDS.md) | [LIMITATIONS](docs/LIMITATIONS.md) |
-[DEMO](docs/DEMO.md) | [TEST_RESULTS](docs/TEST_RESULTS.md) | [EVAL_RESULTS](docs/EVAL_RESULTS.md) |
+[COMMANDS](docs/COMMANDS.md) | [DEMO](docs/DEMO.md) | [TEST_RESULTS](docs/TEST_RESULTS.md) | [EVAL_RESULTS](docs/EVAL_RESULTS.md) |
