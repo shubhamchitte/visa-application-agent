@@ -8,7 +8,7 @@ reported, never guessed. The principle is **LLM proposes, code disposes**: the L
 deterministic Python, tested offline. Plain Python, no agent framework, about 1,800 lines of source.
 
 ## Quickstart
-Needs Python 3.11+ only. No API key, no network.
+Requirements: `make`, Python 3.11+, and internet for the first run (installs pinned packages). No API key needed.
 
 ```bash
 git clone https://github.com/shubhamchitte/visa-application-agent && cd visa-application-agent
