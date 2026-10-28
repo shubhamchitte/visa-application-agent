@@ -13,7 +13,7 @@ Requirements: `make`, Python 3.11+, and internet for the first run (installs pin
 ```bash
 git clone https://github.com/shubhamchitte/visa-application-agent && cd visa-application-agent
 make demo        # first run creates .venv and installs pinned deps; replay mode: no API key, no network
-make test        # 166 passed, 2 skipped, offline
+make test        # 168 passed, 2 skipped, offline
 make run CASE=R6 # one case; compare with mock_data/realistic/cases/R6_injection_fineprint/expected.json
 make run-agent   # agent mode, case14: replays a recorded model run; the plan guard rejects an out-of-plan crm.update
 ```
@@ -48,13 +48,13 @@ with MRZ, a 3-page bank statement, an employment letter, and image-only scans.
 | Brief requirement | Where |
 |---|---|
 | 1. Source + setup | this README, `visa_agent/`, `Makefile`, `requirements.lock`, `.env.example` |
-| 2. Test cases, expected vs actual | [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) (generated, 16 scenarios), `tests/` (166 passed, 2 skipped), [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md) (live accuracy) |
+| 2. Test cases, expected vs actual | [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) (generated, 16 scenarios), `tests/` (168 passed, 2 skipped), [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md) (live accuracy) |
 | 3. Rules and safeguards | [docs/SAFEGUARDS.md](docs/SAFEGUARDS.md): rule -> file:line -> proving test; `visa_agent/policy.yaml` |
 | 4. Architecture, tools, decisions, limits | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/LIMITATIONS.md](docs/LIMITATIONS.md) |
 
 Two kinds of evidence, kept separate on purpose: the offline tests prove the **control logic** with canned LLM
 output (they do not measure extraction). The live eval measures **extraction** with a real model
-(Groq `openai/gpt-oss-120b`; see [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md)): clean set 115/115 fields correct and VERIFIED, 0 hallucinations; realistic set 65/66, 1 hallucination. The miss is R6 nationality: the model proposed 'UTOPIAN / UTOPIENNE' against truth 'UTOPIAN'. Verify did not block it (the quote is verbatim in the document); cross-document validation flagged it as CONFLICT, so the case ends NEEDS_REVIEW and nothing is written. R4 and R5 (scans) are not recorded and are skipped in the eval.
+(Groq `openai/gpt-oss-120b`; see [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md)): clean set 115/115 fields correct and VERIFIED, 0 hallucinations; realistic set 66/66. One raw proposal was wrong: on R6 the model returned the bilingual passport value 'UTOPIAN / UTOPIENNE'. It is verbatim, so it passes verify; code then keeps the first segment ('UTOPIAN'). A genuine nationality mismatch still raises CONFLICT (tested). R4 and R5 (scans) are not recorded and are skipped in the eval.
 
 Agent mode (`--mode agent`): the LLM proposes tool calls through the gateway and the plan guard. Tests use a scripted FakeLLM. Two recorded real-Groq runs are replayed by `make run-agent` (default case14; `make run-agent AGENT_CASE=mock_data/cases/case01_happy` for case01). case14: the plan guard rejects an out-of-plan update (`crm.update -> REJECTED (plan guard: notes beyond plan)`) after the planned update has been written. case01: in 3 live recordings gpt-oss-120b declared done on its first step, so no write happened (`write outcome: NO_WRITE`). Code never writes on the model's behalf, which is the safe outcome. The deterministic mode is the primary path; agent mode is secondary.
 

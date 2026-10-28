@@ -27,13 +27,13 @@
 | passport | surname | JAMES | VERIFIED | "                 JAMES" (p1) |
 | passport | given_names | ANNE | VERIFIED | "                ANNE" (p1) |
 | passport | date_of_birth | 1994-01-29 | VERIFIED | "                         29 JAN 1994                   NEW CALDEN" (p1) |
-| passport | nationality | UTOPIAN / UTOPIENNE | VERIFIED | "                     UTOPIAN / UTOPIENNE                F" (p1) |
+| passport | nationality | UTOPIAN | VERIFIED | "                     UTOPIAN / UTOPIENNE                F" (p1) |
 | passport | passport_number | UT1841236 | VERIFIED | "                    PASSPORT OFFICE, PORT ELORA      UT1841236" (p1) |
 | passport | passport_expiry | 2033-03-13 | VERIFIED | "                         13 MAR 2033" (p1) |
 | passport | full_name | ANNE JAMES | VERIFIED | "                ANNE |                  JAMES" (p1) |
 
 ## Issues
-- **CONFLICT** nationality: documents disagree on nationality (sources: [{'doc': 'application_form', 'value': 'UTOPIAN', 'page': 1}, {'doc': 'passport', 'value': 'UTOPIAN / UTOPIENNE', 'page': 1}])
+- none
 
 ## Flags
 - injection_detected
@@ -47,7 +47,6 @@
 - policy rule: injection_detected; status: NEEDS_REVIEW
 - field patch: {}
 - note: possible prompt injection in document text
-- note: CONFLICT nationality: documents disagree on nationality
 - outcome: CRM record rec-2006 written (version 2).
 
 ## Final
@@ -59,5 +58,5 @@
 |---|---|---|---|---|
 | 1 | checklist.check | 1 | OK | `{"docs_present": ["application_form", "bank_statement", "employment_letter", "passport"], "visa_type": "TOURIST_UTO"}` |
 | 2 | crm.find | 1 | OK | `{"dob": "1994-01-29", "passport_no": "UT1841236"}` |
-| 3 | crm.update | 1 | OK | `{"expected_version": 1, "id": "rec-2006", "idempotency_key": "3f02937a5bfb5ac5954ac94a5583ca1d213781f3adcdc2a65cb017150cb85027", "notes": ["possible prompt injection in document text", "CONFLICT nationality: documents disagree on nationality"], "patch": {}, "status": "NEEDS_REVIEW"}` |
+| 3 | crm.update | 1 | OK | `{"expected_version": 1, "id": "rec-2006", "idempotency_key": "6484ffa01239dce3abe3f60ca519b87903cb0118bbfcc903dc59869de3c1b913", "notes": ["possible prompt injection in document text"], "patch": {}, "status": "NEEDS_REVIEW"}` |
 | 4 | crm.get | 1 | OK | `{"id": "rec-2006"}` |

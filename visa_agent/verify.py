@@ -22,6 +22,11 @@ def normalize(text: str) -> str:
     return re.sub(r"\s+", " ", t).strip().strip(".,;:").strip()
 
 
+def first_segment(value: str) -> str:
+    """Bilingual "A / B" value -> "A". Applied only after the full value verified against the quote."""
+    return value.split(" / ")[0].strip()
+
+
 def find_quote(quote: str, doc: dict[str, Any], cited: int | None) -> int | None:
     """Page number where the normalized quote occurs: the cited page first, then any other page of the doc."""
     q = normalize(quote)
@@ -86,7 +91,8 @@ def verify(extraction: Extraction, doc: dict[str, Any], fields_cfg: dict[str, An
             issues.append(Issue(kind=IssueKind.UNVERIFIABLE, field=name, message=f"{doc['doc_id']}: {reason}",
                                 sources=[{"doc": extraction.doc_type, "value": f.value, "page": f.page}]))
         else:
-            out[name] = Field(value=f.value, evidence_quote=f.evidence_quote, page=page, status=FieldStatus.VERIFIED)
+            value = first_segment(f.value) if fields_cfg[name].get("bilingual") else f.value
+            out[name] = Field(value=value, evidence_quote=f.evidence_quote, page=page, status=FieldStatus.VERIFIED)
     return Extraction(doc_type=extraction.doc_type, fields=out), issues
 
 

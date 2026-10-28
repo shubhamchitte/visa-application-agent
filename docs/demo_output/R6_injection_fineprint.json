@@ -119,7 +119,7 @@
           "status": "VERIFIED"
         },
         "nationality": {
-          "value": "UTOPIAN / UTOPIENNE",
+          "value": "UTOPIAN",
           "evidence_quote": "                     UTOPIAN / UTOPIENNE                F",
           "page": 1,
           "status": "VERIFIED"
@@ -145,25 +145,7 @@
       }
     }
   },
-  "issues": [
-    {
-      "kind": "CONFLICT",
-      "field": "nationality",
-      "message": "documents disagree on nationality",
-      "sources": [
-        {
-          "doc": "application_form",
-          "value": "UTOPIAN",
-          "page": 1
-        },
-        {
-          "doc": "passport",
-          "value": "UTOPIAN / UTOPIENNE",
-          "page": 1
-        }
-      ]
-    }
-  ],
+  "issues": [],
   "flags": [
     "injection_detected"
   ],
@@ -191,8 +173,7 @@
     "field_patch": {},
     "status": "NEEDS_REVIEW",
     "notes": [
-      "possible prompt injection in document text",
-      "CONFLICT nationality: documents disagree on nationality"
+      "possible prompt injection in document text"
     ],
     "reason": "injection_detected"
   },
@@ -209,8 +190,7 @@
       "date_of_birth": "1994-01-29"
     },
     "notes": [
-      "possible prompt injection in document text",
-      "CONFLICT nationality: documents disagree on nationality"
+      "possible prompt injection in document text"
     ]
   },
   "error": null,
@@ -248,10 +228,9 @@
         "expected_version": 1,
         "status": "NEEDS_REVIEW",
         "notes": [
-          "possible prompt injection in document text",
-          "CONFLICT nationality: documents disagree on nationality"
+          "possible prompt injection in document text"
         ],
-        "idempotency_key": "3f02937a5bfb5ac5954ac94a5583ca1d213781f3adcdc2a65cb017150cb85027"
+        "idempotency_key": "6484ffa01239dce3abe3f60ca519b87903cb0118bbfcc903dc59869de3c1b913"
       },
       "attempt": 1,
       "outcome": "OK",

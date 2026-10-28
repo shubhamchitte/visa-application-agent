@@ -1,7 +1,7 @@
 # Limitations (what this does not prove)
 
 - **The eval set is small and generated.** The eval covers 7 clean generated packets, built by one deterministic
-  generator (`mock_data/generator.py`) with synthetic fictional data in one layout per document type. The result in EVAL_RESULTS.md (clean set 115/115 fields correct and VERIFIED, realistic set 65/66 with 1 hallucination (R6 nationality, caught only by the cross-document check); openai/gpt-oss-120b) shows the pipeline works on this distribution. It is not an accuracy estimate for real
+  generator (`mock_data/generator.py`) with synthetic fictional data in one layout per document type. The result in EVAL_RESULTS.md (clean set 115/115 fields correct and VERIFIED, realistic set 66/66, with 1 raw bilingual nationality proposal on R6 normalised in code after verify; openai/gpt-oss-120b) shows the pipeline works on this distribution. It is not an accuracy estimate for real
   documents, real layouts or other models; do not over-read it. Case 7 (hallucination) and case 13 (malformed
   output) are scripted FakeLLM failures, so they test the guard, not the model.
 - **Offline tests prove control logic, not extraction.** The 166 tests (2 skipped) and the 16-row TEST_RESULTS use canned LLM

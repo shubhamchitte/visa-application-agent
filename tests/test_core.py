@@ -125,6 +125,27 @@ def test_cross_doc_equality_normalizes_names():
     assert c.kind == IssueKind.CONFLICT and [s["doc"] for s in c.sources] == ["application_form", "passport"]
 
 
+
+PASS = doc("PASSPORT  Nationality / Nationalité\nUTOPIAN / UTOPIENNE\nlong enough text layer here", doc_id="p")
+
+
+def _nat(value, d=PASS):
+    ext = Extraction(doc_type="passport", fields={"nationality": Field(value=value, evidence_quote="UTOPIAN / UTOPIENNE", page=1)})
+    return verify(ext, d, FIELDS, FORMATS)[0]
+
+
+def test_bilingual_nationality_normalised_after_verify_and_matches_form():
+    assert _nat("UTOPIAN / UTOPIENNE").fields["nationality"].value == "UTOPIAN"
+    form = Extraction(doc_type="application_form", fields={"nationality": Field(value="UTOPIAN", page=1, status=FieldStatus.VERIFIED)})
+    assert cross_doc({"application_form": form, "passport": _nat("UTOPIAN / UTOPIENNE")}, FIELDS) == []
+
+
+def test_bilingual_nationality_real_mismatch_still_conflicts():
+    form = Extraction(doc_type="application_form", fields={"nationality": Field(value="ARCADIAN", page=1, status=FieldStatus.VERIFIED)})
+    [c] = cross_doc({"application_form": form, "passport": _nat("UTOPIAN / UTOPIENNE")}, FIELDS)
+    assert c.kind == IssueKind.CONFLICT and c.field == "nationality"
+
+
 # ---- policy rows (§4) ----
 REC = {"id": "R1", "version": 1, "fields": {"passport_number": "P1", "email": "old@x.uto"}}
 OK_CL = {"required": [], "missing": []}

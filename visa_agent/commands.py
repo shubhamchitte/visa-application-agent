@@ -145,7 +145,9 @@ def eval(a) -> int:  # noqa: A001 (CLI verb)
             for dt, raw in tap["t"].raw.items():
                 for f, v in (raw.get("fields") or {}).items():
                     if v.get("value") is not None and v["value"] != truth.get(dt, {}).get(f):
-                        halluc.append(f"{d.name}/{dt}.{f}: proposed {v['value']!r}, truth {truth.get(dt, {}).get(f)!r}")
+                        kept = res.extractions[dt].fields[f].value if dt in res.extractions and f in res.extractions[dt].fields else None
+                        fixed = " (normalised in code to the truth after verify)" if kept == truth.get(dt, {}).get(f) else ""
+                        halluc.append(f"{d.name}/{dt}.{f}: proposed {v['value']!r}, truth {truth.get(dt, {}).get(f)!r}{fixed}")
             for dt, ext in res.extractions.items():
                 for f, fld in ext.fields.items():
                     s = stats.setdefault(f, [0, 0])

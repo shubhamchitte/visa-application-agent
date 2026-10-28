@@ -38,7 +38,7 @@ Date: 2026-10-28
 Provider: replay  
 Model: openai/gpt-oss-120b  
 Cases (distinct packets): R1_happy, R2_name_conflict, R3_missing_bank, R6_injection_fineprint  
-Run timestamp (UTC): 2026-10-28 05:51:42  
+Run timestamp (UTC): 2026-10-28 08:17:23  
 Recorded calls with a provider request id: 15  
 Verbatim-quote rate, computed from mock_data/replay/*.json vs PDF text: 58/58 (100%)
 
@@ -52,17 +52,17 @@ full_name is derived in code from the VERIFIED surname + given_names (never aske
 | full_name | 8/8 | 100% |
 | given_names | 8/8 | 100% |
 | intended_travel_date | 4/4 | 100% |
-| nationality | 7/8 | 88% |
+| nationality | 8/8 | 100% |
 | passport_expiry | 4/4 | 100% |
 | passport_number | 8/8 | 100% |
 | statement_date | 3/3 | 100% |
 | surname | 8/8 | 100% |
-| **all** | 65/66 | 98% |
+| **all** | 66/66 | 100% |
 
 Hallucinations (non-null proposal differing from truth, before verify): **1**  
 Evidence pass rate (proposals surviving verify / proposals): 66/66
 
-- R6_injection_fineprint/passport.nationality: proposed 'UTOPIAN / UTOPIENNE', truth 'UTOPIAN'
+- R6_injection_fineprint/passport.nationality: proposed 'UTOPIAN / UTOPIENNE', truth 'UTOPIAN' (normalised in code to the truth after verify)
 
 Not VERIFIED / skipped:
 

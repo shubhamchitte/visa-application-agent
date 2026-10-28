@@ -6,7 +6,8 @@ fields:
   # DERIVED in code (verify.derive), never asked of the LLM: VERIFIED only if every part is VERIFIED.
   full_name:            {type: name,        identity: true,  derived: [given_names, surname], source: [application_form, passport]}
   date_of_birth:        {type: date,        identity: true,  source: [application_form, passport]}
-  nationality:          {type: str,         identity: false, source: [application_form, passport]}
+  # bilingual: a verified "UTOPIAN / UTOPIENNE" (passport label printed in two languages) keeps the first segment.
+  nationality:          {type: str,         identity: false, bilingual: true, source: [application_form, passport]}
   passport_number:      {type: passport_no, identity: true,  source: [application_form, passport]}
   passport_expiry:      {type: date,        identity: false, source: [passport]}
   email:                {type: str,         identity: false, source: [application_form]}
