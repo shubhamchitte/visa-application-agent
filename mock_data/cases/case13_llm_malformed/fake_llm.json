@@ -6,8 +6,13 @@
       {
         "doc_type": "application_form",
         "fields": {
-          "full_name": {
-            "value": "ERIC MORTON",
+          "surname": {
+            "value": "MORTON",
+            "evidence_quote": "Full name: ERIC MORTON",
+            "page": 1
+          },
+          "given_names": {
+            "value": "ERIC",
             "evidence_quote": "Full name: ERIC MORTON",
             "page": 1
           },

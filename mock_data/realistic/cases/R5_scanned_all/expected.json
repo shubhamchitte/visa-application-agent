@@ -1,0 +1,201 @@
+{
+  "case": "R5_scanned_all",
+  "scenario": "R5",
+  "title": "Fully scanned packet (all four documents image-only)",
+  "packet": "realistic/cases/R5_scanned_all",
+  "realistic": true,
+  "fault_plan_ref": "expected.fault_plan",
+  "fake_llm": null,
+  "clock": "2026-10-27",
+  "issues": [],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "crm": {
+    "records_in_seed": [
+      "rec-2005",
+      "rec-9901"
+    ],
+    "target_record": "rec-2005",
+    "action": "UPDATE",
+    "status": "DATA_UPDATED",
+    "field_patch": {
+      "full_name": "DEBORAH DAVIS",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2031-11-26",
+      "email": "deborah.davis@mail.uto",
+      "intended_travel_date": "2027-02-09",
+      "bank_closing_balance": "51731.81",
+      "statement_date": "2026-10-20"
+    },
+    "notes_contain": [],
+    "version_after": 2
+  },
+  "write_outcome": "WRITTEN",
+  "tool_calls": {
+    "must": [
+      {
+        "tool": "checklist.check",
+        "times": 1,
+        "args_subset": {
+          "visa_type": "TOURIST_UTO",
+          "docs_present": [
+            "application_form",
+            "bank_statement",
+            "employment_letter",
+            "passport"
+          ]
+        }
+      },
+      {
+        "tool": "crm.find",
+        "times": 1,
+        "args_subset": {
+          "passport_no": "UT0134224",
+          "dob": "1973-06-18"
+        }
+      },
+      {
+        "tool": "crm.update",
+        "times": 1,
+        "args_subset": {
+          "id": "rec-2005",
+          "expected_version": 1,
+          "patch": {
+            "full_name": "DEBORAH DAVIS",
+            "nationality": "UTOPIAN",
+            "passport_expiry": "2031-11-26",
+            "email": "deborah.davis@mail.uto",
+            "intended_travel_date": "2027-02-09",
+            "bank_closing_balance": "51731.81",
+            "statement_date": "2026-10-20"
+          },
+          "status": "DATA_UPDATED"
+        }
+      },
+      {
+        "tool": "crm.get",
+        "min_times": 1,
+        "note": "read-back after the write"
+      }
+    ],
+    "must_not": []
+  },
+  "llm_calls": {
+    "expected_doc_ids": [
+      "application_form",
+      "passport",
+      "bank_statement",
+      "employment_letter"
+    ],
+    "must_not_call": []
+  },
+  "report": {
+    "must_not_contain": []
+  },
+  "never_status": [
+    "APPROVED",
+    "REJECTED"
+  ],
+  "fault_plan": [],
+  "scanned_docs": [
+    "application_form",
+    "bank_statement",
+    "employment_letter",
+    "passport"
+  ],
+  "ocr_required": true,
+  "ocr_note": "expected outcome when OCR recovers the text (flags ocr_used); see expected_without_ocr for the safe fallback",
+  "expected_without_ocr": {
+    "issues": [
+      {
+        "kind": "UNVERIFIABLE",
+        "field": "passport_expiry"
+      },
+      {
+        "kind": "UNVERIFIABLE",
+        "field": "passport_number"
+      },
+      {
+        "kind": "UNVERIFIABLE",
+        "field": "date_of_birth"
+      },
+      {
+        "kind": "UNVERIFIABLE",
+        "field": "full_name"
+      },
+      {
+        "kind": "UNVERIFIABLE",
+        "field": "nationality"
+      }
+    ],
+    "crm": {
+      "records_in_seed": [
+        "rec-2005",
+        "rec-9901"
+      ],
+      "target_record": null,
+      "action": "NO_WRITE",
+      "status": null,
+      "field_patch": null,
+      "notes_contain": [],
+      "version_after": null
+    },
+    "write_outcome": "NO_WRITE",
+    "tool_calls": {
+      "must": [
+        {
+          "tool": "checklist.check",
+          "times": 1,
+          "args_subset": {
+            "visa_type": "TOURIST_UTO",
+            "docs_present": [
+              "application_form",
+              "bank_statement",
+              "employment_letter",
+              "passport"
+            ]
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "tool": "crm.find",
+          "reason": "must not happen in this case"
+        },
+        {
+          "tool": "crm.update",
+          "reason": "NO_WRITE"
+        }
+      ]
+    },
+    "llm_calls": {
+      "expected_doc_ids": [],
+      "must_not_call": [
+        "application_form",
+        "bank_statement",
+        "employment_letter",
+        "passport"
+      ]
+    },
+    "identity_verified": false,
+    "no_text_layer_docs": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  }
+}

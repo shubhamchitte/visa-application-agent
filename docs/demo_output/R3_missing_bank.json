@@ -1,0 +1,260 @@
+{
+  "case": "R3_missing_bank",
+  "docs": [
+    {
+      "doc_id": "application_form",
+      "doc_type": "application_form",
+      "flags": []
+    },
+    {
+      "doc_id": "employment_letter",
+      "doc_type": "employment_letter",
+      "flags": []
+    },
+    {
+      "doc_id": "passport",
+      "doc_type": "passport",
+      "flags": []
+    }
+  ],
+  "extractions": {
+    "application_form": {
+      "doc_type": "application_form",
+      "fields": {
+        "surname": {
+          "value": "CLARK",
+          "evidence_quote": " CLARK                                  CLARK",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "JOY",
+          "evidence_quote": " JOY                                                08.05.1978",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1978-05-08",
+          "evidence_quote": " JOY                                                08.05.1978",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": " UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT7607287",
+          "evidence_quote": " UT7607287                               18.06.2021                 17.06.2031",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "email": {
+          "value": "joy.clark@mail.uto",
+          "evidence_quote": " 49 Alder Terrace, 7921 New Calden, UTOPIA / joy.clark@mail.uto          +990 21 555 2853",
+          "page": 2,
+          "status": "VERIFIED"
+        },
+        "intended_travel_date": {
+          "value": "2027-02-08",
+          "evidence_quote": " 08.02.2027                                    22.02.2027",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "JOY CLARK",
+          "evidence_quote": " JOY                                                08.05.1978 |  CLARK                                  CLARK",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "employment_letter": {
+      "doc_type": "employment_letter",
+      "fields": {}
+    },
+    "passport": {
+      "doc_type": "passport",
+      "fields": {
+        "surname": {
+          "value": "CLARK",
+          "evidence_quote": "                CLARK",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "JOY",
+          "evidence_quote": "                 JOY",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1978-05-08",
+          "evidence_quote": "                         08 MAY 1978",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "                     UTOPIAN / UTOPIENNE",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT7607287",
+          "evidence_quote": "                    UT7607287",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_expiry": {
+          "value": "2031-06-17",
+          "evidence_quote": "                         17 JUN 2031",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "JOY CLARK",
+          "evidence_quote": "                 JOY |                 CLARK",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    }
+  },
+  "issues": [
+    {
+      "kind": "MISSING",
+      "field": "bank_closing_balance",
+      "message": "not found in any document",
+      "sources": []
+    },
+    {
+      "kind": "MISSING",
+      "field": "statement_date",
+      "message": "not found in any document",
+      "sources": []
+    }
+  ],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "present": [
+      "application_form",
+      "passport"
+    ],
+    "missing": [
+      "bank_statement"
+    ],
+    "docs_present": [
+      "application_form",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "plan": {
+    "record_id": "rec-2003",
+    "field_patch": {
+      "full_name": "JOY CLARK",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2031-06-17",
+      "email": "joy.clark@mail.uto",
+      "intended_travel_date": "2027-02-08"
+    },
+    "status": "INCOMPLETE",
+    "notes": [
+      "missing documents: bank_statement",
+      "MISSING bank_closing_balance: not found in any document",
+      "MISSING statement_date: not found in any document"
+    ],
+    "reason": "checklist_missing_or_invalid_or_unverifiable"
+  },
+  "write_outcome": "WRITTEN",
+  "candidates": [
+    "rec-2003"
+  ],
+  "record_after": {
+    "id": "rec-2003",
+    "version": 2,
+    "status": "INCOMPLETE",
+    "fields": {
+      "passport_number": "UT7607287",
+      "date_of_birth": "1978-05-08",
+      "full_name": "JOY CLARK",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2031-06-17",
+      "email": "joy.clark@mail.uto",
+      "intended_travel_date": "2027-02-08"
+    },
+    "notes": [
+      "missing documents: bank_statement",
+      "MISSING bank_closing_balance: not found in any document",
+      "MISSING statement_date: not found in any document"
+    ]
+  },
+  "error": null,
+  "tool_calls": [
+    {
+      "tool": "checklist.check",
+      "args": {
+        "visa_type": "TOURIST_UTO",
+        "docs_present": [
+          "application_form",
+          "employment_letter",
+          "passport"
+        ]
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.find",
+      "args": {
+        "passport_no": "UT7607287",
+        "dob": "1978-05-08"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.update",
+      "args": {
+        "id": "rec-2003",
+        "patch": {
+          "full_name": "JOY CLARK",
+          "nationality": "UTOPIAN",
+          "passport_expiry": "2031-06-17",
+          "email": "joy.clark@mail.uto",
+          "intended_travel_date": "2027-02-08"
+        },
+        "expected_version": 1,
+        "status": "INCOMPLETE",
+        "notes": [
+          "missing documents: bank_statement",
+          "MISSING bank_closing_balance: not found in any document",
+          "MISSING statement_date: not found in any document"
+        ],
+        "idempotency_key": "5b4fd7f4f23fbdf856f8104bb945c9220ae3529abd85a36d3af2398ad01e4b98"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.get",
+      "args": {
+        "id": "rec-2003"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    }
+  ]
+}

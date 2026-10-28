@@ -1,5 +1,12 @@
-# Content keywords decide the doc type; filename hints only break ties (docs/ARCHITECTURE.md). Stub until P3.
-application_form: {keywords: ["visa application form", "intended date of travel"], filename_hints: [form, application]}
-passport:         {keywords: ["passport", "P<UTO"], filename_hints: [passport], date_format: "%d %b %Y"}
-bank_statement:   {keywords: ["statement period", "closing balance"], filename_hints: [bank, statement]}
-employment_letter: {keywords: ["to whom it may concern", "employed"], filename_hints: [employment, letter]}
+# Content keywords decide the doc type; filename hints only break ties (docs/ARCHITECTURE.md).
+# Keywords cover the clean generated packets and the real-layout docs (official UDI Schengen form, specimen passport,
+# multi-page bank statement, employment letter), so classification never depends on the filename.
+application_form: {keywords: ["visa application form", "intended date of travel", "application for schengen visa",
+                              "intended date of arrival", "number of entries requested", "main purpose(s) of the journey"],
+                   filename_hints: [form, application]}
+passport:         {keywords: ["passport", "P<UTO", "given names / prénoms", "date of expiry / date d'expiration",
+                              "passport no. / n° du passeport"], filename_hints: [passport], date_format: "%d %b %Y"}
+bank_statement:   {keywords: ["statement period", "closing balance", "account statement", "opening balance", "account holder"],
+                   filename_hints: [bank, statement]}
+employment_letter: {keywords: ["to whom it may concern", "employed", "employment verification", "gross monthly salary",
+                               "approved paid annual leave"], filename_hints: [employment, letter]}

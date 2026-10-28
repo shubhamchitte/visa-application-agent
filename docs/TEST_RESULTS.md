@@ -1,4 +1,4 @@
-# Test results (generated 2026-10-27; FakeLLM, frozen clock per case)
+# Test results (generated 2026-10-28; FakeLLM, frozen clock per case)
 
 These offline tests prove the control logic (verification, policy, gateway guards, retries) using scripted LLM output. They do not measure extraction accuracy; that lives in EVAL_RESULTS.md (real model, separate evidence).
 
@@ -20,5 +20,5 @@ These offline tests prove the control logic (verification, policy, gateway guard
 | 11 | case11a_version_conflict | CRM update 409 is not retried | WRITE_FAILED / DATA_UPDATED / none | WRITE_FAILED / DATA_UPDATED / none | PASS |
 | 11 | case11b_unprocessable | CRM update 422 is not retried | WRITE_FAILED / DATA_UPDATED / none | WRITE_FAILED / DATA_UPDATED / none | PASS |
 | 12 | case12_checklist_down | Checklist tool down -> UNKNOWN | WRITTEN / NEEDS_REVIEW / none | WRITTEN / NEEDS_REVIEW / none | PASS |
-| 13 | case13_llm_malformed | LLM malformed JSON twice (passport) | NO_WRITE / NO_WRITE / UNVERIFIABLE:passport_expiry, UNVERIFIABLE:passport_number, UNVERIFIABLE:date_of_birth | NO_WRITE / identity_unverified / UNVERIFIABLE:date_of_birth, UNVERIFIABLE:full_name, UNVERIFIABLE:nationality, UNVERIFIABLE:passport_expiry, UNVERIFIABLE:passport_number | PASS |
+| 13 | case13_llm_malformed | LLM malformed JSON twice (passport) | NO_WRITE / NO_WRITE / UNVERIFIABLE:passport_expiry, UNVERIFIABLE:passport_number, UNVERIFIABLE:date_of_birth | NO_WRITE / identity_unverified / UNVERIFIABLE:date_of_birth, UNVERIFIABLE:full_name, UNVERIFIABLE:given_names, UNVERIFIABLE:nationality, UNVERIFIABLE:passport_expiry, UNVERIFIABLE:passport_number, UNVERIFIABLE:surname | PASS |
 | 14 | case14_injection | Injection text in bank statement | WRITTEN / NEEDS_REVIEW / none | WRITTEN / NEEDS_REVIEW / none | PASS |

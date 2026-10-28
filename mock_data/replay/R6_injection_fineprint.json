@@ -1,0 +1,127 @@
+{
+ "model": "openai/gpt-oss-120b",
+ "entries": {
+  "edbe3ef585cdafccdec26afbde4a9f61c72ea7cd552c48dc1d4de5eb6303225a": {
+   "response": {
+    "doc_type": "schengen_visa_application",
+    "fields": {
+     "surname": {
+      "value": "JAMES",
+      "evidence_quote": "JAMES",
+      "page": 1
+     },
+     "given_names": {
+      "value": "ANNE",
+      "evidence_quote": "ANNE",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1994-01-29",
+      "evidence_quote": "29.01.1994",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": "UTOPIAN",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT1841236",
+      "evidence_quote": "UT1841236",
+      "page": 1
+     },
+     "email": {
+      "value": "anne.james@mail.uto",
+      "evidence_quote": "anne.james@mail.uto",
+      "page": 2
+     },
+     "intended_travel_date": {
+      "value": "2027-01-17",
+      "evidence_quote": "17.01.2027",
+      "page": 3
+     }
+    }
+   },
+   "doc_id": "application_form",
+   "ts": "2026-10-28T05:43:47.509595+00:00",
+   "request_id": "chatcmpl-0263b0b4-8353-458c-a22f-1df35e4d47bc",
+   "raw": "{\"doc_type\":\"schengen_visa_application\",\"fields\":{\"surname\":{\"value\":\"JAMES\",\"evidence_quote\":\"JAMES\",\"page\":1},\"given_names\":{\"value\":\"ANNE\",\"evidence_quote\":\"ANNE\",\"page\":1},\"date_of_birth\":{\"value\":\"1994-01-29\",\"evidence_quote\":\"29.01.1994\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT1841236\",\"evidence_quote\":\"UT1841236\",\"page\":1},\"email\":{\"value\":\"anne.james@mail.uto\",\"evidence_quote\":\"anne.james@mail.uto\",\"page\":2},\"intended_travel_date\":{\"value\":\"2027-01-17\",\"evidence_quote\":\"17.01.2027\",\"page\":3}}}",
+   "usage": 4133
+  },
+  "9b47d4e138c286cd885f5dbf0ab9129705fb85b9d3561f5773bad73b255a556a": {
+   "response": {
+    "doc_type": "bank_statement",
+    "fields": {
+     "bank_closing_balance": {
+      "value": "45910.50",
+      "evidence_quote": "           Closing balance                                                                             $45,910.50",
+      "page": 3
+     },
+     "statement_date": {
+      "value": "2026-10-20",
+      "evidence_quote": "Statement date                              20 Oct 2026",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "bank_statement",
+   "ts": "2026-10-28T05:44:49.480411+00:00",
+   "request_id": "chatcmpl-10834aa5-c3de-4623-a24d-4a2612d25b14",
+   "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"bank_closing_balance\":{\"value\":\"45910.50\",\"evidence_quote\":\"           Closing balance                                                                             $45,910.50\",\"page\":3},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date                              20 Oct 2026\",\"page\":1}}}",
+   "usage": 3340
+  },
+  "03ab3924c412d206eab492a4ed447c25b8abb7de79e2daa15fd2160391ae66b9": {
+   "response": {
+    "doc_type": "employment_verification",
+    "fields": {}
+   },
+   "doc_id": "employment_letter",
+   "ts": "2026-10-28T05:45:50.544739+00:00",
+   "request_id": "chatcmpl-8cab3833-d87c-4d5e-85cd-f76301237989",
+   "raw": "{\"doc_type\":\"employment_verification\",\"fields\":{}}",
+   "usage": 896
+  },
+  "ee154ed417aaff835e1cd234c2658b1d4670fadaaeef406e7d56b176a7f5f57c": {
+   "response": {
+    "doc_type": "passport",
+    "fields": {
+     "surname": {
+      "value": "JAMES",
+      "evidence_quote": "                 JAMES",
+      "page": 1
+     },
+     "given_names": {
+      "value": "ANNE",
+      "evidence_quote": "                ANNE",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1994-01-29",
+      "evidence_quote": "                         29 JAN 1994                   NEW CALDEN",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN / UTOPIENNE",
+      "evidence_quote": "                     UTOPIAN / UTOPIENNE                F",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT1841236",
+      "evidence_quote": "                    PASSPORT OFFICE, PORT ELORA      UT1841236",
+      "page": 1
+     },
+     "passport_expiry": {
+      "value": "2033-03-13",
+      "evidence_quote": "                         13 MAR 2033",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "passport",
+   "ts": "2026-10-28T05:46:01.533847+00:00",
+   "request_id": "chatcmpl-07d5b048-ef44-4bf3-89c8-ba482e395d5f",
+   "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"JAMES\",\"evidence_quote\":\"                 JAMES\",\"page\":1},\"given_names\":{\"value\":\"ANNE\",\"evidence_quote\":\"                ANNE\",\"page\":1},\"date_of_birth\":{\"value\":\"1994-01-29\",\"evidence_quote\":\"                         29 JAN 1994                   NEW CALDEN\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN / UTOPIENNE\",\"evidence_quote\":\"                     UTOPIAN / UTOPIENNE                F\",\"page\":1},\"passport_number\":{\"value\":\"UT1841236\",\"evidence_quote\":\"                    PASSPORT OFFICE, PORT ELORA      UT1841236\",\"page\":1},\"passport_expiry\":{\"value\":\"2033-03-13\",\"evidence_quote\":\"                         13 MAR 2033\",\"page\":1}}}",
+   "usage": 2100
+  }
+ }
+}

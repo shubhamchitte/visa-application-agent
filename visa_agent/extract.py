@@ -20,12 +20,13 @@ def schema_for(field_names: list[str]) -> dict[str, Any]:
                                       "properties": {f: fld for f in field_names}}}}
 
 
-def build_prompt(doc: dict[str, Any], field_names: list[str], error: str | None = None) -> str:
-    """Delimit doc text as data; require character-for-character quotes."""
+def build_prompt(doc: dict[str, Any], field_names: list[str], error: str | None = None, hints: dict | None = None) -> str:
+    """Delimit doc text as data; require character-for-character quotes. `hints` = fields.yaml label hints."""
     pages = "\n".join(f'<page n="{p["page"]}">\n{p["text"]}\n</page>' for p in doc["pages"])
     retry = f"\nYour previous answer was rejected: {error}. Return only valid JSON matching the schema.\n" if error else ""
     return (
-        "Extract these fields from the document: " + ", ".join(field_names) + ".\n"
+        "Extract these fields from the document: " + ", ".join(f + (f" ({hints[f]})" if f in (hints or {}) else "")
+                                                         for f in field_names) + ".\n"
         "For each field return value, evidence_quote and page. evidence_quote must be copied character-for-character "
         "from the page (at most one line). Dates as YYYY-MM-DD, money as a plain decimal. If a field is not present, "
         "return value null and evidence_quote null. Never guess.\n"
@@ -45,12 +46,12 @@ def _parse(raw: Any, doc_type: str, field_names: list[str]) -> Extraction:
 
 
 def extract(doc: dict[str, Any], doc_type: str, field_names: list[str], llm: LLMClient,
-            retry: RetryPolicy | None = None) -> tuple[Extraction | None, str | None]:
+            retry: RetryPolicy | None = None, hints: dict | None = None) -> tuple[Extraction | None, str | None]:
     """Return (extraction, None) or (None, reason). One re-ask on Malformed; any other LLM error gives up at once."""
     error = None
     for _ in range(2):
         try:
-            raw = _call_with_retry(llm, doc["doc_id"], build_prompt(doc, field_names, error), schema_for(field_names),
+            raw = _call_with_retry(llm, doc["doc_id"], build_prompt(doc, field_names, error, hints), schema_for(field_names),
                                    retry or RetryPolicy())
             return _parse(raw, doc_type, field_names), None
         except Malformed as e:

@@ -4,7 +4,10 @@ import os
 import time
 from typing import Any
 
-from .base import Malformed, map_error
+from .base import Fatal, Malformed, RateLimited, map_error
+
+BIG_CALL_TOKENS, BIG_CALL_WAIT = 3000, 60  # free tier is ~8K tokens/min: after a big call wait a full minute
+_S = {"calls": 0, "r429": 0, "wait": 0.0}  # per process, shared by every client (eval builds one per case)
 
 
 class GroqLLM:
@@ -14,19 +17,30 @@ class GroqLLM:
         if client is None:
             from groq import Groq  # lazy: tests never import the SDK
             client = Groq(api_key=os.environ["GROQ_API_KEY"])
-        self.pause = pause  # free-tier pacing (seconds before each call)
+        self.pause, self.max_calls = pause, int(os.getenv("GROQ_MAX_CALLS", "40"))  # free-tier pacing + call budget
         self.client, self.model = client, model or os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
     def _chat(self, prompt: str, schema: dict[str, Any], name: str = "extraction") -> dict[str, Any]:
         """One strict-json_schema call; keeps provenance (request id, raw text, usage) in `last_meta` for recordings."""
-        time.sleep(self.pause)
+        if self.pause and (_S["calls"] >= self.max_calls or _S["r429"] >= 2):  # live: budget cap, repeated 429s stop
+            raise Fatal(f"stopped: {_S['calls']} calls made, {_S['r429']} consecutive 429s")
+        time.sleep(_S["wait"])
+        _S["calls"] += 1
         try:  # strict mode confirmed live: every key required, additionalProperties false
             resp = self.client.chat.completions.create(
                 model=self.model, temperature=0, messages=[{"role": "user", "content": prompt}],
                 response_format={"type": "json_schema", "json_schema": {"name": name, "strict": True, "schema": schema}})
             text = resp.choices[0].message.content
         except Exception as e:
-            raise map_error(e) from e  # Retry-After read from e.response.headers
+            err = map_error(e)  # Retry-After read from e.response.headers
+            _S["r429"] = _S["r429"] + 1 if isinstance(err, RateLimited) else 0
+            if isinstance(err, RateLimited) and self.pause:  # live pacing: honour Retry-After (uncapped), once
+                _S["wait"] = max(err.retry_after or BIG_CALL_WAIT, self.pause)
+                return self._chat(prompt, schema, name)
+            raise err from e
+        _S["r429"] = 0
+        used = getattr(getattr(resp, "usage", None), "total_tokens", None) or 0
+        _S["wait"] = BIG_CALL_WAIT if used > BIG_CALL_TOKENS and self.pause else self.pause
         xg = getattr(resp, "x_groq", None)
         self.last_meta = {"request_id": getattr(xg, "id", None) or getattr(resp, "id", None), "raw": text,
                           "usage": getattr(getattr(resp, "usage", None), "total_tokens", None)}

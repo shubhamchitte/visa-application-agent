@@ -12,3 +12,5 @@ runs/
 .idea/
 .vscode/
 mock_data/crm_state*.json
+real_samples/raw/
+!docs/sample_docs/*.png

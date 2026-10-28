@@ -1,0 +1,74 @@
+{
+  "records": [
+    {
+      "id": "rec-2001",
+      "version": 1,
+      "status": "NEW",
+      "fields": {
+        "passport_number": "UT6897392",
+        "date_of_birth": "1978-07-31"
+      },
+      "notes": []
+    },
+    {
+      "id": "rec-2002",
+      "version": 1,
+      "status": "NEW",
+      "fields": {
+        "passport_number": "UT8812735",
+        "date_of_birth": "1971-12-28"
+      },
+      "notes": []
+    },
+    {
+      "id": "rec-2003",
+      "version": 1,
+      "status": "NEW",
+      "fields": {
+        "passport_number": "UT7607287",
+        "date_of_birth": "1978-05-08"
+      },
+      "notes": []
+    },
+    {
+      "id": "rec-2004",
+      "version": 1,
+      "status": "NEW",
+      "fields": {
+        "passport_number": "UT4279522",
+        "date_of_birth": "1970-06-09"
+      },
+      "notes": []
+    },
+    {
+      "id": "rec-2005",
+      "version": 1,
+      "status": "NEW",
+      "fields": {
+        "passport_number": "UT0134224",
+        "date_of_birth": "1973-06-18"
+      },
+      "notes": []
+    },
+    {
+      "id": "rec-2006",
+      "version": 1,
+      "status": "NEW",
+      "fields": {
+        "passport_number": "UT1841236",
+        "date_of_birth": "1994-01-29"
+      },
+      "notes": []
+    },
+    {
+      "id": "rec-9901",
+      "version": 1,
+      "status": "NEW",
+      "notes": [],
+      "fields": {
+        "passport_number": "UT3604210",
+        "date_of_birth": "1990-05-10"
+      }
+    }
+  ]
+}

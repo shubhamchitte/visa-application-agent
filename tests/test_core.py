@@ -213,3 +213,41 @@ def test_extract_retries_transient_and_429_but_not_fatal():
     assert err is None and llm.calls == ["d"] * 3
     llm = FakeLLM("c", {("c", "d"): [Fatal("401"), good]})
     assert extract(APP, "application_form", ["email"], llm, rp)[0] is None and llm.calls == ["d"]
+
+
+# ---- split names: surname + given_names extracted, full_name derived in code ----
+from visa_agent.extract import build_prompt  # noqa: E402
+from visa_agent.verify import derive  # noqa: E402
+
+PASS = doc("Surname / Nom\nMERCER\nGiven names / Prénoms\nASHLEY ANNE\nPassport No. UT6897392", doc_id="passport")
+
+
+def _parts(surname, given, d=PASS):
+    f = lambda v: Field(value=v, evidence_quote=v, page=1) if v else Field()
+    ext, issues = verify(Extraction(doc_type="passport", fields={"surname": f(surname), "given_names": f(given)}), d, FIELDS, FORMATS)
+    ext, derived = derive(ext, FIELDS)
+    return ext.fields, issues + derived
+
+
+def test_full_name_derived_verified_only_if_both_parts_verified():
+    f, issues = _parts("MERCER", "ASHLEY ANNE")
+    assert (f["full_name"].value, f["full_name"].status, issues) == ("ASHLEY ANNE MERCER", FieldStatus.VERIFIED, [])
+    f, issues = _parts("MERCEX", "ASHLEY ANNE")  # one part unverifiable -> derived name unverifiable, no value
+    assert f["full_name"].status == FieldStatus.UNVERIFIABLE and f["full_name"].value is None
+    assert {(i.kind, i.field) for i in issues} == {(IssueKind.UNVERIFIABLE, "surname"), (IssueKind.UNVERIFIABLE, "full_name")}
+    f, _ = _parts(None, None)
+    assert f["full_name"].status == FieldStatus.MISSING
+
+
+def test_name_type_needs_whole_words():
+    assert value_in_quote("ANN", "ASHLEY ANNE", "name", FORMATS) is not None
+    assert value_in_quote("ashley  anne", "ASHLEY ANNE", "name", FORMATS) is None
+
+
+def test_full_name_never_asked_and_cross_doc_compares_derived_name_only():
+    assert "full_name" not in build_prompt(PASS, [n for n, c in FIELDS.items() if "passport" in c["source"] and not c.get("derived")])
+    mk = lambda s, g: Extraction(doc_type="x", fields={k: Field(value=v, page=1, status=FieldStatus.VERIFIED) for k, v in
+                                                       {"surname": s, "given_names": g, "full_name": f"{g} {s}"}.items()})
+    assert cross_doc({"application_form": mk("Mercer", "Ashley"), "passport": mk("MERCER", "ASHLEY")}, FIELDS) == []
+    [c] = cross_doc({"application_form": mk("MARTIS", "ASHLEY"), "passport": mk("MARTIN", "ASHLEY")}, FIELDS)
+    assert (c.kind, c.field) == (IssueKind.CONFLICT, "full_name")  # one conflict, on the name, not one per part

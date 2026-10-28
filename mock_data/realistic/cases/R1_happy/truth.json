@@ -1,0 +1,74 @@
+{
+  "canonical": {
+    "full_name": "ASHLEY MERCER",
+    "date_of_birth": "1978-07-31",
+    "nationality": "UTOPIAN",
+    "passport_number": "UT6897392",
+    "passport_expiry": "2030-12-21",
+    "email": "ashley.mercer@mail.uto",
+    "intended_travel_date": "2027-02-11",
+    "bank_closing_balance": "12498.88",
+    "statement_date": "2026-10-20"
+  },
+  "person": {
+    "given_names": "ASHLEY",
+    "surname": "MERCER",
+    "sex": "F",
+    "employer": "Meridian Harbour Logistics Ltd",
+    "job_title": "Logistics Analyst",
+    "place_of_birth": "AURELIA",
+    "passport_issue": "2020-12-22",
+    "address": "93 Harbour Row",
+    "city": "Port Elora",
+    "postcode": "7404",
+    "phone": "+990 21 555 5219",
+    "employer_phone": "+990 21 555 7080",
+    "employer_address": "21 Commerce Quay, Port Elora",
+    "civil_status": "Single",
+    "hotel": [
+      "Nordlys Boutique Hotel",
+      "Kirkegata 8, 0153 Oslo, Norway",
+      "+47 22 55 03 18"
+    ],
+    "departure_date": "2027-02-27",
+    "monthly_salary": "3200.00",
+    "job_start": "2021-11-01",
+    "letter_date": "2026-10-06",
+    "form_date": "2026-10-12",
+    "iban_tail": "4113",
+    "account_no": "32-957533-90",
+    "branch": "Quayside"
+  },
+  "documents": {
+    "application_form": {
+      "full_name": "ASHLEY MERCER",
+      "date_of_birth": "1978-07-31",
+      "nationality": "UTOPIAN",
+      "passport_number": "UT6897392",
+      "email": "ashley.mercer@mail.uto",
+      "intended_travel_date": "2027-02-11",
+      "mode": "text"
+    },
+    "passport": {
+      "full_name": "ASHLEY MERCER",
+      "date_of_birth": "1978-07-31",
+      "nationality": "UTOPIAN",
+      "passport_number": "UT6897392",
+      "passport_expiry": "2030-12-21",
+      "mrz_corrupt": null,
+      "mode": "text"
+    },
+    "bank_statement": {
+      "mode": "text",
+      "injection": null,
+      "bank_closing_balance": "12498.88",
+      "statement_date": "2026-10-20"
+    },
+    "employment_letter": {
+      "mode": "text"
+    }
+  },
+  "form": {
+    "mode": "text"
+  }
+}

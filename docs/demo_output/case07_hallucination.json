@@ -1,0 +1,280 @@
+{
+  "case": "case07_hallucination",
+  "docs": [
+    {
+      "doc_id": "application_form",
+      "doc_type": "application_form",
+      "flags": []
+    },
+    {
+      "doc_id": "bank_statement",
+      "doc_type": "bank_statement",
+      "flags": []
+    },
+    {
+      "doc_id": "employment_letter",
+      "doc_type": "employment_letter",
+      "flags": []
+    },
+    {
+      "doc_id": "passport",
+      "doc_type": "passport",
+      "flags": []
+    }
+  ],
+  "extractions": {
+    "application_form": {
+      "doc_type": "application_form",
+      "fields": {
+        "surname": {
+          "value": "MORTON",
+          "evidence_quote": "Full name: ERIC MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "ERIC",
+          "evidence_quote": "Full name: ERIC MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1971-11-12",
+          "evidence_quote": "Date of birth: 12 Nov 1971",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "Nationality: UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT7668016",
+          "evidence_quote": "Passport number: UT7668016",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "email": {
+          "value": null,
+          "evidence_quote": "Email: ada.fake@mail.uto",
+          "page": 1,
+          "status": "UNVERIFIABLE"
+        },
+        "intended_travel_date": {
+          "value": "2027-01-19",
+          "evidence_quote": "Intended date of travel: 19 Jan 2027",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "ERIC MORTON",
+          "evidence_quote": "Full name: ERIC MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "bank_statement": {
+      "doc_type": "bank_statement",
+      "fields": {
+        "bank_closing_balance": {
+          "value": "9310.72",
+          "evidence_quote": "Closing balance: $9,310.72",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "statement_date": {
+          "value": "2026-10-20",
+          "evidence_quote": "Statement date: 20 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "employment_letter": {
+      "doc_type": "employment_letter",
+      "fields": {}
+    },
+    "passport": {
+      "doc_type": "passport",
+      "fields": {
+        "surname": {
+          "value": "MORTON",
+          "evidence_quote": "Surname: MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "ERIC",
+          "evidence_quote": "Given names: ERIC",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1971-11-12",
+          "evidence_quote": "Date of birth: 12 NOV 1971",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "Nationality: UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT7668016",
+          "evidence_quote": "Passport No: UT7668016",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_expiry": {
+          "value": "2030-11-16",
+          "evidence_quote": "Date of expiry: 16 NOV 2030",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "ERIC MORTON",
+          "evidence_quote": "Given names: ERIC | Surname: MORTON",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    }
+  },
+  "issues": [
+    {
+      "kind": "UNVERIFIABLE",
+      "field": "email",
+      "message": "application_form: quote not found in document",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "ada.fake@mail.uto",
+          "page": 1
+        }
+      ]
+    }
+  ],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "present": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "plan": {
+    "record_id": "rec-1001",
+    "field_patch": {
+      "full_name": "ERIC MORTON",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2030-11-16",
+      "intended_travel_date": "2027-01-19",
+      "bank_closing_balance": "9310.72",
+      "statement_date": "2026-10-20"
+    },
+    "status": "INCOMPLETE",
+    "notes": [
+      "UNVERIFIABLE email: application_form: quote not found in document"
+    ],
+    "reason": "checklist_missing_or_invalid_or_unverifiable"
+  },
+  "write_outcome": "WRITTEN",
+  "candidates": [
+    "rec-1001"
+  ],
+  "record_after": {
+    "id": "rec-1001",
+    "version": 2,
+    "status": "INCOMPLETE",
+    "fields": {
+      "passport_number": "UT7668016",
+      "date_of_birth": "1971-11-12",
+      "full_name": "ERIC MORTON",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2030-11-16",
+      "intended_travel_date": "2027-01-19",
+      "bank_closing_balance": "9310.72",
+      "statement_date": "2026-10-20"
+    },
+    "notes": [
+      "UNVERIFIABLE email: application_form: quote not found in document"
+    ]
+  },
+  "error": null,
+  "tool_calls": [
+    {
+      "tool": "checklist.check",
+      "args": {
+        "visa_type": "TOURIST_UTO",
+        "docs_present": [
+          "application_form",
+          "bank_statement",
+          "employment_letter",
+          "passport"
+        ]
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.find",
+      "args": {
+        "passport_no": "UT7668016",
+        "dob": "1971-11-12"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.update",
+      "args": {
+        "id": "rec-1001",
+        "patch": {
+          "full_name": "ERIC MORTON",
+          "nationality": "UTOPIAN",
+          "passport_expiry": "2030-11-16",
+          "intended_travel_date": "2027-01-19",
+          "bank_closing_balance": "9310.72",
+          "statement_date": "2026-10-20"
+        },
+        "expected_version": 1,
+        "status": "INCOMPLETE",
+        "notes": [
+          "UNVERIFIABLE email: application_form: quote not found in document"
+        ],
+        "idempotency_key": "8207f64f0b53bd2f404ae8af0e60db721b649cc94ab3f18602f2e6080480852a"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.get",
+      "args": {
+        "id": "rec-1001"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    }
+  ]
+}

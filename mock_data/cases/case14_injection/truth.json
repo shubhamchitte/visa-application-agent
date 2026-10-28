@@ -24,7 +24,9 @@
       "nationality": "UTOPIAN",
       "passport_number": "UT7668016",
       "email": "eric.morton@mail.uto",
-      "intended_travel_date": "2027-01-19"
+      "intended_travel_date": "2027-01-19",
+      "given_names": "ERIC",
+      "surname": "MORTON"
     },
     "passport": {
       "full_name": "ERIC MORTON",
@@ -32,7 +34,9 @@
       "nationality": "UTOPIAN",
       "passport_number": "UT7668016",
       "passport_expiry": "2030-11-16",
-      "mrz_corrupt": null
+      "mrz_corrupt": null,
+      "given_names": "ERIC",
+      "surname": "MORTON"
     },
     "bank_statement": {
       "mode": "text",

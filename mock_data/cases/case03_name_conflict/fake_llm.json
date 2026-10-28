@@ -6,8 +6,13 @@
       {
         "doc_type": "application_form",
         "fields": {
-          "full_name": {
-            "value": "ERIC COMPTON",
+          "surname": {
+            "value": "COMPTON",
+            "evidence_quote": "Full name: ERIC COMPTON",
+            "page": 1
+          },
+          "given_names": {
+            "value": "ERIC",
             "evidence_quote": "Full name: ERIC COMPTON",
             "page": 1
           },
@@ -43,9 +48,14 @@
       {
         "doc_type": "passport",
         "fields": {
-          "full_name": {
-            "value": "ERIC MORTON",
-            "evidence_quote": "Full name: ERIC MORTON",
+          "surname": {
+            "value": "MORTON",
+            "evidence_quote": "Surname: MORTON",
+            "page": 1
+          },
+          "given_names": {
+            "value": "ERIC",
+            "evidence_quote": "Given names: ERIC",
             "page": 1
           },
           "date_of_birth": {

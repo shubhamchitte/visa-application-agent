@@ -9,6 +9,7 @@ import pytest
 
 from visa_agent.cli import build_gateway
 from visa_agent.llm.fake import FakeLLM
+from visa_agent.llm.replay import REPLAY_DIR, ReplayLLM
 from visa_agent.orchestrator import Deps, run
 from visa_agent.report import to_markdown
 from visa_agent.tools.crm import MockCRM
@@ -17,19 +18,33 @@ from visa_agent.tools.gateway import RetryPolicy
 
 ROOT = Path(__file__).resolve().parents[1] / "mock_data"
 CASES = sorted(p.parent for p in (ROOT / "cases").glob("*/expected.json"))
+REALISTIC = sorted(p.parent for p in (ROOT / "realistic" / "cases").glob("*/expected.json"))
+
+
+class Counting:
+    """ReplayLLM plus the per-doc call log FakeLLM keeps (the golden checks which docs reached the LLM)."""
+    def __init__(self, inner):
+        self.inner, self.name, self.calls = inner, inner.name, []
+
+    def extract(self, doc_id, prompt, schema):
+        self.calls.append(doc_id)
+        return self.inner.extract(doc_id, prompt, schema)
 
 
 def setup_case(case_dir: Path, tmp_path: Path):
     exp = json.loads((case_dir / "expected.json").read_text())
-    seed = json.loads((ROOT / "crm_seed.json").read_text())["records"]
+    seed = json.loads((case_dir.parent.parent / "crm_seed.json").read_text())["records"]
     crm_file = tmp_path / "crm.json"
     crm_file.write_text(json.dumps({"records": [r for r in seed if r["id"] in exp["crm"]["records_in_seed"]]}))
     plans = fault_plan_from_golden(exp["fault_plan"])
     crm = MockCRM(crm_file, {t.split(".", 1)[1]: p for t, p in plans.items() if t.startswith("crm.")})
     gw = build_gateway(crm, checklist_faults=plans.get("checklist.check"),
                        retry=RetryPolicy(sleep=lambda s: None, rand=lambda: 0.5), clock=lambda: "T")
-    script = json.loads((case_dir / "fake_llm.json").read_text())["script"]
-    llm = FakeLLM(exp["case"], {(exp["case"], k): v for k, v in script.items()})
+    if exp.get("realistic"):  # no scripted output: replay the recorded real-model responses (no network)
+        llm = Counting(ReplayLLM(case_dir.name))
+    else:
+        script = json.loads((case_dir / "fake_llm.json").read_text())["script"]
+        llm = FakeLLM(exp["case"], {(exp["case"], k): v for k, v in script.items()})
     deps = Deps(llm=llm, gateway=gw, today=lambda: date.fromisoformat(exp["clock"]))
     return exp, crm, gw, llm, deps
 
@@ -40,10 +55,20 @@ def _subset(sub, full) -> bool:
     return sub == full
 
 
-@pytest.mark.parametrize("case_dir", CASES, ids=lambda p: p.name)
+
+
+def _realistic_param(p: Path):
+    exp = json.loads((p / "expected.json").read_text())
+    if not (REPLAY_DIR / f"{p.name}.json").exists():
+        why = "needs OCR (tesseract not installed at record time)" if exp.get("ocr_required") else "not recorded"
+        return pytest.param(p, marks=pytest.mark.skip(reason=f"{p.name}: no replay recording ({why})"))
+    return p
+
+
+@pytest.mark.parametrize("case_dir", CASES + [_realistic_param(p) for p in REALISTIC], ids=lambda p: p.name)
 def test_scenario(case_dir, tmp_path):
     exp, crm, gw, llm, deps = setup_case(case_dir, tmp_path)
-    res = run(ROOT / "cases" / exp["packet"], deps, case=exp["case"])
+    res = run(case_dir if exp.get("realistic") else ROOT / "cases" / exp["packet"], deps, case=exp["case"])
 
     got = {(i.kind.value, i.field): i for i in res.issues}
     for e in exp["issues"]:

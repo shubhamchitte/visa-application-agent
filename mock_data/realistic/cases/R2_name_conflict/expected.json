@@ -1,0 +1,116 @@
+{
+  "case": "R2_name_conflict",
+  "scenario": "R2",
+  "title": "Surname differs by one letter, hidden in the dense form vs passport",
+  "packet": "realistic/cases/R2_name_conflict",
+  "realistic": true,
+  "fault_plan_ref": "expected.fault_plan",
+  "fake_llm": null,
+  "clock": "2026-10-27",
+  "issues": [
+    {
+      "kind": "CONFLICT",
+      "field": "full_name",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "CHRISTOPHER MARTIS",
+          "page": 1
+        },
+        {
+          "doc": "passport",
+          "value": "CHRISTOPHER MARTIN",
+          "page": 1
+        }
+      ]
+    }
+  ],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "crm": {
+    "records_in_seed": [
+      "rec-2002",
+      "rec-9901"
+    ],
+    "target_record": "rec-2002",
+    "action": "UPDATE",
+    "status": "NEEDS_REVIEW",
+    "field_patch": {},
+    "notes_contain": [
+      "identity conflict"
+    ],
+    "version_after": 2
+  },
+  "write_outcome": "WRITTEN",
+  "tool_calls": {
+    "must": [
+      {
+        "tool": "checklist.check",
+        "times": 1,
+        "args_subset": {
+          "visa_type": "TOURIST_UTO",
+          "docs_present": [
+            "application_form",
+            "bank_statement",
+            "employment_letter",
+            "passport"
+          ]
+        }
+      },
+      {
+        "tool": "crm.find",
+        "times": 1,
+        "args_subset": {
+          "passport_no": "UT8812735",
+          "dob": "1971-12-28"
+        }
+      },
+      {
+        "tool": "crm.update",
+        "times": 1,
+        "args_subset": {
+          "id": "rec-2002",
+          "expected_version": 1,
+          "patch": {},
+          "status": "NEEDS_REVIEW"
+        }
+      },
+      {
+        "tool": "crm.get",
+        "min_times": 1,
+        "note": "read-back after the write"
+      }
+    ],
+    "must_not": []
+  },
+  "llm_calls": {
+    "expected_doc_ids": [
+      "application_form",
+      "passport",
+      "bank_statement",
+      "employment_letter"
+    ],
+    "must_not_call": []
+  },
+  "report": {
+    "must_not_contain": []
+  },
+  "never_status": [
+    "APPROVED",
+    "REJECTED"
+  ],
+  "fault_plan": []
+}

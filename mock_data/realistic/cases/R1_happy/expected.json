@@ -1,0 +1,113 @@
+{
+  "case": "R1_happy",
+  "scenario": "R1",
+  "title": "Realistic happy path (dense UDI form, specimen passport, 3-page statement, employment letter)",
+  "packet": "realistic/cases/R1_happy",
+  "realistic": true,
+  "fault_plan_ref": "expected.fault_plan",
+  "fake_llm": null,
+  "clock": "2026-10-27",
+  "issues": [],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "crm": {
+    "records_in_seed": [
+      "rec-2001",
+      "rec-9901"
+    ],
+    "target_record": "rec-2001",
+    "action": "UPDATE",
+    "status": "DATA_UPDATED",
+    "field_patch": {
+      "full_name": "ASHLEY MERCER",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2030-12-21",
+      "email": "ashley.mercer@mail.uto",
+      "intended_travel_date": "2027-02-11",
+      "bank_closing_balance": "12498.88",
+      "statement_date": "2026-10-20"
+    },
+    "notes_contain": [],
+    "version_after": 2
+  },
+  "write_outcome": "WRITTEN",
+  "tool_calls": {
+    "must": [
+      {
+        "tool": "checklist.check",
+        "times": 1,
+        "args_subset": {
+          "visa_type": "TOURIST_UTO",
+          "docs_present": [
+            "application_form",
+            "bank_statement",
+            "employment_letter",
+            "passport"
+          ]
+        }
+      },
+      {
+        "tool": "crm.find",
+        "times": 1,
+        "args_subset": {
+          "passport_no": "UT6897392",
+          "dob": "1978-07-31"
+        }
+      },
+      {
+        "tool": "crm.update",
+        "times": 1,
+        "args_subset": {
+          "id": "rec-2001",
+          "expected_version": 1,
+          "patch": {
+            "full_name": "ASHLEY MERCER",
+            "nationality": "UTOPIAN",
+            "passport_expiry": "2030-12-21",
+            "email": "ashley.mercer@mail.uto",
+            "intended_travel_date": "2027-02-11",
+            "bank_closing_balance": "12498.88",
+            "statement_date": "2026-10-20"
+          },
+          "status": "DATA_UPDATED"
+        }
+      },
+      {
+        "tool": "crm.get",
+        "min_times": 1,
+        "note": "read-back after the write"
+      }
+    ],
+    "must_not": []
+  },
+  "llm_calls": {
+    "expected_doc_ids": [
+      "application_form",
+      "passport",
+      "bank_statement",
+      "employment_letter"
+    ],
+    "must_not_call": []
+  },
+  "report": {
+    "must_not_contain": []
+  },
+  "never_status": [
+    "APPROVED",
+    "REJECTED"
+  ],
+  "fault_plan": []
+}

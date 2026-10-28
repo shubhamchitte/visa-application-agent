@@ -1,5 +1,8 @@
 """Step 9: render JSON and Markdown from RunResult with templates (no LLM prose).
 Wording is deliberately flat: it states outcomes and never claims more than the state shows."""
+import json
+from pathlib import Path
+
 from .schemas import RunResult
 
 _OUTCOME = {
@@ -10,8 +13,24 @@ _OUTCOME = {
 }
 
 
+def _calls(r: RunResult) -> list[dict]:
+    """Tool-call log without wall-clock fields (ts, run_id), so reports are reproducible."""
+    return [{k: v for k, v in a.items() if k not in ("ts", "run_id")} for a in r.audit]
+
+
 def to_json(result: RunResult) -> str:
-    return result.model_dump_json(indent=2, exclude={"audit"})
+    d = json.loads(result.model_dump_json(exclude={"audit"}))
+    d["tool_calls"] = _calls(result)
+    return json.dumps(d, indent=2)
+
+
+def save(result: RunResult, base: Path) -> Path:
+    """Write <base>/<case>/report.md and report.json; returns the directory."""
+    d = Path(base) / result.case
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "report.md").write_text(to_markdown(result))
+    (d / "report.json").write_text(to_json(result) + "\n")
+    return d
 
 
 def to_markdown(r: RunResult) -> str:
@@ -44,4 +63,10 @@ def to_markdown(r: RunResult) -> str:
     rec = r.record_after or {}
     rid = r.plan.record_id if r.plan else None
     out.append("- outcome: " + _OUTCOME.get(r.write_outcome or "NO_WRITE", "").format(id=rid, v=rec.get("version", "?"), err=r.error))
+    final = rec.get("status") if r.write_outcome in ("WRITTEN", "WRITE_FAILED") else None
+    out += ["", "## Final", f"- write outcome: {r.write_outcome}",
+            f"- final CRM status: {final or '-'}; version: {rec.get('version', '-')}"]
+    out += ["", "## Tool calls", "| # | tool | attempt | outcome | args |", "|---|---|---|---|---|"]
+    out += [f"| {n} | {a['tool']} | {a['attempt']} | {a['outcome']}{' (' + a['error'] + ')' if a.get('error') else ''} | "
+            f"`{json.dumps(a['args'], sort_keys=True).replace('|', '/')}` |" for n, a in enumerate(_calls(r), 1)] or ["| - | none | | | |"]
     return "\n".join(out) + "\n"

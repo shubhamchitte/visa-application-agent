@@ -1,0 +1,127 @@
+{
+ "model": "openai/gpt-oss-120b",
+ "entries": {
+  "3e54e92547aab5e49485ba743d2a2ba8e041e9030dcc77fa8a8fd8b0ea482082": {
+   "response": {
+    "doc_type": "schengen_visa_application",
+    "fields": {
+     "surname": {
+      "value": "MARTIS",
+      "evidence_quote": "MARTIS",
+      "page": 1
+     },
+     "given_names": {
+      "value": "CHRISTOPHER",
+      "evidence_quote": "CHRISTOPHER",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1971-12-28",
+      "evidence_quote": "28.12.1971",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": "UTOPIAN",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT8812735",
+      "evidence_quote": "UT8812735",
+      "page": 1
+     },
+     "email": {
+      "value": "christopher.martin@mail.uto",
+      "evidence_quote": "christopher.martin@mail.uto",
+      "page": 2
+     },
+     "intended_travel_date": {
+      "value": "2027-02-28",
+      "evidence_quote": "28.02.2027",
+      "page": 3
+     }
+    }
+   },
+   "doc_id": "application_form",
+   "ts": "2026-10-28T05:38:13.174149+00:00",
+   "request_id": "chatcmpl-9fd0d64c-4d29-4662-a9d4-5ec1369b752f",
+   "raw": "{\"doc_type\":\"schengen_visa_application\",\"fields\":{\"surname\":{\"value\":\"MARTIS\",\"evidence_quote\":\"MARTIS\",\"page\":1},\"given_names\":{\"value\":\"CHRISTOPHER\",\"evidence_quote\":\"CHRISTOPHER\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-12-28\",\"evidence_quote\":\"28.12.1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT8812735\",\"evidence_quote\":\"UT8812735\",\"page\":1},\"email\":{\"value\":\"christopher.martin@mail.uto\",\"evidence_quote\":\"christopher.martin@mail.uto\",\"page\":2},\"intended_travel_date\":{\"value\":\"2027-02-28\",\"evidence_quote\":\"28.02.2027\",\"page\":3}}}",
+   "usage": 4030
+  },
+  "171f773775012ae142f462b935fc650f1211802539688b5cfa7c2fc8d5b1d825": {
+   "response": {
+    "doc_type": "bank_statement",
+    "fields": {
+     "bank_closing_balance": {
+      "value": "14174.92",
+      "evidence_quote": "           Closing balance                                                                             $14,174.92",
+      "page": 3
+     },
+     "statement_date": {
+      "value": "2026-10-20",
+      "evidence_quote": "Statement date                              20 Oct 2026",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "bank_statement",
+   "ts": "2026-10-28T05:39:15.381849+00:00",
+   "request_id": "chatcmpl-0645e7e0-5767-40c8-9c83-f310752e460e",
+   "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"bank_closing_balance\":{\"value\":\"14174.92\",\"evidence_quote\":\"           Closing balance                                                                             $14,174.92\",\"page\":3},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date                              20 Oct 2026\",\"page\":1}}}",
+   "usage": 3429
+  },
+  "adaaaba9ca9a52bed900b26899531b861e49fe66b7ae84ecac3e7a1bd7b64008": {
+   "response": {
+    "doc_type": "employment_verification",
+    "fields": {}
+   },
+   "doc_id": "employment_letter",
+   "ts": "2026-10-28T05:40:16.509787+00:00",
+   "request_id": "chatcmpl-832f45bb-9c7d-4bf1-937f-29a7d6f04744",
+   "raw": "{\"doc_type\":\"employment_verification\",\"fields\":{}}",
+   "usage": 892
+  },
+  "ca9660e8a98122f94c95ed1bf2a15654c023862931d52bf51cf48c6ea84bbe3a": {
+   "response": {
+    "doc_type": "passport",
+    "fields": {
+     "surname": {
+      "value": "MARTIN",
+      "evidence_quote": "MARTIN",
+      "page": 1
+     },
+     "given_names": {
+      "value": "CHRISTOPHER",
+      "evidence_quote": "CHRISTOPHER",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1971-12-28",
+      "evidence_quote": "28 DEC 1971",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": "UTOPIAN",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT8812735",
+      "evidence_quote": "UT8812735",
+      "page": 1
+     },
+     "passport_expiry": {
+      "value": "2034-02-23",
+      "evidence_quote": "23 FEB 2034",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "passport",
+   "ts": "2026-10-28T05:40:26.759817+00:00",
+   "request_id": "chatcmpl-114316f5-da9c-410d-92a9-3baa65d14ce9",
+   "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"MARTIN\",\"evidence_quote\":\"MARTIN\",\"page\":1},\"given_names\":{\"value\":\"CHRISTOPHER\",\"evidence_quote\":\"CHRISTOPHER\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-12-28\",\"evidence_quote\":\"28 DEC 1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT8812735\",\"evidence_quote\":\"UT8812735\",\"page\":1},\"passport_expiry\":{\"value\":\"2034-02-23\",\"evidence_quote\":\"23 FEB 2034\",\"page\":1}}}",
+   "usage": 1642
+  }
+ }
+}

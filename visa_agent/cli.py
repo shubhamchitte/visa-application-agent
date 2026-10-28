@@ -12,7 +12,7 @@ import yaml
 
 from .llm.fake import FakeLLM
 from .orchestrator import HERE, Deps, run
-from .report import to_json, to_markdown
+from .report import save, to_json, to_markdown
 from .tools.crm import MockCRM
 from .tools.gateway import ToolGateway
 from .tools.registry import build_tools
@@ -46,27 +46,40 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--agent-script", type=Path, help="agent mode: JSON list of scripted tool calls (offline demo)")
     r.add_argument("--record", action="store_true", help="agent mode with LLM_PROVIDER=groq: save to mock_data/replay/agent_<case>.json")
     r.add_argument("--json", action="store_true", help="print JSON instead of Markdown")
-    sub.add_parser("demo")
+    d = sub.add_parser("demo")
+    d.add_argument("--record", action="store_true", help="also write deterministic docs/demo_output/ (replay, no network)")
     e = sub.add_parser("eval")
     e.add_argument("--live", action="store_true", help="real provider (LLM_PROVIDER, default gemini)")
     e.add_argument("--record", action="store_true", help="with --live: save responses for replay")
+    e.add_argument("--set", choices=["clean", "realistic"], default="clean", help="generated cases or mock_data/realistic")
+    e.add_argument("--only", nargs="*", help="case-name prefixes, e.g. R1 R2")
     sub.add_parser("test-report")
     a = ap.parse_args(argv)
     if a.cmd != "run":
         from . import commands
         return getattr(commands, {"test-report": "test_report"}.get(a.cmd, a.cmd))(a)
 
+    if not a.packet.exists():  # short names: R6 -> mock_data/realistic/cases/R6_injection_fineprint, case03 -> ...
+        roots = [a.packet.parent, HERE.parent / "mock_data" / "realistic" / "cases", HERE.parent / "mock_data" / "cases"]
+        a.packet = next((m for r in roots for m in sorted(r.glob(a.packet.name + "*")) if m.is_dir()), a.packet)
+    own_seed = a.packet.parent.parent / "crm_seed.json"  # mock_data/realistic/crm_seed.json for realistic cases
+    seed = own_seed if own_seed.exists() else SEED
     if not a.crm.exists():  # a mock case's expected.json says which seed records exist for it
-        shutil.copy(SEED, a.crm)
+        shutil.copy(seed, a.crm)
         exp = a.packet / "expected.json"
         if exp.exists():
             keep = json.loads(exp.read_text())["crm"]["records_in_seed"]
-            recs = [x for x in json.loads(SEED.read_text())["records"] if x["id"] in keep]
+            recs = [x for x in json.loads(seed.read_text())["records"] if x["id"] in keep]
             a.crm.write_text(json.dumps({"records": recs}, indent=2))
-    script = json.loads((a.fake_llm or a.packet / "fake_llm.json").read_text())["script"]
+    fake = a.fake_llm or a.packet / "fake_llm.json"
+    script = json.loads(fake.read_text())["script"] if fake.exists() else {}
     agent_script = json.loads(a.agent_script.read_text()) if a.agent_script else None
     llm = FakeLLM(a.packet.name, {(a.packet.name, k): v for k, v in script.items()}, agent_script)
     prov = os.getenv("LLM_PROVIDER") or "fake"
+    if not fake.exists() and a.mode != "agent":  # realistic packets: no scripted output; replay the recorded real model
+        from .llm.replay import make_llm
+        llm = make_llm(a.packet.name, a.packet, provider="replay" if prov == "fake" else prov, record=a.record)
+        print(f"No fake_llm.json: using {llm.name} ({getattr(llm, 'model', '')})")
     if a.mode == "agent" and prov != "fake" and not agent_script:  # real/replayed agent: recordings are agent_<case>.json
         from .llm.replay import make_llm
         llm = make_llm(a.packet.name, a.packet, f"agent_{a.packet.name}", provider=prov, record=a.record)
@@ -79,7 +92,9 @@ def main(argv: list[str] | None = None) -> int:
         result = run_agent(a.packet, deps)
     else:
         result = run(a.packet, deps, dry_run=a.dry_run)
+    out_dir = save(result, Path(os.getenv("AUDIT_DIR", "runs")))
     print(to_json(result) if a.json else to_markdown(result))
+    print(f"Report saved: {out_dir}/report.md, report.json")
     if a.mode == "agent":
         print("Agent tool calls (gateway audit; REJECTED = plan guard / allowlist blocked it):")
         for x in result.audit:

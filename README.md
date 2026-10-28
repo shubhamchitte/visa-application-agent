@@ -5,49 +5,58 @@ passport, bank statement), extracts nine fields with evidence quotes, checks the
 a mock CRM, and writes only what it can prove. Missing, conflicting and unverifiable information is
 reported, never guessed. The principle is **LLM proposes, code disposes**: the LLM only extracts
 `{value, evidence_quote, page}`. Verification, validation, the write decision, retries and the report are
-deterministic Python, tested offline. Plain Python, no agent framework, about 1,600 lines of source.
+deterministic Python, tested offline. Plain Python, no agent framework, about 1,800 lines of source.
 
 ## Quickstart
-Needs Python 3.11+ (3.12 preferred). No API key is needed for tests or the demo.
+Needs Python 3.11+ only. No API key, no network.
 
 ```bash
-make setup        # uv sync, or venv + pip install -r requirements.lock when uv is missing
-make test         # 150 tests, offline, ~2s (FakeLLM, frozen clock)
-make test-report  # regenerates docs/TEST_RESULTS.md (expected vs actual, 16 scenarios)
-make demo         # 8 scenarios with ReplayLLM (recorded real Groq output), no network
-make smoke        # one end-to-end check
-make run CASE=mock_data/cases/case03_name_conflict   # one packet, offline (FakeLLM); add DRY=--dry-run for the CRM diff only
-make run-agent CASE=mock_data/cases/case14_injection # agent mode, replays the recorded real-Groq tool proposals
+git clone https://github.com/shubhamchitte/visa-application-agent && cd visa-application-agent
+make demo        # first run creates .venv and installs pinned deps; replay mode: no API key, no network
+make test        # 166 passed, 2 skipped, offline
+make run CASE=R6 # one case; compare with mock_data/realistic/cases/R6_injection_fineprint/expected.json
+make run-agent   # agent mode, case14: replays a recorded model run; the plan guard rejects an out-of-plan crm.update
 ```
 
-`make run` and `make run-agent` use `TODAY=2026-10-27` and a scratch CRM (`CRM=/tmp/visa_crm.json`, reset each run); override either on the command line. The same thing by hand (offline, canned LLM output from `<packet>/fake_llm.json`):
+**Replay vs live.** Replay serves recorded real Groq responses (`openai/gpt-oss-120b`) keyed to the PDF text, so
+the demo is deterministic and offline. For a live run, `cp .env.example .env`, set `GROQ_API_KEY`, and run with
+`LLM_PROVIDER=groq` (for example `LLM_PROVIDER=groq make eval-live`, which re-records `mock_data/replay/`).
+Groq free tier may train on data: use mock data only. Gemini is wired but unverified.
 
-```bash
-uv run python -m visa_agent.cli run mock_data/cases/case01_happy --dry-run --today 2026-10-27   # prints the exact CRM diff
-uv run python -m visa_agent.cli run mock_data/cases/case03_name_conflict --today 2026-10-27      # real write to ./crm_state.json
-uv run python -m visa_agent.cli run mock_data/cases/case01_happy --mode agent --agent-script calls.json  # agent mode; calls.json = JSON list of scripted tool calls
-```
-Use `.venv/bin/python -m visa_agent.cli ...` if uv is not installed. `--today` freezes the clock
-(passport-expiry rules depend on it). The tool-call audit trail is appended to `runs/audit.jsonl` (gitignored; `AUDIT_DIR` overrides).
+**Scanned packets.** R4 and R5 are image-only scans. They are skipped in `make demo` and the eval (not recorded); OCR
+wiring is covered by `tests/test_ocr.py` with a mocked OCR call. See [LIMITATIONS](docs/LIMITATIONS.md).
 
-Optional, real provider: `cp .env.example .env`, set `GROQ_API_KEY`, then `LLM_PROVIDER=groq make eval-live`.
-This runs the live eval over the mock packets, writes `docs/EVAL_RESULTS.md` and records responses into
-`mock_data/replay/`. Free tier: Groq limits are low, so the eval paces itself (8 s per call). Free-tier data
-may be used by the provider for training: use mock data only. Gemini is wired (`LLM_PROVIDER=gemini`) but unverified.
+**Read the output without running anything:** [docs/demo_output/](docs/demo_output/README.md) (every scenario:
+fields with quotes, issues, CRM plan, status), [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md), and
+[docs/sample_docs/](docs/sample_docs/) (page images of the realistic documents).
+
+Other targets: `make test-report` (regenerates docs/TEST_RESULTS.md), `make demo-record` (regenerates
+docs/demo_output/), `make smoke`. `make run` uses `TODAY=2026-10-27` and a scratch CRM (`CRM=/tmp/visa_crm.json`);
+override on the command line, add `DRY=--dry-run` for the CRM diff only. Per-run reports go to
+`runs/<case>/` and the tool-call audit trail to `runs/audit.jsonl` (both gitignored).
+
+## What the documents look like
+Two packet sets: clean generated PDFs (16 scenarios) and a **realistic set** (`mock_data/realistic/cases/R1..R6`): the
+official-layout Schengen application form (6 dense pages, surname and given names in separate boxes), a specimen passport
+with MRZ, a 3-page bank statement, an employment letter, and image-only scans.
+
+| Schengen form (page 1) | Passport | Passport (scan) | Bank statement | Employment letter |
+|---|---|---|---|---|
+| ![form](docs/sample_docs/realistic_application_form.png) | ![passport](docs/sample_docs/realistic_passport.png) | ![scan](docs/sample_docs/realistic_passport_scanned.png) | ![bank](docs/sample_docs/realistic_bank_statement.png) | ![letter](docs/sample_docs/realistic_employment_letter.png) |
 
 ## Brief requirement -> deliverable
 | Brief requirement | Where |
 |---|---|
 | 1. Source + setup | this README, `visa_agent/`, `Makefile`, `requirements.lock`, `.env.example` |
-| 2. Test cases, expected vs actual | [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) (generated, 16 scenarios), `tests/` (150 tests), [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md) (live accuracy) |
+| 2. Test cases, expected vs actual | [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) (generated, 16 scenarios), `tests/` (166 passed, 2 skipped), [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md) (live accuracy) |
 | 3. Rules and safeguards | [docs/SAFEGUARDS.md](docs/SAFEGUARDS.md): rule -> file:line -> proving test; `visa_agent/policy.yaml` |
 | 4. Architecture, tools, decisions, limits | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/LIMITATIONS.md](docs/LIMITATIONS.md) |
 
 Two kinds of evidence, kept separate on purpose: the offline tests prove the **control logic** with canned LLM
 output (they do not measure extraction). The live eval measures **extraction** with a real model
-(Groq `openai/gpt-oss-120b`, 7 clean generated packets; see [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md)): 87/87 fields correct and VERIFIED, 0 hallucinations, 87/87 evidence quotes verbatim, 26 recorded calls with provider request ids. Caveat: clean synthetic packets from one generator, no OCR noise; this is not real-world accuracy.
+(Groq `openai/gpt-oss-120b`; see [docs/EVAL_RESULTS.md](docs/EVAL_RESULTS.md)): clean set 115/115 fields correct and VERIFIED, 0 hallucinations; realistic set 65/66, 1 hallucination. The miss is R6 nationality: the model proposed 'UTOPIAN / UTOPIENNE' against truth 'UTOPIAN'. Verify did not block it (the quote is verbatim in the document); cross-document validation flagged it as CONFLICT, so the case ends NEEDS_REVIEW and nothing is written. R4 and R5 (scans) are not recorded and are skipped in the eval.
 
-Agent mode (`--mode agent`): the LLM proposes tool calls through the gateway and the plan guard. Tests use a scripted FakeLLM; recorded real-Groq runs exist for case01 and case14 (`make run-agent`). In those runs the real model proposed out-of-plan statuses (READY_FOR_SUBMISSION, REVIEW_PENDING) and every one was rejected, with zero out-of-plan writes.
+Agent mode (`--mode agent`): the LLM proposes tool calls through the gateway and the plan guard. Tests use a scripted FakeLLM. Two recorded real-Groq runs are replayed by `make run-agent` (default case14; `make run-agent AGENT_CASE=mock_data/cases/case01_happy` for case01). case14: the plan guard rejects an out-of-plan update (`crm.update -> REJECTED (plan guard: notes beyond plan)`) after the planned update has been written. case01: in 3 live recordings gpt-oss-120b declared done on its first step, so no write happened (`write outcome: NO_WRITE`). Code never writes on the model's behalf, which is the safe outcome. The deterministic mode is the primary path; agent mode is secondary.
 
 ## Repo layout
 ```

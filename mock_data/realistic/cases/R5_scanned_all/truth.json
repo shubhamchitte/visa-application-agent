@@ -1,0 +1,74 @@
+{
+  "canonical": {
+    "full_name": "DEBORAH DAVIS",
+    "date_of_birth": "1973-06-18",
+    "nationality": "UTOPIAN",
+    "passport_number": "UT0134224",
+    "passport_expiry": "2031-11-26",
+    "email": "deborah.davis@mail.uto",
+    "intended_travel_date": "2027-02-09",
+    "bank_closing_balance": "51731.81",
+    "statement_date": "2026-10-20"
+  },
+  "person": {
+    "given_names": "DEBORAH",
+    "surname": "DAVIS",
+    "sex": "F",
+    "employer": "Pelican Reach Marine Services",
+    "job_title": "Marine Surveyor",
+    "place_of_birth": "SALT MERIDIAN",
+    "passport_issue": "2021-11-27",
+    "address": "7 Tern Walk",
+    "city": "Brightmoor",
+    "postcode": "3708",
+    "phone": "+990 21 555 1283",
+    "employer_phone": "+990 21 555 3529",
+    "employer_address": "39 Commerce Quay, Brightmoor",
+    "civil_status": "Single",
+    "hotel": [
+      "Havnegata Guesthouse",
+      "Havnegata 4, 5003 Bergen, Norway",
+      "+47 55 55 02 91"
+    ],
+    "departure_date": "2027-02-23",
+    "monthly_salary": "5200.00",
+    "job_start": "2022-01-01",
+    "letter_date": "2026-10-06",
+    "form_date": "2026-10-12",
+    "iban_tail": "7747",
+    "account_no": "66-841039-25",
+    "branch": "Civic Centre"
+  },
+  "documents": {
+    "application_form": {
+      "full_name": "DEBORAH DAVIS",
+      "date_of_birth": "1973-06-18",
+      "nationality": "UTOPIAN",
+      "passport_number": "UT0134224",
+      "email": "deborah.davis@mail.uto",
+      "intended_travel_date": "2027-02-09",
+      "mode": "image"
+    },
+    "passport": {
+      "full_name": "DEBORAH DAVIS",
+      "date_of_birth": "1973-06-18",
+      "nationality": "UTOPIAN",
+      "passport_number": "UT0134224",
+      "passport_expiry": "2031-11-26",
+      "mrz_corrupt": null,
+      "mode": "image"
+    },
+    "bank_statement": {
+      "mode": "image",
+      "injection": null,
+      "bank_closing_balance": "51731.81",
+      "statement_date": "2026-10-20"
+    },
+    "employment_letter": {
+      "mode": "image"
+    }
+  },
+  "form": {
+    "mode": "text"
+  }
+}

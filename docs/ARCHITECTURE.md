@@ -10,7 +10,7 @@ record matching, the write decision, retries, the report. The LLM's status alway
 ```
 packet/*.pdf
   |
-  1 INGEST     pymupdf text per page; page <30 chars = no_text_layer (no OCR)          ingest.py:16
+  1 INGEST     pymupdf text per page; page <30 chars -> 300dpi raster + tesseract CLI OCR (text_source=ocr, flag ocr_used); no tesseract/empty OCR = no_text_layer; .png/.jpg = 1-page doc ingest.py:16
   2 CLASSIFY   content keywords decide, filename only breaks ties; else UNCLASSIFIED    ingest.py:33
     + injection scan (regex markers on doc text -> flag)                                 ingest.py:56
   3 EXTRACT    LLM, 1 call/doc, JSON schema out; malformed -> 1 re-ask -> UNVERIFIABLE  extract.py:47   <-- only LLM step
@@ -42,7 +42,7 @@ first in dry-run to produce verified state and the WritePlan. Then the LLM propo
 `agent_mode.py:12`), seeing tool specs and verified state, never raw document text. Each call passes the same
 gateway, and `plan_guard` (`agent_mode.py:15`) rejects any `crm.update` that goes beyond the plan (other record,
 extra field or value, other status, extra notes). Rejections are audit-logged and returned to the LLM as
-observations. Summary: the LLM proposes tool calls through the gateway and plan guard; the tests use a scripted FakeLLM; recorded real-Groq runs exist for case01 and case14 (`make run-agent`). In those runs the real model proposed out-of-plan statuses (READY_FOR_SUBMISSION, REVIEW_PENDING); all were rejected, with zero out-of-plan writes.
+observations. Summary: the LLM proposes tool calls through the gateway and plan guard; the tests use a scripted FakeLLM; two recorded real-Groq runs are replayed by `make run-agent`. case14: the plan guard rejects an out-of-plan update (notes beyond plan). case01: in 3 live recordings gpt-oss-120b declared done on its first step, so no write happened (NO_WRITE); code never writes on the model's behalf. The deterministic mode is the primary path.
 
 ## Key decisions and alternatives rejected
 | Decision | Rejected alternative | Why |
@@ -61,9 +61,9 @@ observations. Summary: the LLM proposes tool calls through the gateway and plan 
 ## LLM split
 | Use | Provider | Status |
 |---|---|---|
-| Field extraction (one doc per call, strict JSON schema, temperature 0) | **Groq `openai/gpt-oss-120b`** (`llm/groq.py`) | Measured by `make eval-live`; full numbers in EVAL_RESULTS.md: 87/87 fields correct and VERIFIED, 0 hallucinations, 87/87 evidence quotes verbatim, 26 recorded calls with provider request ids. Caveat: clean synthetic packets from one generator, no OCR noise; this is not real-world accuracy. |
+| Field extraction (one doc per call, strict JSON schema, temperature 0) | **Groq `openai/gpt-oss-120b`** (`llm/groq.py`) | Measured by `make eval-live`; full numbers in EVAL_RESULTS.md: clean set 115/115 fields correct and VERIFIED; realistic set 65/66, 1 hallucination (R6 nationality, caught by cross-document check). Caveat: clean synthetic packets from one generator, no OCR noise; this is not real-world accuracy. |
 | Same interface | **Gemini** (`llm/gemini.py`, default `gemini-3.5-flash-lite`) | Wired and unit-tested with mocked clients (error mapping, malformed output). **Never run against the live API**, so no accuracy claim. |
-| Control-logic tests | `FakeLLM` (canned per case) | 150 offline tests, frozen clock. |
+| Control-logic tests | `FakeLLM` (canned per case) | 166 passed, 2 skipped (offline), frozen clock. |
 | Demo / quota safety | `ReplayLLM` (recordings of real Groq output in `mock_data/replay/`) | `make demo` default. |
 
 Provider is chosen by `LLM_PROVIDER` (`llm/replay.py:44`). Errors map to RateLimited / Transient / Malformed /

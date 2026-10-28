@@ -43,6 +43,9 @@ def value_in_quote(value: str, quote: str, ftype: str, formats: list[str], decla
     q = normalize(quote)
     if ftype == "str":
         return None if normalize(value) in q else "value not in quote"
+    if ftype == "name":  # whole tokens only: "ANN" must not verify against "ANNE"
+        v = normalize(value)
+        return None if v and re.search(rf"(?<!\w){re.escape(v)}(?!\w)", q) else "name not in quote as whole words"
     if ftype == "passport_no":
         return None if value.replace(" ", "").upper() in quote.replace(" ", "").upper() else "value not in quote"
     if ftype == "money":
@@ -85,3 +88,24 @@ def verify(extraction: Extraction, doc: dict[str, Any], fields_cfg: dict[str, An
         else:
             out[name] = Field(value=f.value, evidence_quote=f.evidence_quote, page=page, status=FieldStatus.VERIFIED)
     return Extraction(doc_type=extraction.doc_type, fields=out), issues
+
+
+def derive(ext: Extraction, fields_cfg: dict[str, Any]) -> tuple[Extraction, list[Issue]]:
+    """Derived fields (fields.yaml `derived`, e.g. full_name = given_names + surname): never asked of the LLM.
+    VERIFIED only if every part is VERIFIED; MISSING if no part has a value; else UNVERIFIABLE."""
+    fields, issues = dict(ext.fields), []
+    for name, cfg in fields_cfg.items():
+        if not cfg.get("derived") or ext.doc_type not in cfg["source"]:
+            continue
+        parts = [fields.get(p) or Field(status=FieldStatus.MISSING) for p in cfg["derived"]]
+        if all(p.status == FieldStatus.VERIFIED for p in parts):
+            quotes = list(dict.fromkeys(p.evidence_quote for p in parts))
+            fields[name] = Field(value=" ".join(p.value.strip() for p in parts), evidence_quote=" | ".join(quotes),
+                                 page=parts[0].page, status=FieldStatus.VERIFIED)
+        elif all(p.status == FieldStatus.MISSING for p in parts):
+            fields[name] = Field(status=FieldStatus.MISSING)
+        else:
+            fields[name] = Field(status=FieldStatus.UNVERIFIABLE)
+            issues.append(Issue(kind=IssueKind.UNVERIFIABLE, field=name,
+                                message=f"{ext.doc_type}: derived from {' + '.join(cfg['derived'])}, not all VERIFIED"))
+    return Extraction(doc_type=ext.doc_type, fields=fields), issues

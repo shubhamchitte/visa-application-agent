@@ -1,0 +1,268 @@
+{
+  "case": "R2_name_conflict",
+  "docs": [
+    {
+      "doc_id": "application_form",
+      "doc_type": "application_form",
+      "flags": []
+    },
+    {
+      "doc_id": "bank_statement",
+      "doc_type": "bank_statement",
+      "flags": []
+    },
+    {
+      "doc_id": "employment_letter",
+      "doc_type": "employment_letter",
+      "flags": []
+    },
+    {
+      "doc_id": "passport",
+      "doc_type": "passport",
+      "flags": []
+    }
+  ],
+  "extractions": {
+    "application_form": {
+      "doc_type": "application_form",
+      "fields": {
+        "surname": {
+          "value": "MARTIS",
+          "evidence_quote": "MARTIS",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "CHRISTOPHER",
+          "evidence_quote": "CHRISTOPHER",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1971-12-28",
+          "evidence_quote": "28.12.1971",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT8812735",
+          "evidence_quote": "UT8812735",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "email": {
+          "value": "christopher.martin@mail.uto",
+          "evidence_quote": "christopher.martin@mail.uto",
+          "page": 2,
+          "status": "VERIFIED"
+        },
+        "intended_travel_date": {
+          "value": "2027-02-28",
+          "evidence_quote": "28.02.2027",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "CHRISTOPHER MARTIS",
+          "evidence_quote": "CHRISTOPHER | MARTIS",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "bank_statement": {
+      "doc_type": "bank_statement",
+      "fields": {
+        "bank_closing_balance": {
+          "value": "14174.92",
+          "evidence_quote": "           Closing balance                                                                             $14,174.92",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "statement_date": {
+          "value": "2026-10-20",
+          "evidence_quote": "Statement date                              20 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "employment_letter": {
+      "doc_type": "employment_letter",
+      "fields": {}
+    },
+    "passport": {
+      "doc_type": "passport",
+      "fields": {
+        "surname": {
+          "value": "MARTIN",
+          "evidence_quote": "MARTIN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "CHRISTOPHER",
+          "evidence_quote": "CHRISTOPHER",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1971-12-28",
+          "evidence_quote": "28 DEC 1971",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT8812735",
+          "evidence_quote": "UT8812735",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_expiry": {
+          "value": "2034-02-23",
+          "evidence_quote": "23 FEB 2034",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "CHRISTOPHER MARTIN",
+          "evidence_quote": "CHRISTOPHER | MARTIN",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    }
+  },
+  "issues": [
+    {
+      "kind": "CONFLICT",
+      "field": "full_name",
+      "message": "documents disagree on full_name",
+      "sources": [
+        {
+          "doc": "application_form",
+          "value": "CHRISTOPHER MARTIS",
+          "page": 1
+        },
+        {
+          "doc": "passport",
+          "value": "CHRISTOPHER MARTIN",
+          "page": 1
+        }
+      ]
+    }
+  ],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "present": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "plan": {
+    "record_id": "rec-2002",
+    "field_patch": {},
+    "status": "NEEDS_REVIEW",
+    "notes": [
+      "identity conflict between documents",
+      "CONFLICT full_name: documents disagree on full_name"
+    ],
+    "reason": "identity_conflict"
+  },
+  "write_outcome": "WRITTEN",
+  "candidates": [
+    "rec-2002"
+  ],
+  "record_after": {
+    "id": "rec-2002",
+    "version": 2,
+    "status": "NEEDS_REVIEW",
+    "fields": {
+      "passport_number": "UT8812735",
+      "date_of_birth": "1971-12-28"
+    },
+    "notes": [
+      "identity conflict between documents",
+      "CONFLICT full_name: documents disagree on full_name"
+    ]
+  },
+  "error": null,
+  "tool_calls": [
+    {
+      "tool": "checklist.check",
+      "args": {
+        "visa_type": "TOURIST_UTO",
+        "docs_present": [
+          "application_form",
+          "bank_statement",
+          "employment_letter",
+          "passport"
+        ]
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.find",
+      "args": {
+        "passport_no": "UT8812735",
+        "dob": "1971-12-28"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.update",
+      "args": {
+        "id": "rec-2002",
+        "patch": {},
+        "expected_version": 1,
+        "status": "NEEDS_REVIEW",
+        "notes": [
+          "identity conflict between documents",
+          "CONFLICT full_name: documents disagree on full_name"
+        ],
+        "idempotency_key": "0d601582bbddd2c37e54b6f5ccb28965d8fb62eae136ec9ac49734481ecf66a1"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.get",
+      "args": {
+        "id": "rec-2002"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    }
+  ]
+}

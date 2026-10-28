@@ -27,8 +27,8 @@ VISA = "TOURIST_UTO"
 REQUIRED = ["application_form", "passport", "bank_statement"]
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 FIELDS_BY_DOC = {  # which registry fields an extraction of each doc type reports (fields.yaml `source`)
-    "application_form": ["full_name", "date_of_birth", "nationality", "passport_number", "email", "intended_travel_date"],
-    "passport": ["full_name", "date_of_birth", "nationality", "passport_number", "passport_expiry"],
+    "application_form": ["surname", "given_names", "date_of_birth", "nationality", "passport_number", "email", "intended_travel_date"],
+    "passport": ["surname", "given_names", "date_of_birth", "nationality", "passport_number", "passport_expiry"],
     "bank_statement": ["bank_closing_balance", "statement_date"],
     "employment_letter": [],
 }
@@ -106,8 +106,8 @@ def base_truth() -> dict:
         "canonical": canon,
         "person": {k: p[k] for k in ("given_names", "surname", "sex", "employer", "job_title")},
         "documents": {  # what each PDF will print. Mutations edit THIS, never the canonical.
-            "application_form": {k: canon[k] for k in FIELDS_BY_DOC["application_form"]},
-            "passport": {**{k: canon[k] for k in FIELDS_BY_DOC["passport"]}, "mrz_corrupt": None},
+            "application_form": {k: canon[k] for k in ["full_name", *FIELDS_BY_DOC["application_form"]] if k in canon},
+            "passport": {**{k: canon[k] for k in ["full_name", *FIELDS_BY_DOC["passport"]] if k in canon}, "mrz_corrupt": None},
             "bank_statement": {"mode": "text", "injection": None,
                                "bank_closing_balance": canon["bank_closing_balance"],
                                "statement_date": canon["statement_date"]},
@@ -206,10 +206,19 @@ _LINE_PREFIX = {"full_name": "Full name:", "date_of_birth": "Date of birth:", "n
                 "statement_date": "Statement date:"}
 
 
+_PASSPORT_PREFIX = {"passport_number": "Passport No:", "surname": "Surname:", "given_names": "Given names:"}
+
+
+def split_name(t: dict, doc_id: str) -> dict:
+    """surname / given_names of a doc's printed full_name (full_name = given_names + ' ' + surname, fields.yaml)."""
+    given = t["person"]["given_names"]
+    return {"given_names": given, "surname": t["documents"][doc_id]["full_name"][len(given) + 1:]}
+
+
 def llm_response(doc_id: str, t: dict) -> dict:
     d, out = t["documents"][doc_id], {}
     for f in FIELDS_BY_DOC[doc_id]:
-        prefix = "Passport No:" if (doc_id == "passport" and f == "passport_number") else _LINE_PREFIX[f]
+        prefix = _PASSPORT_PREFIX.get(f, _LINE_PREFIX.get(f)) if doc_id == "passport" else _LINE_PREFIX.get(f, "Full name:")
         out[f] = {"value": d[f], "evidence_quote": _find_line(doc_id, t, prefix), "page": 1}
     return {"doc_type": doc_id, "fields": out}
 
@@ -391,6 +400,8 @@ def generate(out: Path) -> list[str]:
     ids = []
     for cid, c in build_cases().items():
         t = c["mutate"](copy.deepcopy(truth0))
+        for doc_id in ("application_form", "passport"):  # name parts are extracted fields; full_name is derived
+            t["documents"][doc_id].update(split_name(t, doc_id))
         d = cases_dir / cid
         d.mkdir(exist_ok=True)
         own = c["packet"] is None

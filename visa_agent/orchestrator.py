@@ -75,14 +75,17 @@ def run(packet: Path, deps: Deps, dry_run: bool = False, case: str | None = None
     # 3-4 extract + verify (no LLM call for a doc without a text layer)
     for t, d in by_type.items():
         names = [n for n, c in fields_cfg.items() if t in c["source"]]
+        asked = [n for n in names if not fields_cfg[n].get("derived")]  # derived fields are computed, never asked
         if d["no_text_layer"]:
-            res.issues += _unverifiable(names, t, "no text layer (no OCR); not sent to the LLM")
+            res.issues += _unverifiable(names, t, "no text layer (OCR unavailable or empty); not sent to the LLM")
             continue
-        ext, err = ex.extract(d, t, names, deps.llm)
+        ext, err = ex.extract(d, t, asked, deps.llm, hints={n: fields_cfg[n]["hint"] for n in asked if "hint" in fields_cfg[n]})
         if ext is None:
             res.issues += _unverifiable(names, t, err)
             continue
         ext, issues = ver.verify(ext, d, fields_cfg, formats, cfg["doc_types"][t].get("date_format"))
+        ext, derived = ver.derive(ext, fields_cfg)
+        issues += derived
         res.extractions[t], res.issues = ext, res.issues + issues
 
     # 5 validate; anything with no value and no other issue is MISSING

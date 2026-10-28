@@ -1,0 +1,121 @@
+{
+  "case": "R3_missing_bank",
+  "scenario": "R3",
+  "title": "Bank statement missing from an otherwise realistic packet",
+  "packet": "realistic/cases/R3_missing_bank",
+  "realistic": true,
+  "fault_plan_ref": "expected.fault_plan",
+  "fake_llm": null,
+  "clock": "2026-10-27",
+  "issues": [
+    {
+      "kind": "MISSING",
+      "field": "bank_closing_balance"
+    },
+    {
+      "kind": "MISSING",
+      "field": "statement_date"
+    }
+  ],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [
+      "bank_statement"
+    ],
+    "docs_present": [
+      "application_form",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "crm": {
+    "records_in_seed": [
+      "rec-2003",
+      "rec-9901"
+    ],
+    "target_record": "rec-2003",
+    "action": "UPDATE",
+    "status": "INCOMPLETE",
+    "field_patch": {
+      "full_name": "JOY CLARK",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2031-06-17",
+      "email": "joy.clark@mail.uto",
+      "intended_travel_date": "2027-02-08"
+    },
+    "notes_contain": [
+      "bank_statement"
+    ],
+    "version_after": 2
+  },
+  "write_outcome": "WRITTEN",
+  "tool_calls": {
+    "must": [
+      {
+        "tool": "checklist.check",
+        "times": 1,
+        "args_subset": {
+          "visa_type": "TOURIST_UTO",
+          "docs_present": [
+            "application_form",
+            "employment_letter",
+            "passport"
+          ]
+        }
+      },
+      {
+        "tool": "crm.find",
+        "times": 1,
+        "args_subset": {
+          "passport_no": "UT7607287",
+          "dob": "1978-05-08"
+        }
+      },
+      {
+        "tool": "crm.update",
+        "times": 1,
+        "args_subset": {
+          "id": "rec-2003",
+          "expected_version": 1,
+          "patch": {
+            "full_name": "JOY CLARK",
+            "nationality": "UTOPIAN",
+            "passport_expiry": "2031-06-17",
+            "email": "joy.clark@mail.uto",
+            "intended_travel_date": "2027-02-08"
+          },
+          "status": "INCOMPLETE"
+        }
+      },
+      {
+        "tool": "crm.get",
+        "min_times": 1,
+        "note": "read-back after the write"
+      }
+    ],
+    "must_not": []
+  },
+  "llm_calls": {
+    "expected_doc_ids": [
+      "application_form",
+      "passport",
+      "employment_letter"
+    ],
+    "must_not_call": [
+      "bank_statement"
+    ]
+  },
+  "report": {
+    "must_not_contain": []
+  },
+  "never_status": [
+    "APPROVED",
+    "REJECTED"
+  ],
+  "fault_plan": []
+}

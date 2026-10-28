@@ -1,12 +1,17 @@
 {
  "model": "openai/gpt-oss-120b",
  "entries": {
-  "476ecdd2a3f70e4b530cdc637a5c74e401a5a14fbefcbe272e55423b7775a194": {
+  "acffaa338036c7b8222e81d7a3f39f28e32fdfb53b39b66ff2f39cdfadfd273e": {
    "response": {
     "doc_type": "VISA APPLICATION FORM - Tourist (Utopia)",
     "fields": {
-     "full_name": {
-      "value": "ERIC MORTON",
+     "surname": {
+      "value": "MORTON",
+      "evidence_quote": "Full name: ERIC MORTON",
+      "page": 1
+     },
+     "given_names": {
+      "value": "ERIC",
       "evidence_quote": "Full name: ERIC MORTON",
       "page": 1
      },
@@ -38,12 +43,12 @@
     }
    },
    "doc_id": "application_form",
-   "ts": "2026-10-27T07:21:53.614708+00:00",
-   "request_id": "chatcmpl-71a93d10-76c0-441e-ad0f-1a30a3da241c",
-   "raw": "{\"doc_type\":\"VISA APPLICATION FORM - Tourist (Utopia)\",\"fields\":{\"full_name\":{\"value\":\"ERIC MORTON\",\"evidence_quote\":\"Full name: ERIC MORTON\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-11-12\",\"evidence_quote\":\"Date of birth: 12 Nov 1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"Nationality: UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT7668016\",\"evidence_quote\":\"Passport number: UT7668016\",\"page\":1},\"email\":{\"value\":\"eric.morton@mail.uto\",\"evidence_quote\":\"Email: eric.morton@mail.uto\",\"page\":1},\"intended_travel_date\":{\"value\":\"2027-01-19\",\"evidence_quote\":\"Intended date of travel: 19 Jan 2027\",\"page\":1}}}",
-   "usage": 1638
+   "ts": "2026-10-28T05:30:29.246556+00:00",
+   "request_id": "chatcmpl-25d3da1a-9fb7-4563-9fdb-dbaf4ee3cae2",
+   "raw": "{\"doc_type\":\"VISA APPLICATION FORM - Tourist (Utopia)\",\"fields\":{\"surname\":{\"value\":\"MORTON\",\"evidence_quote\":\"Full name: ERIC MORTON\",\"page\":1},\"given_names\":{\"value\":\"ERIC\",\"evidence_quote\":\"Full name: ERIC MORTON\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-11-12\",\"evidence_quote\":\"Date of birth: 12 Nov 1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"Nationality: UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT7668016\",\"evidence_quote\":\"Passport number: UT7668016\",\"page\":1},\"email\":{\"value\":\"eric.morton@mail.uto\",\"evidence_quote\":\"Email: eric.morton@mail.uto\",\"page\":1},\"intended_travel_date\":{\"value\":\"2027-01-19\",\"evidence_quote\":\"Intended date of travel: 19 Jan 2027\",\"page\":1}}}",
+   "usage": 1826
   },
-  "fc7120a1b257ce514c3b2e32be2f42a9f0aca1ec968bd97be7892e1f82ba34f3": {
+  "40aff47732dc1b77fa28bfe78ffea565d310f65af1274d3e6403b484c36b6db1": {
    "response": {
     "doc_type": "bank_statement",
     "fields": {
@@ -60,29 +65,34 @@
     }
    },
    "doc_id": "bank_statement",
-   "ts": "2026-10-27T07:22:03.107162+00:00",
-   "request_id": "chatcmpl-9f6ce8e5-c2ff-4b0d-af00-35a76794d9bb",
+   "ts": "2026-10-28T05:30:39.859362+00:00",
+   "request_id": "chatcmpl-b3e8467c-fd64-4666-9624-a0f4ee905d0b",
    "raw": "{\"doc_type\":\"bank_statement\",\"fields\":{\"bank_closing_balance\":{\"value\":\"9310.72\",\"evidence_quote\":\"Closing balance: $9,310.72\",\"page\":1},\"statement_date\":{\"value\":\"2026-10-20\",\"evidence_quote\":\"Statement date: 20 Oct 2026\",\"page\":1}}}",
-   "usage": 965
+   "usage": 982
   },
-  "12b816756184fc8e55b74c13da11ef8c8714604a823e789a81d7d439e2b5256f": {
+  "4510a8cdf051826413c5195f47ff534ef38919418e3a1b8002cd6c672ee4f660": {
    "response": {
     "doc_type": "extraction",
     "fields": {}
    },
    "doc_id": "employment_letter",
-   "ts": "2026-10-27T07:22:12.157767+00:00",
-   "request_id": "chatcmpl-ea263cdd-cc4b-4fe6-9416-c40c7635801a",
+   "ts": "2026-10-28T05:30:48.580415+00:00",
+   "request_id": "chatcmpl-f1c305ed-7691-4ba1-bf10-cbe4836e3de7",
    "raw": "{\"doc_type\":\"extraction\",\"fields\":{}}",
    "usage": 469
   },
-  "7bb2998ffaf7f4e280fb6fb75b4f2d3409cc5071393bb5c1aa963d5edc3a5d23": {
+  "a9e2bf4a0645963a82102c3f4a4f2d47bf07c4ec86725e1b99fb118d28d458e0": {
    "response": {
     "doc_type": "passport",
     "fields": {
-     "full_name": {
-      "value": "ERIC MORTON",
-      "evidence_quote": "Full name: ERIC MORTON",
+     "surname": {
+      "value": "MORTON",
+      "evidence_quote": "Surname: MORTON",
+      "page": 1
+     },
+     "given_names": {
+      "value": "ERIC",
+      "evidence_quote": "Given names: ERIC",
       "page": 1
      },
      "date_of_birth": {
@@ -108,10 +118,10 @@
     }
    },
    "doc_id": "passport",
-   "ts": "2026-10-27T07:22:22.263422+00:00",
-   "request_id": "chatcmpl-9cdc2431-52a2-4c68-a354-82c6b01b0cea",
-   "raw": "{\"doc_type\":\"passport\",\"fields\":{\"full_name\":{\"value\":\"ERIC MORTON\",\"evidence_quote\":\"Full name: ERIC MORTON\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-11-12\",\"evidence_quote\":\"Date of birth: 12 NOV 1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"Nationality: UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT7668016\",\"evidence_quote\":\"Passport No: UT7668016\",\"page\":1},\"passport_expiry\":{\"value\":\"2030-11-16\",\"evidence_quote\":\"Date of expiry: 16 NOV 2030\",\"page\":1}}}",
-   "usage": 1504
+   "ts": "2026-10-28T05:30:58.832603+00:00",
+   "request_id": "chatcmpl-5c90f836-9e8e-41a1-bcd5-b1db3f3b4b33",
+   "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"MORTON\",\"evidence_quote\":\"Surname: MORTON\",\"page\":1},\"given_names\":{\"value\":\"ERIC\",\"evidence_quote\":\"Given names: ERIC\",\"page\":1},\"date_of_birth\":{\"value\":\"1971-11-12\",\"evidence_quote\":\"Date of birth: 12 NOV 1971\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"Nationality: UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT7668016\",\"evidence_quote\":\"Passport No: UT7668016\",\"page\":1},\"passport_expiry\":{\"value\":\"2030-11-16\",\"evidence_quote\":\"Date of expiry: 16 NOV 2030\",\"page\":1}}}",
+   "usage": 1428
   }
  }
 }

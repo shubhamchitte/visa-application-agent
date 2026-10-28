@@ -1,0 +1,105 @@
+{
+ "model": "openai/gpt-oss-120b",
+ "entries": {
+  "33807d214283cecec53acd9d66533d166b10b1f9a79040e60e806b4ba010bb75": {
+   "response": {
+    "doc_type": "schengen_visa_application",
+    "fields": {
+     "surname": {
+      "value": "CLARK",
+      "evidence_quote": " CLARK                                  CLARK",
+      "page": 1
+     },
+     "given_names": {
+      "value": "JOY",
+      "evidence_quote": " JOY                                                08.05.1978",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1978-05-08",
+      "evidence_quote": " JOY                                                08.05.1978",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": " UTOPIAN",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT7607287",
+      "evidence_quote": " UT7607287                               18.06.2021                 17.06.2031",
+      "page": 1
+     },
+     "email": {
+      "value": "joy.clark@mail.uto",
+      "evidence_quote": " 49 Alder Terrace, 7921 New Calden, UTOPIA / joy.clark@mail.uto          +990 21 555 2853",
+      "page": 2
+     },
+     "intended_travel_date": {
+      "value": "2027-02-08",
+      "evidence_quote": " 08.02.2027                                    22.02.2027",
+      "page": 3
+     }
+    }
+   },
+   "doc_id": "application_form",
+   "ts": "2026-10-28T05:41:31.601021+00:00",
+   "request_id": "chatcmpl-a68bcd49-4678-4fa0-8221-426c3085a782",
+   "raw": "{\"doc_type\":\"schengen_visa_application\",\"fields\":{\"surname\":{\"value\":\"CLARK\",\"evidence_quote\":\" CLARK                                  CLARK\",\"page\":1},\"given_names\":{\"value\":\"JOY\",\"evidence_quote\":\" JOY                                                08.05.1978\",\"page\":1},\"date_of_birth\":{\"value\":\"1978-05-08\",\"evidence_quote\":\" JOY                                                08.05.1978\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\" UTOPIAN\",\"page\":1},\"passport_number\":{\"value\":\"UT7607287\",\"evidence_quote\":\" UT7607287                               18.06.2021                 17.06.2031\",\"page\":1},\"email\":{\"value\":\"joy.clark@mail.uto\",\"evidence_quote\":\" 49 Alder Terrace, 7921 New Calden, UTOPIA / joy.clark@mail.uto          +990 21 555 2853\",\"page\":2},\"intended_travel_date\":{\"value\":\"2027-02-08\",\"evidence_quote\":\" 08.02.2027                                    22.02.2027\",\"page\":3}}}",
+   "usage": 4597
+  },
+  "a1dfdd9b40bf963f3823f78407ccf97ad00a0d5ddc4aa9fb84208f26c77482fb": {
+   "response": {
+    "doc_type": "employment_verification",
+    "fields": {}
+   },
+   "doc_id": "employment_letter",
+   "ts": "2026-10-28T05:42:33.053388+00:00",
+   "request_id": "chatcmpl-203e52b2-65e4-4541-8aa9-0513f88ff92e",
+   "raw": "{\"doc_type\":\"employment_verification\",\"fields\":{}}",
+   "usage": 874
+  },
+  "24883f8757dc54762642ab5615f3809671f8002673ee44b6d09a785b93635920": {
+   "response": {
+    "doc_type": "passport",
+    "fields": {
+     "surname": {
+      "value": "CLARK",
+      "evidence_quote": "                CLARK",
+      "page": 1
+     },
+     "given_names": {
+      "value": "JOY",
+      "evidence_quote": "                 JOY",
+      "page": 1
+     },
+     "date_of_birth": {
+      "value": "1978-05-08",
+      "evidence_quote": "                         08 MAY 1978",
+      "page": 1
+     },
+     "nationality": {
+      "value": "UTOPIAN",
+      "evidence_quote": "                     UTOPIAN / UTOPIENNE",
+      "page": 1
+     },
+     "passport_number": {
+      "value": "UT7607287",
+      "evidence_quote": "                    UT7607287",
+      "page": 1
+     },
+     "passport_expiry": {
+      "value": "2031-06-17",
+      "evidence_quote": "                         17 JUN 2031",
+      "page": 1
+     }
+    }
+   },
+   "doc_id": "passport",
+   "ts": "2026-10-28T05:42:43.648276+00:00",
+   "request_id": "chatcmpl-b864517e-5b09-4f9c-9286-f6652c505cae",
+   "raw": "{\"doc_type\":\"passport\",\"fields\":{\"surname\":{\"value\":\"CLARK\",\"evidence_quote\":\"                CLARK\",\"page\":1},\"given_names\":{\"value\":\"JOY\",\"evidence_quote\":\"                 JOY\",\"page\":1},\"date_of_birth\":{\"value\":\"1978-05-08\",\"evidence_quote\":\"                         08 MAY 1978\",\"page\":1},\"nationality\":{\"value\":\"UTOPIAN\",\"evidence_quote\":\"                     UTOPIAN / UTOPIENNE\",\"page\":1},\"passport_number\":{\"value\":\"UT7607287\",\"evidence_quote\":\"                    UT7607287\",\"page\":1},\"passport_expiry\":{\"value\":\"2031-06-17\",\"evidence_quote\":\"                         17 JUN 2031\",\"page\":1}}}",
+   "usage": 1892
+  }
+ }
+}

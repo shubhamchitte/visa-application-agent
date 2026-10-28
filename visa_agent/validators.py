@@ -1,6 +1,7 @@
 """Step 5: deterministic checks: MRZ check digits, MRZ==visual, dates, expiry, cross-doc equality."""
 import calendar
 import re
+import unicodedata
 from datetime import date, datetime
 from typing import Any
 
@@ -74,13 +75,16 @@ def check_mrz(passport: Extraction, doc: dict[str, Any]) -> list[Issue]:
 def _norm(value: str, ftype: str) -> str:
     if ftype == "passport_no":
         return value.replace(" ", "").upper()
-    return " ".join(value.split()).casefold()
+    return " ".join(unicodedata.normalize("NFKC", value).split()).casefold()
 
 
 def cross_doc(extractions: dict[str, Extraction], fields_cfg: dict[str, Any]) -> list[Issue]:
-    """Any field verified in 2+ docs must agree (names normalized). Never auto-resolved: CONFLICT with both sources."""
+    """Any field verified in 2+ docs must agree (names normalized). Never auto-resolved: CONFLICT with both sources.
+    Name parts (`part_of`) are compared once, through the derived full_name built from the normalised parts."""
     issues = []
     for name, cfg in fields_cfg.items():
+        if cfg.get("part_of"):
+            continue
         srcs = [(d, extractions[d].fields[name]) for d in cfg["source"]
                 if d in extractions and name in extractions[d].fields and extractions[d].fields[name].status == FieldStatus.VERIFIED]
         if len({_norm(f.value, cfg["type"]) for _, f in srcs}) > 1:

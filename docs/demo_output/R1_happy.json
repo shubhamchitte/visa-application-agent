@@ -1,0 +1,264 @@
+{
+  "case": "R1_happy",
+  "docs": [
+    {
+      "doc_id": "application_form",
+      "doc_type": "application_form",
+      "flags": []
+    },
+    {
+      "doc_id": "bank_statement",
+      "doc_type": "bank_statement",
+      "flags": []
+    },
+    {
+      "doc_id": "employment_letter",
+      "doc_type": "employment_letter",
+      "flags": []
+    },
+    {
+      "doc_id": "passport",
+      "doc_type": "passport",
+      "flags": []
+    }
+  ],
+  "extractions": {
+    "application_form": {
+      "doc_type": "application_form",
+      "fields": {
+        "surname": {
+          "value": "MERCER",
+          "evidence_quote": "MERCER",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "ASHLEY",
+          "evidence_quote": "ASHLEY",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1978-07-31",
+          "evidence_quote": "31.07.1978",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT6897392",
+          "evidence_quote": "UT6897392",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "email": {
+          "value": "ashley.mercer@mail.uto",
+          "evidence_quote": "ashley.mercer@mail.uto",
+          "page": 2,
+          "status": "VERIFIED"
+        },
+        "intended_travel_date": {
+          "value": "2027-02-11",
+          "evidence_quote": "11.02.2027",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "ASHLEY MERCER",
+          "evidence_quote": "ASHLEY | MERCER",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "bank_statement": {
+      "doc_type": "bank_statement",
+      "fields": {
+        "bank_closing_balance": {
+          "value": "12498.88",
+          "evidence_quote": "           Closing balance                                                                             $12,498.88",
+          "page": 3,
+          "status": "VERIFIED"
+        },
+        "statement_date": {
+          "value": "2026-10-20",
+          "evidence_quote": "Statement date                              20 Oct 2026",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    },
+    "employment_letter": {
+      "doc_type": "employment_letter",
+      "fields": {}
+    },
+    "passport": {
+      "doc_type": "passport",
+      "fields": {
+        "surname": {
+          "value": "MERCER",
+          "evidence_quote": "MERCER",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "given_names": {
+          "value": "ASHLEY",
+          "evidence_quote": "ASHLEY",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "date_of_birth": {
+          "value": "1978-07-31",
+          "evidence_quote": "31 JUL 1978",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "nationality": {
+          "value": "UTOPIAN",
+          "evidence_quote": "UTOPIAN",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_number": {
+          "value": "UT6897392",
+          "evidence_quote": "UT6897392",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "passport_expiry": {
+          "value": "2030-12-21",
+          "evidence_quote": "21 DEC 2030",
+          "page": 1,
+          "status": "VERIFIED"
+        },
+        "full_name": {
+          "value": "ASHLEY MERCER",
+          "evidence_quote": "ASHLEY | MERCER",
+          "page": 1,
+          "status": "VERIFIED"
+        }
+      }
+    }
+  },
+  "issues": [],
+  "flags": [],
+  "checklist": {
+    "required": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "present": [
+      "application_form",
+      "passport",
+      "bank_statement"
+    ],
+    "missing": [],
+    "docs_present": [
+      "application_form",
+      "bank_statement",
+      "employment_letter",
+      "passport"
+    ]
+  },
+  "plan": {
+    "record_id": "rec-2001",
+    "field_patch": {
+      "full_name": "ASHLEY MERCER",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2030-12-21",
+      "email": "ashley.mercer@mail.uto",
+      "intended_travel_date": "2027-02-11",
+      "bank_closing_balance": "12498.88",
+      "statement_date": "2026-10-20"
+    },
+    "status": "DATA_UPDATED",
+    "notes": [],
+    "reason": "otherwise"
+  },
+  "write_outcome": "WRITTEN",
+  "candidates": [
+    "rec-2001"
+  ],
+  "record_after": {
+    "id": "rec-2001",
+    "version": 2,
+    "status": "DATA_UPDATED",
+    "fields": {
+      "passport_number": "UT6897392",
+      "date_of_birth": "1978-07-31",
+      "full_name": "ASHLEY MERCER",
+      "nationality": "UTOPIAN",
+      "passport_expiry": "2030-12-21",
+      "email": "ashley.mercer@mail.uto",
+      "intended_travel_date": "2027-02-11",
+      "bank_closing_balance": "12498.88",
+      "statement_date": "2026-10-20"
+    },
+    "notes": []
+  },
+  "error": null,
+  "tool_calls": [
+    {
+      "tool": "checklist.check",
+      "args": {
+        "visa_type": "TOURIST_UTO",
+        "docs_present": [
+          "application_form",
+          "bank_statement",
+          "employment_letter",
+          "passport"
+        ]
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.find",
+      "args": {
+        "passport_no": "UT6897392",
+        "dob": "1978-07-31"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.update",
+      "args": {
+        "id": "rec-2001",
+        "patch": {
+          "full_name": "ASHLEY MERCER",
+          "nationality": "UTOPIAN",
+          "passport_expiry": "2030-12-21",
+          "email": "ashley.mercer@mail.uto",
+          "intended_travel_date": "2027-02-11",
+          "bank_closing_balance": "12498.88",
+          "statement_date": "2026-10-20"
+        },
+        "expected_version": 1,
+        "status": "DATA_UPDATED",
+        "notes": [],
+        "idempotency_key": "0b7f77a8bc3cc784754f9ded52fe48a3f9d3b45a2ad0dd087059525ea6775549"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    },
+    {
+      "tool": "crm.get",
+      "args": {
+        "id": "rec-2001"
+      },
+      "attempt": 1,
+      "outcome": "OK",
+      "error": null
+    }
+  ]
+}
