@@ -5,7 +5,7 @@ are compared with whitespace removed; every character must still match, and name
 import re
 import unicodedata
 from datetime import date
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal
 from typing import Any
 
 from .schemas import Extraction, Field, FieldStatus, Issue, IssueKind

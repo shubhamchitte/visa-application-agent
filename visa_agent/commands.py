@@ -142,7 +142,7 @@ def _case_dirs(which: str, only: list[str] | None) -> list[Path]:
 
 def eval(a) -> int:  # noqa: A001 (CLI verb)
     which, only = getattr(a, "set", None) or "clean", getattr(a, "only", None)
-    prov = (os.getenv("LLM_PROVIDER") or "gemini") if a.live else ("fake" if which == "clean" else "replay")
+    prov = (os.getenv("LLM_PROVIDER") or "groq") if a.live else ("fake" if which == "clean" else "replay")
     stats: dict[str, list[int]] = {}  # field -> [correct, total]
     halluc, model, prop, dirs, notes = [], prov, [0, 0], [], []  # prop: [proposals with a value, of which survived verify]
     with tempfile.TemporaryDirectory() as tmp:

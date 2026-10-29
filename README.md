@@ -17,7 +17,7 @@ You need `make`, Python 3.11+, and internet on the first run to install pinned p
 ```bash
 git clone https://github.com/shubhamchitte/visa-application-agent && cd visa-application-agent
 make demo         # runs every case and prints the result of each
-make test         # the full test suite, offline (224 passed, 2 skipped)
+make test         # the full test suite, offline (223 passed, 3 skipped; the skips need the optional OCR package)
 make run CASE=R1  # one case; the report is printed and saved under runs/
 ```
 
@@ -29,10 +29,15 @@ Two cases (R4, R5) are scanned images and need the optional OCR package: `make s
 skipped. Every other command, with its expected outcome: [docs/COMMANDS.md](docs/COMMANDS.md).
 
 ## How it works
-For each packet:
+**Input:** one folder per applicant, holding their PDFs (for example [mock_data/realistic/cases/R1_happy/](mock_data/realistic/cases/R1_happy/):
+application form, passport, bank statement, employment letter). File names don't matter.
+**Output:** the applicant's existing CRM record updated with verified details and a status, plus a report listing
+what was written and anything missing, conflicting or unverifiable.
 
-1. **Read** every PDF. Scanned pages go through OCR.
-2. **Identify** each document (form, passport, bank statement, employment letter) from its content.
+For each applicant folder:
+
+1. **Read** every PDF in the folder. Scanned pages go through OCR.
+2. **Identify** each document (form, passport, bank statement, employment letter) from its content, not its file name.
 3. **Extract** with the LLM: each field comes back as a value, a quote from the page, and the page number.
 4. **Verify** in code: the quote must really be on that page and must contain the value. If not, the value is thrown away.
 5. **Validate** the facts: passport MRZ check digits, expiry vs travel date, email format, and that the name
@@ -40,7 +45,8 @@ For each packet:
 6. **Checklist**: are all required documents present?
 7. **Decide** with fixed rules ([policy.yaml](visa_agent/policy.yaml)): `DATA_UPDATED`, `INCOMPLETE` or `NEEDS_REVIEW`.
    The agent never approves or rejects an application.
-8. **Update the CRM** through a guarded tool layer: only allowed fields, no duplicate writes on retry, retries
+8. **Update the CRM**: find the applicant's existing record by passport number and date of birth (exactly one
+   match, otherwise nothing is written), then update it through a guarded tool layer: only allowed fields, no duplicate writes on retry, retries
    only on temporary errors, and the record is read back to confirm.
 9. **Report**: what was written, and every missing, conflicting or unverifiable item with the reason.
 
